@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Bán Hàng</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6fb;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #97cbdd 30%, #5398ab 70%);
+      color: #fff;
+      padding: 1.2rem 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+    .header-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 2.5rem auto 0 auto;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+    }
+    h2 {
+      text-align: center;
+      font-weight: 700;
+      color: #007bff;
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      padding: 1.2rem 1rem 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.18s, box-shadow 0.18s;
+      position: relative;
+    }
+    .product:hover {
+      transform: translateY(-8px) scale(1.03);
+      box-shadow: 0 8px 32px rgba(0,123,255,0.13);
+    }
+    .product img {
+      width: 100%;
+      max-width: 200px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      background: #e9ecef;
+    }
+    .product h3 {
+      margin: 0.5rem 0 0.2rem;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #222;
+      text-align: center;
+    }
+    .product .price {
+      color: #e53935;
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin: 0.2rem 0 0.5rem 0;
+      letter-spacing: 1px;
+      text-align: center;
+    }
+    .product p {
+      margin: 0.2rem 0;
+      color: #555;
+      font-size: 0.98rem;
+      text-align: center;
+      min-height: 40px;
+    }
+    .product ul {
+        padding-left: 0;
+        margin: 0.5rem 0 0 0;
+        list-style: none;
+        font-size: 0.9rem;
+        text-align: left;
+        color: #333;
+    }
+    .product li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        margin-bottom: 0.3rem;
+    }
+    footer {
+      margin-top: 3rem;
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      border-radius: 16px 16px 0 0;
+    }
+    #googleLoginBtn:hover {
+      background: #f1f3f4;
+    }
+    .user-info-box {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      padding: 6px 14px 6px 8px;
+      margin-left: auto;
+      font-size: 1rem;
+      font-weight: 500;
+      position: relative;
+    }
+    .user-info-box img {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid #000000;
+    }
+    .user-info-box span {
+      color: #222;
+      font-weight: 600;
+    }
+    .user-info-box .logout-btn {
+      background: #e53935;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 4px 12px;
+      font-size: 0.98rem;
+      font-weight: 600;
+      margin-left: 10px;
+      cursor: pointer;
+      transition: background 0.18s;
+    }
+    .user-info-box .logout-btn:hover {
+      background: #b71c1c;
+    }
+    /* Hamburger menu styles */
+    .hamburger {
+      display: none;
+      position: absolute;
+      top: 18px;
+      left: 18px;
+      z-index: 3001;
+      width: 38px;
+      height: 38px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 1px solid #e5e7eb;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 5px;
+      border: none;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 3px;
+      background: #2563eb;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: 2.5rem;
+    }
+    .main-nav a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .main-nav a:hover {
+      background: #f1f5f9;
+    }
+    @media (max-width: 600px) {
+      .hamburger { display: flex; }
+      .header-content { padding-left: 48px; }
+      .logo {
+        font-size: 1.1rem;
+        justify-content: center;
+        width: 100%;
+      }
+      .logo span {
+        font-size: 1.25rem !important;
+        font-weight: 800;
+        text-align: center;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.10);
+        letter-spacing: 2px;
+        width: 100%;
+        display: block;
+        margin: 0 auto;
+      }
+      .main-nav { display: none; }
+      #authBox { display: none; }
+      .mobile-auth-box { display: block; }
+    }
+    @media (min-width: 601px) {
+      .mobile-menu, .mobile-menu-bg { display: none !important; }
+      .mobile-auth-box { display: none !important; }
+    }
+    .mobile-menu-bg {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.18);
+      z-index: 3000;
+      transition: background 0.2s;
+    }
+    .mobile-menu-bg.active { display: block; }
+    .mobile-menu {
+      position: fixed;
+      top: 0; left: -260px;
+      width: 220px;
+      height: 100vh;
+      background: #fff;
+      box-shadow: 2px 0 16px rgba(0,0,0,0.10);
+      z-index: 3001;
+      padding: 2.2rem 1.2rem 1.2rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      transition: left 0.22s cubic-bezier(.4,1.3,.6,1);
+    }
+    .mobile-menu.active { left: 0; }
+    .mobile-menu a {
+      color: #2563eb;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 1.08rem;
+      padding: 0.6rem 0;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .mobile-menu a:hover {
+      background: #f1f5f9;
+    }
+  </style>
+</head>
+<body>
+  <button class="hamburger" id="hamburgerBtn" aria-label="Mở menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+  <div class="mobile-menu-bg" id="mobileMenuBg"></div>
+  <nav class="mobile-menu" id="mobileMenu">
+    <a href="index.html">Trang chủ</a>
+    <a href="locket.html">locket</a>
+    <a href="cauhinh.html">Cấu Hình Máy</a>
+    <a href="ipapp.html">App IPA</a>
+    <a href="submxh.html">Sub MXH</a>
+    <!-- Thêm các mục khác nếu muốn -->
+  </nav>
+  <div id="welcomePopup" style="display:none;position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:3000;align-items:center;justify-content:center;">
+    <div style="background:#fff;border-radius:12px;box-shadow:0 4px 24px rgba(0,0,0,0.13);padding:1.2rem 2.2rem;min-width:260px;max-width:90vw;text-align:center;font-size:1.15rem;font-weight:600;color:#2563eb;position:relative;">
+      Chào mừng bạn đến với <b>SHOP HOÀNG NAM</b>!<br>
+      <button onclick="document.getElementById('welcomePopup').style.display='none'" style="margin-top:10px;background:#2563eb;color:#fff;border:none;border-radius:6px;padding:6px 18px;font-weight:500;cursor:pointer;">Đóng</button>
+    </div>
+  </div>
+  <header>
+    <div class="header-content">
+      <div class="logo" style="display:flex;align-items:center;gap:0.7rem;">
+        <img src="./images/logoo.png" alt="logo" style="width:180px;height:110px;vertical-align:middle;">
+         <span style="font-size:2rem;font-weight:700;letter-spacing:2px;">SHOP <br> HOÀNG NAM</span>
+      </div>
+      <nav class="main-nav">
+        <a href="index.html">Trang chủ</a>
+        <a href="locket.html">locket</a>
+        <a href="cauhinh.html">Cấu Hình Máy</a>
+        <a href="ipapp.html">App IPA</a>
+        <a href="submxh.html">Sub MXH</a>
+        <!-- Thêm các mục khác nếu muốn -->
+      </nav>
+    </div>
+  </header>
+  <!--Phần Đầu -->
+  <div class="hero-features-wrapper" style="background:#f4f6fb;padding:1.5rem 0 0.5rem 0;">
+    <div class="hero-features" style="display:flex;justify-content:center;gap:2.5rem;flex-wrap:nowrap;max-width:1100px;margin:0 auto;overflow-x:auto;">
+      <div class="feature" style="text-align:center;min-width:180px;">
+        <div class="feature-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24"><path stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+        <div class="feature-title" style="font-weight:600;color:#2563eb;margin-top:0.5rem;">Giao Hàng Tức Thì</div>
+        <div class="feature-desc" style="color:#555;font-size:0.98rem;">Nhận thông tin tài khoản trong vài phút</div>
+      </div>
+      <div class="feature" style="text-align:center;min-width:180px;">
+        <div class="feature-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#22c55e" stroke-width="2"/><path stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l2 2 4-4"/></svg></div>
+        <div class="feature-title" style="font-weight:600;color:#22c55e;margin-top:0.5rem;">100% An Toàn</div>
+        <div class="feature-desc" style="color:#555;font-size:0.98rem;">Thanh toán được mã hóa và bảo mật</div>
+      </div>
+      <div class="feature" style="text-align:center;min-width:180px;">
+        <div class="feature-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#a78bfa" stroke-width="2"/><path stroke="#a78bfa" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l2.5 2.5L16 9"/></svg></div>
+        <div class="feature-title" style="font-weight:600;color:#a78bfa;margin-top:0.5rem;">Đảm Bảo Hoạt Động</div>
+        <div class="feature-desc" style="color:#555;font-size:0.98rem;">Tài khoản được kiểm tra và xác minh</div>
+      </div>
+      <div class="feature" style="text-align:center;min-width:180px;">
+        <div class="feature-icon"><svg width="32" height="32" fill="none" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" stroke="#fbbf24" stroke-width="2"/><path stroke="#fbbf24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2"/></svg></div>
+        <div class="feature-title" style="font-weight:600;color:#fbbf24;margin-top:0.5rem;">Hỗ Trợ 24/7</div>
+        <div class="feature-desc" style="color:#555;font-size:0.98rem;">Hỗ trợ khách hàng suốt ngày đêm</div>
+      </div>
+    </div>
+  </div>
+  <!--Phần Sản phẩm -->
+  <div class="container">
+    <div id="mainAuthBox" style="margin-bottom:1.2rem;"></div>
+    <div style="display:flex;align-items:center;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;">
+      <h2 style="margin-bottom:0;">Sản phẩm nổi bật</h2>
+      <input id="searchInput" type="text" placeholder="Tìm kiếm sản phẩm..." style="padding:8px 16px;border-radius:8px;border:1px solid #ddd;font-size:1rem;min-width:220px;">
+    </div>
+    <div class="products" id="products"></div>
+  </div>
+  <footer>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;padding:0.5rem 0;">
+      <div style="font-size:1.3rem;">
+        <img src="./images/logoo.png" alt="logo" style="width:210px;height:110px;vertical-align:middle;margin-right:8px;">
+        <p><b>SHOP HOÀNG NAM</b></p>
+      </div>
+      <div style="color:#2563eb;font-size:1.05rem;">Uy tín - Chất lượng - Hỗ trợ 24/7</div>
+      <div >Liên Hệ Hỗ Trợ ZALO : <b style="color:#2563eb;font-size:1.05rem;">0378787154</b></div>
+      <div style="color:#888;font-size:0.98rem;">© 2025 SHOP HOÀNG NAM. Thiết kế bởi HoangNam.</div>
+    </div>
+  </footer>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="data.js"></script>
+  <script>
+    let allProducts = [];
+    function loadProducts() {
+      allProducts = products;
+      renderProducts(allProducts);
+    }
+    function renderProducts(productsToRender) {
+      const list = document.getElementById('products');
+      list.innerHTML = '';
+      if (productsToRender.length === 0) {
+        list.innerHTML = '<p>Không tìm thấy sản phẩm nào.</p>';
+        return;
+      }
+      for (const p of productsToRender) {
+        const date = p.createdAt ? new Date(p.createdAt) : null;
+        const monthYear = date ? `${(date.getMonth() + 1).toString().padStart(2,'0')}/${date.getFullYear()}` : '';
+        let basePrice = p.price || 0;
+        let warrantyText = 'Vĩnh viễn';
+        if (p.variants && p.variants.length > 0) {
+            const validVariants = p.variants.filter(v => typeof v.price === 'number');
+            if(validVariants.length > 0) {
+                basePrice = Math.min(...validVariants.map(v => v.price));
+                const baseVariant = validVariants.find(v => v.price === basePrice);
+                if (baseVariant && baseVariant.months > 0) {
+                    warrantyText = `${baseVariant.months} tháng`;
+                }
+            }
+        }
+        list.innerHTML += `
+          <div class="product" onclick="window.location='product.html?id=${p.id}'" style='cursor:pointer;'>
+            <div style='display:flex;align-items:center;gap:8px;width:100%;'>
+              <img src="${p.image || 'https://via.placeholder.com/200x140?text=No+Image'}" alt="${p.name}" style="flex:1;max-width:150px;height:150px;object-fit:cover;border-radius:8px;background:#e9ecef;">
+              <img src="https://bom.so/hoangnamdxz" alt="logo nhỏ" style="width:60px;height:60px;object-fit:cover;border-radius:8px;">
+            </div>
+            <h3 style="text-align:center;font-size:1.15rem;font-weight:700;color:#222;margin:0.5rem 0 0.2rem;">${p.name}</h3>
+            <div style='color:#22c55e;font-size:0.98rem;margin-bottom:2px;'>${typeof p.stock === 'number' ? `Còn lại: <b>${p.stock}</b>` : ''}</div>
+            <div class="price">Từ ${Number(basePrice).toLocaleString()} đ | ${warrantyText}</div>
+            <p>${(p.desc || '').substring(0, 80) + ((p.desc || '').length > 80 ? '...' : '')}</p>
+            ${p.features && p.features.length ? `<ul>${p.features.slice(0, 3).map(f => `<li><svg width="18" height="18" fill="none" viewBox="0 0 24 24" style="flex-shrink: 0; margin-top: 3px;"><circle cx="12" cy="12" r="10" stroke="#22c55e" stroke-width="2"/><path stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M8 12l2 2 4-4"/></svg> <span>${f}</span></li>`).join('')}</ul>` : ''}
+            <div style="position:absolute;top:10px;right:14px;font-size:0.95em;color:#007bff;opacity:0.8;">${monthYear}</div>
+          </div>
+        `;
+      }
+    }
+    document.getElementById('searchInput').addEventListener('input', function() {
+      const q = this.value.trim().toLowerCase();
+      if (!q) return renderProducts(allProducts);
+      const filtered = allProducts.filter(p =>
+        (p.name && p.name.toLowerCase().includes(q)) ||
+        (p.desc && p.desc.toLowerCase().includes(q)) ||
+        (Array.isArray(p.features) && p.features.some(f => f.toLowerCase().includes(q)))
+      );
+      renderProducts(filtered);
+    });
+    loadProducts();
+    function handleCredentialResponse(response) {
+      const data = parseJwt(response.credential);
+      // Lưu thông tin user vào localStorage
+      const user = {
+        name: data.name,
+        email: data.email,
+        picture: data.picture,
+        id: data.sub // Lưu id Google
+      };
+      localStorage.setItem('googleUser', JSON.stringify(user));
+      renderAuthBox();
+    }
+    function parseJwt (token) {
+      var base64Url = token.split('.')[1];
+      var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+      var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+      }).join(''));
+      return JSON.parse(jsonPayload);
+    }
+    function renderAuthBox() {
+      const user = JSON.parse(localStorage.getItem('googleUser') || 'null');
+      const mainAuthBox = document.getElementById('mainAuthBox');
+      if (user) {
+        fetch(`/api/sodutaikhoan?email=${encodeURIComponent(user.email)}`)
+          .then(res => res.json())
+          .then(data => {
+            const sodu = (typeof data.sodu === 'number') ? data.sodu : 0;
+            mainAuthBox.innerHTML = `
+              <div class=\"user-info-box\" style=\"margin:0 auto;max-width:350px;justify-content:flex-start;\">\n                  <img src=\"${user.picture}\" alt=\"avatar\">\n                  <div style='display:flex;flex-direction:column;'>\n                    <span>${user.name} - <span style='color:#22c55e;font-weight:700;'>${sodu.toLocaleString()}đ</span></span>\n                    <span style='font-size:0.98em;color:#e53935;font-weight:600;'>Chưa xác minh</span>\n                  </div>\n                  <button class=\"logout-btn\" style=\"background:#2563eb;margin-left:10px;\" onclick=\"verifyGmail()\">Xác minh Gmail</button>\n                  <button class=\"logout-btn\" onclick=\"logoutGoogle()\">Đăng xuất</button>\n                </div>\n            `;
+          })
+          .catch(() => {
+            mainAuthBox.innerHTML = `<div class=\"user-info-box\"><img src=\"${user.picture}\" alt=\"avatar\"><span>${user.name} - <span style='color:#e53935;font-weight:300;'>Lỗi số dư</span></span><button class=\"logout-btn\" onclick=\"logoutGoogle()\">Đăng xuất</button></div>`;
+          });
+      } else {
+        mainAuthBox.innerHTML = `
+          <div id=\"g_id_onload\"
+            data-client_id=\"429905262091-gm51r942mev0mkht8688abcqm2cp36ka.apps.googleusercontent.com\"
+            data-context=\"signin\"
+            data-ux_mode=\"popup\"
+            data-callback=\"handleCredentialResponse\"
+            data-auto_prompt=\"false\">
+          </div>
+          <div class=\"g_id_signin\"
+            data-type=\"standard\"
+            data-shape=\"rectangular\"
+            data-theme=\"outline\"
+            data-text=\"signin_with\"
+            data-size=\"large\"
+            data-logo_alignment=\"left\">
+          </div>
+        `;
+        // Re-render Google button
+        if (window.google && window.google.accounts && window.google.accounts.id) {
+          window.google.accounts.id.initialize({
+            client_id: "429905262091-gm51r942mev0mkht8688abcqm2cp36ka.apps.googleusercontent.com",
+            callback: handleCredentialResponse
+          });
+          window.google.accounts.id.renderButton(
+            mainAuthBox.querySelector(".g_id_signin"),
+            { theme: "outline", size: "large" }
+          );
+        }
+      }
+    }
+    function logoutGoogle() {
+      localStorage.removeItem('googleUser');
+      renderAuthBox();
+    }
+    function verifyGmail() {
+      alert('Vui lòng làm theo hướng dẫn xác minh Gmail trên hệ thống!');
+      // Ở đây bạn có thể mở modal, chuyển trang, hoặc gọi API xác minh nếu có
+    }
+    // Tự động render trạng thái đăng nhập khi load trang
+    window.addEventListener('DOMContentLoaded', function() {
+      renderAuthBox();
+    });
+    // Hamburger menu logic
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuBg = document.getElementById('mobileMenuBg');
+    function openMobileMenu() {
+      mobileMenu.classList.add('active');
+      mobileMenuBg.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      renderAuthBox(); // Đảm bảo cập nhật thông tin tài khoản vào menu mobile
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('active');
+      mobileMenuBg.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    hamburgerBtn.addEventListener('click', openMobileMenu);
+    mobileMenuBg.addEventListener('click', closeMobileMenu);
+    // Đóng menu khi bấm vào link
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMobileMenu));
+  </script>
+  <script src="thongbao.js"></script>
+  <form id="autoMailForm" action="https://formsubmit.co/caovannamdx@gmail.com" method="POST" style="display:none;">
+    <input type="hidden" name="name" id="autoMailName">
+    <input type="hidden" name="email" id="autoMailEmail">
+    <input type="hidden" name="balance" id="autoMailBalance">
+  </form>
+</body>
+</html> 

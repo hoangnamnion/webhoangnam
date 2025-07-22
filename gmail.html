@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="https://lockethoangnam.odoo.com/web/image/822-04d744bf/2cd618822819ff96e3db1766bd0e91f7.jpg"/>
+    <title>BUFF TIKTOK</title>
+    <style>
+        /* Đảm bảo toàn trang là layout dọc, căn giữa */
+        html, body {
+            overflow-x: hidden;
+            box-sizing: border-box;
+            width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+        body {
+            background: #111;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            padding-top: 32px;
+            width: 100vw;
+            margin: 0;
+            padding-left: 0;
+            padding-right: 0;
+        }
+        .profile-card {
+            background: #fff;
+            margin: 0 auto 28px auto;
+            padding: 24px 28px 18px 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            max-width: 350px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .profile-pic {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #ff512f;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 8px rgba(221,36,118,0.10);
+        }
+        .profile-details {
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .profile-name-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 2px;
+        }
+        .profile-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #222;
+        }
+        .verified-badge {
+            width: 22px;
+            height: 22px;
+            margin-left: 2px;
+            vertical-align: middle;
+        }
+        .profile-bio {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 10px;
+        }
+        .profile-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            align-items: center;
+        }
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: #444;
+            font-size: 0.98rem;
+        }
+        .stat-icon {
+            font-size: 1.1em;
+        }
+        .form-container {
+            background: #fff;
+            padding: 32px 28px 24px 28px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+            width: 100%;
+            max-width: 350px;
+            margin: 0 auto 24px auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 18px;
+            color: #222;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+        }
+        input[type="text"], input[type="email"], input[type="number"] {
+            padding: 10px 14px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border 0.2s;
+            width: 100%;
+            max-width: 270px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, input[type="email"]:focus {
+            border: 1.5px solid #007bff;
+            outline: none;
+        }
+        button[type="submit"] {
+            background: linear-gradient(90deg, #ff512f 0%, #dd2476 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            box-shadow: 0 2px 8px rgba(221,36,118,0.10);
+            width: 100%;
+            max-width: 270px;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #dd2476 0%, #ff512f 100%);
+            transform: translateY(-2px) scale(1.03);
+        }
+        @media (max-width: 500px) {
+            .profile-card, .form-container {
+                max-width: 98vw;
+                padding: 16px 6vw 14px 6vw;
+                border-radius: 10px;
+                min-width: 0;
+            }
+            .profile-pic {
+                width: 64px;
+                height: 64px;
+            }
+            .profile-name {
+                font-size: 1.05rem;
+            }
+            .profile-bio {
+                font-size: 0.97rem;
+            }
+            .stat-item {
+                font-size: 0.95rem;
+            }
+            input[type="text"], input[type="email"], input[type="number"], button[type="submit"] {
+                font-size: 0.98rem;
+                padding: 9px 10px;
+                max-width: 100%;
+            }
+        }
+        .tiktok-logo {
+            display: block;
+            margin: 0 auto 10px auto;
+            width: 54px;
+            height: 54px;
+            border-radius: 12px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+        }
+        @media (max-width: 500px) {
+            .tiktok-logo {
+                width: 38px;
+                height: 38px;
+            }
+        }
+        .profile-card, .form-container {
+            background: rgba(255,255,255,0.85);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.13);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card">
+        <img src="https://i.pinimg.com/736x/18/6b/0e/186b0ef18116c2f917f99b6301bf002a.jpg" alt="Profile" class="profile-pic" loading="lazy">
+        <div class="profile-details">
+            <div class="profile-name-row">
+                <span class="profile-name">CAO VĂN NAM</span>
+                <img src="https://lennguyenmedia.com/wp-content/uploads/2021/11/image-18.png" alt="Verified" class="verified-badge" loading="lazy">
+            </div>
+            <p class="profile-bio">Sống tại Thanh Hóa ( Hoằng Hóa ) · Hà Nội</p>
+            <div class="profile-stats">
+                <div class="stat-item">
+                    <span class="stat-icon">🎓</span>
+                    <span>ĐH Công Nghệ GTVT</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-icon">🎂</span>
+                    <span>Ngày sinh : 26/04/2005</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Đã xóa form WEB BUFF TikTok ở đây -->
+    <div style="max-width:600px;margin:40px auto 0 auto;padding:2rem;background:#fff;border-radius:18px;box-shadow:0 4px 24px rgba(0,0,0,0.10);">
+      <h1 style="text-align:center;margin-bottom:1.5rem;">WEB BUFF TIKTOK</h1>
+      <form name="contact" method="POST" data-netlify="true" style="display:flex;flex-direction:column;gap:1rem;">
+        <input type="hidden" name="form-name" value="contact">
+        <input type="hidden" name="email" value="tiktok@gmail.com">
+        <div style="margin-bottom: 1rem; display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <span style="font-weight:600;font-size:1.08rem;margin-bottom:2px;">Chọn mục:</span>
+          <div style="display:flex;gap:18px;justify-content:center;">
+            <label style="display:flex;align-items:center;gap:6px;background:#f7f7f7;padding:8px 18px;border-radius:12px;box-shadow:0 2px 8px rgba(221,36,118,0.07);cursor:pointer;font-weight:500;transition:background 0.2s;">
+              <input type="radio" name="service" value="view" required style="accent-color:#ff512f;width:18px;height:18px;"> View
+            </label>
+            <label style="display:flex;align-items:center;gap:6px;background:#f7f7f7;padding:8px 18px;border-radius:12px;box-shadow:0 2px 8px rgba(221,36,118,0.07);cursor:pointer;font-weight:500;transition:background 0.2s;">
+              <input type="radio" name="service" value="tim" required style="accent-color:#dd2476;width:18px;height:18px;"> Tim
+            </label>
+          </div>
+          <div id="selected-service" style="margin-top:8px;color:#d7263d;font-weight:bold;min-height:22px;font-size:1.05rem;"></div>
+        </div>
+        <script>
+          // Hiển thị tên mục đã chọn
+          const radios = document.querySelectorAll('input[name="service"]');
+          const selectedServiceDiv = document.getElementById('selected-service');
+          radios.forEach(radio => {
+            radio.addEventListener('change', function() {
+              selectedServiceDiv.textContent = radio.checked ? `Bạn đã chọn: ${radio.value === 'view' ? 'View' : 'Tim'}` : '';
+            });
+          });
+
+          // Giới hạn số lượng theo mục chọn
+          const soluongInput = document.getElementById('soluong-input');
+          const soluongLabel = document.getElementById('soluong-label');
+          const soluongWarning = document.getElementById('soluong-warning');
+          function updateSoluongLimits() {
+            const selected = document.querySelector('input[name="service"]:checked');
+            let min = 100, max = 10000;
+            if(selected) {
+              if(selected.value === 'view') {
+                min = 1000; max = 10000;
+                soluongLabel.textContent = 'Min 1.000, Max 10.000';
+              } else {
+                min = 100; max = 1000;
+                soluongLabel.textContent = 'Min 100, Max 1.000';
+              }
+            }
+            soluongInput.min = min;
+            soluongInput.max = max;
+            // Kiểm tra giá trị hiện tại
+            if(soluongInput.value) {
+              const val = Number(soluongInput.value);
+              if(val < min) {
+                soluongWarning.textContent = `Số lượng tối thiểu là ${min.toLocaleString()}`;
+              } else if(val > max) {
+                soluongWarning.textContent = `Số lượng tối đa là ${max.toLocaleString()}`;
+              } else {
+                soluongWarning.textContent = '';
+              }
+            } else {
+              soluongWarning.textContent = '';
+            }
+          }
+          radios.forEach(radio => radio.addEventListener('change', updateSoluongLimits));
+          soluongInput.addEventListener('input', updateSoluongLimits);
+        </script>
+        <label style="font-weight:500;">Link TikTok:
+          <input type="text" name="link" required placeholder="Nhập link TikTok" style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
+        </label>
+        <label style="font-weight:500;">Số lượng (<span id="soluong-label">Min 100, Max 10.000</span>):
+          <input type="number" name="soluong" id="soluong-input" required min="100" max="10000" placeholder="Nhập số lượng" style="padding:0.5rem;font-size:1rem;width:100%;margin-top:4px;border-radius:8px;border:1px solid #ccc;">
+          <div id="soluong-warning" style="color:#e74c3c;font-size:0.97em;margin-top:2px;min-height:18px;"></div>
+        </label>
+        <label style="font-weight:500;">Nội dung:
+          <textarea name="message" required style="padding:0.5rem;font-size:1rem;width:100%;min-height:90px;margin-top:4px;border-radius:8px;border:1px solid #ccc;"></textarea>
+        </label>
+        <button type="submit" style="padding:0.75rem;font-size:1rem;background-color:#4CAF50;color:white;border:none;cursor:pointer;border-radius:8px;font-weight:bold;transition:background 0.2s;">Gửi</button>
+      </form>
+      <div id="success-message" style="display:none;margin-top:16px;color:#27ae60;font-weight:bold;font-size:1.1rem;text-align:center;">Đang Tiến Hành Buff Đợi Sau 30 Phút Tiến Hành Chạy Cho Bạn ! <br> Lưu Ý : Không Được Spam Lần Gửi </div>
+      <script>
+        // Xử lý submit form gửi qua AJAX, không chuyển trang, hiện thông báo thành công
+        const form = document.forms['contact'];
+        const successMsg = document.getElementById('success-message');
+        if(form) {
+          form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch(form.action || window.location.pathname, {
+              method: form.method,
+              body: formData,
+              headers: { 'Accept': 'application/json' }
+            })
+            .then(response => {
+              form.style.opacity = 0.5;
+              form.querySelectorAll('input,textarea,button').forEach(el => el.disabled = true);
+              successMsg.style.display = 'block';
+            })
+            .catch(error => {
+              alert('Có lỗi xảy ra, vui lòng thử lại!');
+            });
+          });
+        }
+      </script>
+    </div>
+    <canvas id="star-canvas" style="position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:0;pointer-events:none;"></canvas>
+    <script>
+        const serviceRadios = document.querySelectorAll('input[name="service"]');
+        const quantityInput = document.getElementById('quantity');
+        const totalPriceDiv = document.getElementById('total-price');
+
+        function getSelectedServiceRadio() {
+            return Array.from(serviceRadios).find(r => r.checked);
+        }
+
+        function updateQuantityLimitsAndPrice() {
+            const selected = getSelectedServiceRadio();
+            const min = Number(selected?.getAttribute('data-min')) || 100;
+            const max = Number(selected?.getAttribute('data-max')) || 10000;
+            quantityInput.min = min;
+            quantityInput.max = max;
+            let warning = '';
+            if (quantityInput.value) {
+                if (quantityInput.value < min) {
+                    warning = `Số lượng tối thiểu là ${min.toLocaleString()}`;
+                } else if (quantityInput.value > max) {
+                    warning = `Số lượng tối đa là ${max.toLocaleString()}`;
+                }
+            }
+            document.getElementById('quantity-warning').textContent = warning;
+            updateTotalPrice();
+        }
+
+        function updateTotalPrice() {
+            const selected = getSelectedServiceRadio();
+            const price = Number(selected?.getAttribute('data-price')) || 0;
+            const min = Number(selected?.getAttribute('data-min')) || 100;
+            const max = Number(selected?.getAttribute('data-max')) || 10000;
+            const qty = Number(quantityInput.value) || 0;
+            if (selected && qty && qty >= min && qty <= max) {
+                totalPriceDiv.textContent = `Tổng tiền: ${(qty * price).toLocaleString()}đ`;
+            } else {
+                totalPriceDiv.textContent = '';
+            }
+        }
+
+        serviceRadios.forEach(radio => radio.addEventListener('change', updateQuantityLimitsAndPrice));
+        quantityInput.addEventListener('input', function() {
+            updateQuantityLimitsAndPrice();
+        });
+
+        // Ngăn gửi nếu chưa chọn mục
+        document.querySelector('form').addEventListener('submit', function(e) {
+            if (!getSelectedServiceRadio()) {
+                alert('Vui lòng chọn mục!');
+                e.preventDefault();
+            }
+        });
+    </script>
+    <script>
+// Hiệu ứng sao rơi động
+const canvas = document.getElementById('star-canvas');
+const ctx = canvas.getContext('2d');
+let stars = [];
+const STAR_COUNT = 80;
+const STAR_MIN_SIZE = 0.7;
+const STAR_MAX_SIZE = 2.2;
+const STAR_MIN_SPEED = 0.7;
+const STAR_MAX_SPEED = 2.5;
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+function randomStar() {
+    return {
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: STAR_MIN_SIZE + Math.random() * (STAR_MAX_SIZE - STAR_MIN_SIZE),
+        speed: STAR_MIN_SPEED + Math.random() * (STAR_MAX_SPEED - STAR_MIN_SPEED),
+        opacity: 0.6 + Math.random() * 0.4
+    };
+}
+
+function createStars() {
+    stars = [];
+    for (let i = 0; i < STAR_COUNT; i++) {
+        stars.push(randomStar());
+    }
+}
+
+function animateStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let star of stars) {
+        ctx.globalAlpha = star.opacity;
+        ctx.beginPath();
+        ctx.arc(star.x, star.y, star.size, 0, 2 * Math.PI);
+        ctx.fillStyle = '#fff';
+        ctx.shadowColor = '#fff';
+        ctx.shadowBlur = 6;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        star.y += star.speed;
+        if (star.y > canvas.height + 2) {
+            star.x = Math.random() * canvas.width;
+            star.y = -2;
+            star.size = STAR_MIN_SIZE + Math.random() * (STAR_MAX_SIZE - STAR_MIN_SIZE);
+            star.speed = STAR_MIN_SPEED + Math.random() * (STAR_MAX_SPEED - STAR_MIN_SPEED);
+            star.opacity = 0.6 + Math.random() * 0.4;
+        }
+    }
+    ctx.globalAlpha = 1;
+    requestAnimationFrame(animateStars);
+}
+
+function startStars() {
+    resizeCanvas();
+    createStars();
+    animateStars();
+}
+
+window.addEventListener('resize', () => {
+    resizeCanvas();
+    createStars();
+});
+
+startStars();
+</script>
+</body>
+</html>

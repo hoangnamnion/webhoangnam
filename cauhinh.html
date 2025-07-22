@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cấu Hình Máy | SHOP HOÀNG NAM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f6fb;
+      color: #222;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 2.5rem auto 0 auto;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      min-height: 400px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      margin-bottom: 1.2rem;
+    }
+    .logo img {
+      width: 120px;
+      height: 70px;
+      vertical-align: middle;
+    }
+    .main-title {
+      font-size: 2.1rem;
+      font-weight: 800;
+      color: #2563eb;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      letter-spacing: 2px;
+    }
+    .placeholder {
+      font-size: 1.25rem;
+      color: #888;
+      margin: 2.5rem 0 2.5rem 0;
+      text-align: center;
+    }
+    footer {
+      margin-top: 3rem;
+      background: #222;
+      color: #fff;
+      text-align: center;
+      padding: 1.2rem 0 0.7rem 0;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      border-radius: 16px 16px 0 0;
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0.5rem; }
+      .logo { font-size: 1.3rem; }
+      .main-title { font-size: 1.3rem; }
+    }
+    .feature-video-flex {
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      justify-content: center;
+      max-width: 1000px;
+      margin: 0 auto 2.5rem auto;
+      flex-wrap: wrap;
+      flex-direction: row !important;
+    }
+    .feature-video {
+      flex: 1;
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      flex-direction: row !important;
+    }
+    .feature-video video,
+    .feature-video img {
+      width: 100%;
+      max-width: 160px;
+      height: auto;
+      border-radius: 8px;
+      background: #f4f6fb;
+    }
+    @media (max-width: 500px) {
+      .feature-video-flex { gap: 8px; }
+      .feature-video { gap: 8px; }
+      .feature-video video,
+      .feature-video img { max-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" style="position:fixed;top:24px;left:24px;z-index:2000;text-decoration:none;background:#fff;border-radius:8px;padding:8px 18px;font-weight:600;color:#2563eb;box-shadow:0 2px 8px rgba(0,0,0,0.08);border:1px solid #e5e7eb;transition:background 0.18s;display:inline-block;">
+    ← Quay lại trang chủ
+  </a>
+  <div class="container">
+    <div>
+      <div class="logo">
+        <img src="./images/logoo.png" alt="logo">
+        <span>SHOP HOÀNG NAM</span>
+      </div>
+      <div class="main-title">CẤU HÌNH MÁY</div>
+      <div class="placeholder">
+        <label for="deviceSelect" style="font-size:1.1rem;font-weight:600;">Chọn dòng máy:</label><br>
+        <select id="deviceSelect" style="padding:8px 16px;border-radius:8px;border:1.5px solid #bbb;font-size:1.08rem;margin:12px 0;">
+          <option value="">-- Chọn dòng máy --</option>
+          <option value="iPhone6">iPhone 6</option>
+          <option value="iPhone6Plus">iPhone 6 Plus</option>
+          <option value="iPhone6s">iPhone 6s</option>
+          <option value="iPhone6sPlus">iPhone 6s Plus</option>
+          <option value="iPhone7">iPhone 7</option>
+          <option value="iPhone7Plus">iPhone 7 Plus</option>
+          <option value="iPhone8">iPhone 8</option>
+          <option value="iPhone8Plus">iPhone 8 Plus</option>
+          <option value="iPhoneX">iPhone X</option>
+          <option value="iPhoneXR">iPhone XR</option>
+          <option value="iPhoneXS">iPhone XS</option>
+          <option value="iPhoneXSMax">iPhone XS Max</option>
+          <option value="iPhone11">iPhone 11</option>
+          <option value="iPhone11Pro">iPhone 11 Pro</option>
+          <option value="iPhone11ProMax">iPhone 11 Pro Max</option>
+          <option value="iPhone12">iPhone 12</option>
+          <option value="iPhone12Pro">iPhone 12 Pro</option>
+          <option value="iPhone12ProMax">iPhone 12 Pro Max</option>
+          <option value="iPhone13">iPhone 13</option>
+          <option value="iPhone13Pro">iPhone 13 Pro</option>
+          <option value="iPhone13ProMax">iPhone 13 Pro Max</option>
+          <option value="iPhone14">iPhone 14</option>
+          <option value="iPhone14Pro">iPhone 14 Pro</option>
+          <option value="iPhone14ProMax">iPhone 14 Pro Max</option>
+          <option value="iPhone15">iPhone 15</option>
+          <option value="iPhone15Pro">iPhone 15 Pro</option>
+          <option value="iPhone15ProMax">iPhone 15 Pro Max</option>
+          <option value="iPhone16">iPhone 16</option>
+          <option value="iPhone16Pro">iPhone 16 Pro</option>
+          <option value="iPhone16ProMax">iPhone 16 Pro Max</option>
+        </select>
+        <button id="confirmBtn" style="padding:8px 18px;border-radius:8px;background:#2563eb;color:#fff;font-weight:600;border:none;cursor:pointer;">Xác nhận</button>
+        <div id="downloadBox" style="margin-top:18px;"></div>
+      </div>
+      <div class="code-verify-box" style="margin:18px 0 18px 0;max-width:400px;">
+        <input id="vipCodeInput" type="text" placeholder="Nhập mã xác nhận" style="padding:8px 14px;border-radius:8px;border:1.5px solid #bbb;font-size:1.08rem;max-width:180px;">
+        <button id="vipCodeBtn" style="padding:8px 18px;border-radius:8px;background:#2563eb;color:#fff;font-weight:600;border:none;margin-left:8px;cursor:pointer;">Xác nhận mã</button>
+        <span id="vipCodeMsg" style="margin-left:12px;color:#e53935;font-weight:600;"></span>
+      </div>
+      <div class="feature-video-flex" style="display:flex;gap:32px;align-items:flex-start;justify-content:center;max-width:1000px;margin:0 auto 2.5rem auto;flex-wrap:wrap;">
+      <div class="feature-list" style="flex:1;min-width:260px;margin: 2.2rem 0 1.5rem 0; max-width: 500px;">
+        <div style="font-size:1.13rem;font-weight:700;margin-bottom:0.7rem;">Giới thiệu chức năng cấu hình máy:</div>
+        <ul id="featureList" style="list-style:none;padding:0;margin:0;">
+          <li style="margin-bottom:7px;"><span style="color:#22c55e;font-size:1.2em;">✅</span> Chứng chỉ cấu hình này: <b>Đã xác minh</b></li>
+          <li style="margin-bottom:7px;"><span style="color:#22c55e;font-size:1.2em;">✅</span> Hỗ trợ từ iPhone 6 đến iPhone mới nhất</li>
+          <li id="selectedDeviceFeature" style="margin-bottom:7px;display:none;"><span style="color:#22c55e;font-size:1.2em;">✅</span> <span id="selectedDeviceText"></span></li>
+          <li style="margin-bottom:7px;"><span style="color:#22c55e;font-size:1.2em;">✅</span> Tối ưu cho thiết bị của bạn</li>
+          <li style="margin-bottom:7px;"><span style="color:#22c55e;font-size:1.2em;">✅</span> Tiết kiệm pin</li>
+          <li style="margin-bottom:7px;"><span style="color:#22c55e;font-size:1.2em;">✅</span> Tăng độ mượt cho game</li>
+          <li style="margin-bottom:7px;"><span style="color:#22c55e;font-size:1.2em;">✅</span> Tăng bảo mật cho thiết bị</li>
+          <li style="margin-bottom:7px;"><span style="color:#22c55e;font-size:1.2em;">✅</span> Chặn quảng cáo (virus)</li>
+        </ul>
+      </div>
+      <div class="feature-video" style="flex:1;min-width:260px;display:flex;align-items:center;justify-content:center;gap:18px;">
+        <video src="./images/video.mp4" controls style="width:100%;max-width:190px;height:auto;border-radius:8px;background:#000;"></video>
+        <img src="./images/cauhinh1.jpg" alt="Demo cấu hình" style="width:100%;max-width:190px;height:auto;border-radius:8px;background:#f4f6fb;">
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0.5rem;padding:0.5rem 0;">
+      <div style="font-size:1.3rem;">
+        <img src="./images/logoo.png" alt="logo" style="width:210px;height:110px;vertical-align:middle;margin-right:8px;">
+        <p><b>SHOP HOÀNG NAM</b></p>
+      </div>
+      <div style="color:#2563eb;font-size:1.05rem;">Uy tín - Chất lượng - Hỗ trợ 24/7</div>
+      <div >Liên Hệ Hỗ Trợ ZALO : <b style="color:#2563eb;font-size:1.05rem;">0378787154</b></div>
+      <div style="color:#888;font-size:0.98rem;">© 2025 SHOP HOÀNG NAM. Thiết kế bởi HoangNam.</div>
+    </div>
+  </footer>
+  <script>
+    // Map select value sang tên file .mobileconfig
+    const deviceFileMap = {
+      'iPhone6': 'iphone6',
+      'iPhone6Plus': 'iphone6plus',
+      'iPhone6s': 'iphone6s',
+      'iPhone6sPlus': 'iphone6splus',
+      'iPhone7': 'iphone7',
+      'iPhone7Plus': 'iphone7plus',
+      'iPhone8': 'iphone8',
+      'iPhone8Plus': 'iphone8plus',
+      'iPhoneX': 'iphonex',
+      'iPhoneXR': 'iphonexr',
+      'iPhoneXS': 'iphonexs',
+      'iPhoneXSMax': 'iphonexsmax',
+      'iPhone11': 'iphone11',
+      'iPhone11Pro': 'iphone11pro',
+      'iPhone11ProMax': 'iphone11promax',
+      'iPhone12': 'iphone12',
+      'iPhone12Pro': 'iphone12pro',
+      'iPhone12ProMax': 'iphone12promax',
+      'iPhone13': 'iphone13',
+      'iPhone13Pro': 'iphone13pro',
+      'iPhone13ProMax': 'iphone13promax',
+      'iPhone14': 'iphone14',
+      'iPhone14Pro': 'iphone14pro',
+      'iPhone14ProMax': 'iphone14promax',
+      'iPhone15': 'iphone15',
+      'iPhone15Pro': 'iphone15pro',
+      'iPhone15ProMax': 'iphone15promax',
+      'iPhone16': 'iphone16',
+      'iPhone16Pro': 'iphone16pro',
+      'iPhone16ProMax': 'iphone16promax',
+    };
+    document.getElementById('confirmBtn').onclick = function() {
+      const select = document.getElementById('deviceSelect');
+      const val = select.value;
+      const downloadBox = document.getElementById('downloadBox');
+      const selectedDeviceFeature = document.getElementById('selectedDeviceFeature');
+      const selectedDeviceText = document.getElementById('selectedDeviceText');
+      if (!val) {
+        downloadBox.innerHTML = '<span style="color:#e53935;font-weight:600;">Vui lòng chọn dòng máy!</span>';
+        selectedDeviceFeature.style.display = 'none';
+        return;
+      }
+      const file = deviceFileMap[val];
+      if (!file) {
+        downloadBox.innerHTML = '<span style="color:#e53935;font-weight:600;">Không tìm thấy file cấu hình cho dòng máy này!</span>';
+        selectedDeviceFeature.style.display = 'none';
+        return;
+      }
+      // Ẩn nút tải cho đến khi xác nhận mã đúng
+      downloadBox.innerHTML = `<a id="downloadConfigBtn" href="./Configuration/${file}.mobileconfig" download style="display:none;padding:10px 28px;background:#22c55e;color:#fff;font-weight:700;border-radius:8px;text-decoration:none;font-size:1.1rem;margin-top:8px;">Tải cấu hình cho ${select.options[select.selectedIndex].text}</a>`;
+      selectedDeviceText.textContent = select.options[select.selectedIndex].text;
+      selectedDeviceFeature.style.display = '';
+      // Reset xác nhận mã
+      document.getElementById('vipCodeInput').value = '';
+      document.getElementById('vipCodeMsg').textContent = '';
+      document.getElementById('downloadConfigBtn').style.display = 'none';
+      window._canDownloadConfig = false;
+    };
+
+    // Xác thực mã VIP để hiện nút tải
+    let currentVipCode = '';
+    let vipCodeInterval = null;
+    function fetchVipCode() {
+      fetch('https://webhoangnamadmin.onrender.com/api/codelink')
+        .then(r => r.json())
+        .then(arr => { currentVipCode = (arr[0]?.code || '').trim(); });
+    }
+    function startVipCodePolling() {
+      fetchVipCode();
+      if (vipCodeInterval) clearInterval(vipCodeInterval);
+      vipCodeInterval = setInterval(fetchVipCode, 1000);
+    }
+    document.getElementById('vipCodeBtn').onclick = function() {
+      const input = document.getElementById('vipCodeInput');
+      const msg = document.getElementById('vipCodeMsg');
+      const downloadBtn = document.getElementById('downloadConfigBtn');
+      if (!input.value.trim()) {
+        msg.textContent = 'Vui lòng nhập mã!';
+        downloadBtn.style.display = 'none';
+        window._canDownloadConfig = false;
+        return;
+      }
+      if (input.value.trim() === currentVipCode && currentVipCode) {
+        msg.textContent = '';
+        downloadBtn.style.display = 'inline-block';
+        window._canDownloadConfig = true;
+        clearInterval(vipCodeInterval);
+      } else {
+        msg.textContent = 'Sai mã hoặc mã đã hết hạn!';
+        downloadBtn.style.display = 'none';
+        window._canDownloadConfig = false;
+      }
+    };
+    startVipCodePolling();
+  </script>
+</body>
+</html>
