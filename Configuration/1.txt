@@ -1,0 +1,37 @@
+	<string> ✅ Chứng Chỉ Cấu Hình Này : ✅ Đã Xác Minh</string>
+	<string> ✅ Hỗ Trợ Từ Iphone 6 Đến Iphone Mới Nhất</string>
+	<string> ✅ Hỗ Trợ Tối Ưu Cho Thiết Bị Của Bạn :</string>
+	<string> ✅ Iphone 6</string>
+	<string> ✅ Tiết Kiệm Pin</string>
+	<string> ✅ Tăng Độ Mượt Cho Game</string>
+	<string> ✅ Tăng Bảo Mật Cho Thiết Bị</string>
+	<string> ✅ Chặn Quảng Cáo ( Virus ) </string>
+	<string> ✅ Truy Cập Webhoangnam.id.vn để tìm hiểu thêm </string>
+	<string> ✅ Iphone 6s</string>
+	<string> ✅ Iphone 6s Plus</string>
+	<string> ✅ Iphone 7</string>
+	<string> ✅ Iphone 7 Plus</string>
+	<string> ✅ Iphone 8</string>
+	<string> ✅ Iphone 8 Plus</string>
+	<string> ✅ Iphone X</string>
+	<string> ✅ Iphone Xs</string>
+	<string> ✅ Iphone Xs Max</string>
+	<string> ✅ Iphone Xr</string>
+	<string> ✅ Iphone 11</string>
+	<string> ✅ Iphone 11 Pro</string>
+	<string> ✅ Iphone 11 Pro Max</string>
+	<string> ✅ Iphone 12</string>
+	<string> ✅ Iphone 12 Pro</string>
+	<string> ✅ Iphone 12 Pro Max</string>
+	<string> ✅ Iphone 13</string>
+	<string> ✅ Iphone 13 Pro</string>
+	<string> ✅ Iphone 13 Pro Max</string>
+	<string> ✅ Iphone 14</string>
+	<string> ✅ Iphone 14 Pro</string>
+	<string> ✅ Iphone 14 Pro Max</string>
+	<string> ✅ Iphone 15</string>
+	<string> ✅ Iphone 15 Pro</string>
+	<string> ✅ Iphone 15 Pro Max</string>
+	<string> ✅ Iphone 16</string>
+	<string> ✅ Iphone 16 Pro</string>
+	<string> ✅ Iphone 16 Pro Max</string>
