@@ -130,7 +130,7 @@
 		</dict>
 		<dict>
 			<key>PayloadDisplayName</key>
-			<string>Chứng Chỉ Cấu Hình Này : ✅ Đã Xác Minh</string>
+			<string>Tắt phân tích &amp; theo dõi </string>
 			<key>PayloadIdentifier</key>
 			<string>com.apple.managedconfiguration.preferences.14518809-bcde-4f14-a740-d6a35c9ae769</string>
 			<key>PayloadType</key>
@@ -190,15 +190,14 @@
 		</dict>
 	</array>
 	<key>PayloadDescription</key>
-	<string> ✅ Chứng Chỉ Cấu Hình Này : ✅ Đã Xác Minh</string>
-	<string> ✅ Hỗ Trợ Từ Iphone 6 Đến Iphone Mới Nhất</string>
-	<string> ✅ Hỗ Trợ Tối Ưu Cho Thiết Bị Của Bạn :</string>
-	<string> ✅ Iphone 13</string>
-	<string> ✅ Tiết Kiệm Pin</string>
-	<string> ✅ Tăng Độ Mượt Cho Game</string>
-	<string> ✅ Tăng Bảo Mật Cho Thiết Bị</string>
-	<string> ✅ Chặn Quảng Cáo ( Virus ) </string>
-	<string> ✅ Truy Cập Webhoangnam.id.vn để tìm hiểu thêm </string>
+	<array>
+		<string>Cấu hình tối ưu ổn định không MDM dùng ổn định nếu ổn định chuyển qua bản full nâng cấp hơn</string>
+		<string>Hỗ trợ nhiều dòng máy</string>
+		<string>✅ Hỗ trợ nhiều dòng máy</string>
+		<string>✅ Thiết Bị iPhone 13 </string>
+		<string>✅ Giảm Lag Thiết Bị</string>
+		<string>✅ Hỗ trợ nhiều dòng máy</string>
+	</array>
 	<key>PayloadDisplayName</key>
 	<string>WEBHOANGNAM.ID.VN</string>
 	<key>PayloadIdentifier</key>
@@ -212,4 +211,4 @@
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
-</plist> 
+</plist>
