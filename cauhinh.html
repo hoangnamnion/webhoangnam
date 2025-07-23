@@ -244,7 +244,7 @@
         return;
       }
       // Ẩn nút tải cho đến khi xác nhận mã đúng
-      downloadBox.innerHTML = `<a id="downloadConfigBtn" href="./Configuration/${file}.mobileconfig" download style="display:none;padding:10px 28px;background:#22c55e;color:#fff;font-weight:700;border-radius:8px;text-decoration:none;font-size:1.1rem;margin-top:8px;">Tải cấu hình cho ${select.options[select.selectedIndex].text}</a>`;
+      downloadBox.innerHTML = `<a id="downloadConfigBtn" href="./Configuration/webhoangnam.mobileconfig" download style="display:none;padding:10px 28px;background:#22c55e;color:#fff;font-weight:700;border-radius:8px;text-decoration:none;font-size:1.1rem;margin-top:8px;">Tải cấu hình cho ${select.options[select.selectedIndex].text}</a>`;
       selectedDeviceText.textContent = select.options[select.selectedIndex].text;
       selectedDeviceFeature.style.display = '';
       // Reset xác nhận mã
