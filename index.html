@@ -495,7 +495,7 @@
         // Re-render Google button
         if (window.google && window.google.accounts && window.google.accounts.id) {
           window.google.accounts.id.initialize({
-            client_id: "429905262091-gm51r942mev0mkht8688abcqm2cp36ka.apps.googleusercontent.com",
+            client_id: "429905262091-icvhnj2s0r3qsmvvgkp05s980br6rv1f.apps.googleusercontent.com",
             callback: handleCredentialResponse
           });
           window.google.accounts.id.renderButton(
@@ -514,9 +514,14 @@
       // Ở đây bạn có thể mở modal, chuyển trang, hoặc gọi API xác minh nếu có
     }
     // Tự động render trạng thái đăng nhập khi load trang
-    window.addEventListener('DOMContentLoaded', function() {
-      renderAuthBox();
-    });
+    function waitForGoogleAndRender() {
+      if (window.google && window.google.accounts && window.google.accounts.id) {
+        renderAuthBox();
+      } else {
+        setTimeout(waitForGoogleAndRender, 100);
+      }
+    }
+    window.addEventListener('DOMContentLoaded', waitForGoogleAndRender);
     // Hamburger menu logic
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
