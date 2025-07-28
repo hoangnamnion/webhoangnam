@@ -1,1 +1,966 @@
-Loading......
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="generator" content="Odoo"/>
+  <meta name="default_title" content="Kho Ứng Dụng IPA | Hoàng Nam"/>
+  <meta name="description" content="Duyệt và tải xuống các ứng dụng IOS miễn phí"/>
+  <meta name="keywords"/>
+  <meta name="default_description"/>
+      
+  <meta property="og:type" content="website"/>
+  <meta property="og:title" content="Kho Ứng Dụng IPA | Hoàng Nam"/>
+  <meta property="og:site_name" content="Kho Ứng Dụng IPA Hoàng Nam"/>
+  <meta property="og:url" content="https://webhoangnam.id.vn"/>
+  <meta property="og:image" content="https://webhoangnam.id.vn/images/logooo.png"/>
+  <meta property="og:description" content="Duyệt và tải xuống các ứng dụng IOS miễn phí"/>
+      
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Kho Ứng Dụng IPA | Hoàng Nam"/>
+  <link rel="icon" type="image/png" href="https://webhoangnam.id.vn/images/logoapp.png">
+  <meta name="twitter:image" content="https://webhoangnam.id.vn/images/logooo.png"/>
+  <meta name="twitter:description" content="Duyệt và tải xuống các ứng dụng IOS miễn phí"/>
+  
+  <link rel="canonical" href="https://webhoangnam.id.vn"/>
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin=""/>
+  <title>Kho Ứng Dụng IPA | Hoàng Nam</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    /* Loading Screen Styles */
+    .loading-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+      opacity: 1;
+      transition: opacity 0.5s ease-out;
+    }
+    
+    .loading-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .loading-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+      position: relative;
+    }
+    
+    .logo-container {
+      position: relative;
+      opacity: 1;
+      transform: scale(1);
+      /* Removed animation delay for immediate visibility */
+    }
+    
+    .logo-card {
+      width: 80px;
+      height: 80px;
+      border-radius: 24px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .gradient-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #ff00ff 0%, #8b00ff 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      box-shadow: 
+        0 0 20px rgba(255, 0, 255, 0.5),
+        0 0 40px rgba(139, 0, 255, 0.3),
+        0 0 60px rgba(255, 0, 255, 0.2);
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    .icon-inner {
+      color: white;
+      font-size: 1.2rem;
+      font-weight: bold;
+      font-family: 'Montserrat', sans-serif;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    }
+
+    @keyframes glow {
+      from {
+        box-shadow: 
+          0 0 20px rgba(255, 0, 255, 0.5),
+          0 0 40px rgba(139, 0, 255, 0.3),
+          0 0 60px rgba(255, 0, 255, 0.2);
+      }
+      to {
+        box-shadow: 
+          0 0 30px rgba(255, 0, 255, 0.7),
+          0 0 60px rgba(139, 0, 255, 0.5),
+          0 0 90px rgba(255, 0, 255, 0.3);
+      }
+    }
+    
+    .neon-border {
+      position: absolute;
+      inset: 0;
+      border: 2px solid transparent;
+      border-radius: 24px;
+      background: linear-gradient(45deg, #667eea, #764ba2, #667eea);
+      background-size: 200% 200%;
+      animation: neonFlow 3s ease-in-out infinite;
+    }
+    
+    .loading-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(102, 126, 234, 0.8);
+      opacity: 1;
+      transform: translateY(0);
+      /* Removed animation delay for immediate visibility */
+    }
+    
+    .progress-container {
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      opacity: 1;
+      /* Removed animation delay for immediate visibility */
+    }
+    
+    .progress-info {
+      display: flex;
+      justify-content: space-between;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 0.875rem;
+      color: #667eea;
+    }
+    
+    .progress-bar {
+      position: relative;
+      height: 12px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(102, 126, 234, 0.3);
+    }
+    
+    .progress-fill {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, #667eea, #764ba2);
+      border-radius: 6px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .progress-shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      border-radius: 6px;
+      width: 0%;
+      animation: progressShine 2s ease-in-out infinite;
+    }
+    
+    .floating-dots {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    
+    .dot {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #667eea;
+      border-radius: 50%;
+      animation: floatDot 4s ease-in-out infinite;
+    }
+    
+    .dot:nth-child(1) { left: 20%; top: 30%; animation-delay: 0s; }
+    .dot:nth-child(2) { left: 35%; top: 70%; animation-delay: 0.5s; }
+    .dot:nth-child(3) { left: 50%; top: 30%; animation-delay: 1s; }
+    .dot:nth-child(4) { left: 65%; top: 70%; animation-delay: 1.5s; }
+    .dot:nth-child(5) { left: 80%; top: 30%; animation-delay: 2s; }
+    .dot:nth-child(6) { left: 95%; top: 70%; animation-delay: 2.5s; }
+    
+    /* Animations - Optimized for faster loading */
+    @keyframes logoAppear {
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    
+    @keyframes titleAppear {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes progressAppear {
+      to {
+        opacity: 1;
+      }
+    }
+    
+    /* Fast fade in for immediate visibility */
+    @keyframes fastFadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 30px rgba(102, 126, 234, 0.5); }
+      50% { box-shadow: 0 0 50px rgba(102, 126, 234, 0.8); }
+    }
+    
+    @keyframes neonFlow {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    
+    @keyframes progressShine {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    
+    @keyframes floatDot {
+      0%, 100% { transform: translateY(0px) scale(1); opacity: 0.7; }
+      50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+    }
+    
+    /* Main Content Styles */
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    .header {
+      background: #fff;
+      padding: 2rem 0;
+      text-align: center;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #007bff;
+      margin-bottom: 0.5rem;
+    }
+    
+    .header p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+    
+    .certificate-banner {
+      background: #e3f0ff;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      margin: 0 auto;
+      max-width: 600px;
+      font-size: 0.95rem;
+    }
+    
+    .certificate-banner a {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    
+    .certificate-banner a:hover {
+      text-decoration: underline;
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    .search-filter-bar {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    .search-box {
+      flex: 1;
+      min-width: 300px;
+      position: relative;
+    }
+    
+    .search-box input {
+      width: 100%;
+      padding: 0.8rem 1rem;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    
+    .search-box input:focus {
+      border-color: #007bff;
+    }
+    
+    .filter-dropdown {
+      position: relative;
+    }
+    
+    .filter-btn {
+      background: #fff;
+      border: 2px solid #e9ecef;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      transition: border-color 0.2s;
+    }
+    
+    .filter-btn:hover {
+      border-color: #007bff;
+    }
+    
+    .view-toggle {
+      display: flex;
+      gap: 0.5rem;
+    }
+    
+    .view-btn {
+      background: #fff;
+      border: 2px solid #e9ecef;
+      padding: 0.8rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    
+    .view-btn.active {
+      background: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+    
+    .view-btn:hover {
+      border-color: #007bff;
+    }
+    
+    .results-info {
+      margin-bottom: 1.5rem;
+      color: #666;
+      font-size: 0.95rem;
+    }
+    
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    .app-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+    }
+    
+    .app-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+    
+    .app-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 16px;
+      margin-bottom: 1rem;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 16px;
+      transition: opacity 0.3s ease;
+    }
+    
+    .app-icon img.loading {
+      opacity: 0.3;
+    }
+    
+    .app-icon img.loaded {
+      opacity: 1;
+    }
+    
+    .app-icon-fallback {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 16px;
+      opacity: 1;
+      transition: opacity 0.3s ease;
+    }
+    
+    .app-icon-fallback.hidden {
+      opacity: 0;
+    }
+    
+    .app-name {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #333;
+    }
+    
+    .app-category {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #007bff;
+      color: #fff;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+    
+    .app-category.utilities {
+      background: #28a745;
+    }
+    
+    .app-category.social {
+      background: #dc3545;
+    }
+    
+    .app-category.gaming {
+      background: #ffc107;
+      color: #333;
+    }
+    
+    .app-category.tool {
+      background: #17a2b8;
+    }
+    
+    .app-category.app {
+      background: #6f42c1;
+    }
+    
+    .app-description {
+      color: #666;
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.4;
+    }
+    
+    .app-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: #888;
+    }
+    
+    .app-size {
+      font-weight: 500;
+    }
+    
+    .app-version {
+      background: #f8f9fa;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+    
+    .download-app-btn {
+      width: 100%;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    
+    .download-app-btn:hover {
+      background: #218838;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+    }
+    
+    .download-app-btn:active {
+      transform: translateY(0);
+    }
+    
+    .pagination {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    
+    .page-btn {
+      background: #fff;
+      border: 2px solid #e9ecef;
+      padding: 0.6rem 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-weight: 500;
+    }
+    
+    .page-btn:hover {
+      border-color: #007bff;
+    }
+    
+    .page-btn.active {
+      background: #007bff;
+      border-color: #007bff;
+      color: #fff;
+    }
+    
+    .back-btn {
+      position: fixed;
+      top: 2rem;
+      left: 2rem;
+      background: #007bff;
+      color: #fff;
+      padding: 0.8rem 1.5rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(0,123,255,0.3);
+      transition: transform 0.2s;
+    }
+    
+    .back-btn:hover {
+      transform: translateY(-2px);
+    }
+    
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 2rem;
+      }
+      
+      .search-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .search-box {
+        min-width: auto;
+      }
+      
+      .apps-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .back-btn {
+        position: static;
+        margin-bottom: 1rem;
+        display: inline-block;
+      }
+      
+      .loading-title {
+        font-size: 1.5rem;
+      }
+      
+      .progress-container {
+        width: 280px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-content">
+              <div class="logo-container">
+          <div class="logo-card">
+            <div class="gradient-icon">
+              <div class="icon-inner">IPA</div>
+            </div>
+          </div>
+          <div class="neon-border"></div>
+        </div>
+      
+      <h1 class="loading-title">Ipa app</h1>
+      
+      <div class="progress-container">
+        <div class="progress-info">
+          <span>loading...</span>
+          <span id="progressPercent">0%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+          <div class="progress-shine"></div>
+        </div>
+      </div>
+      
+      <div class="floating-dots">
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <a href="index.html" class="back-btn">← Quay lại</a>
+  
+  <div class="header">
+    <h1>Kho Ứng Dụng IPA</h1>
+    <p>Duyệt và tải xuống các ứng dụng IOS miễn phí</p>
+    <div class="certificate-banner">
+      Nếu bạn chưa có chứng chỉ, hãy nhấp <a href="#">vào đây</a> để mua chứng chỉ
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="search-filter-bar">
+      <div class="search-box">
+        <input type="text" placeholder="Tìm kiếm IPA..." id="searchInput">
+      </div>
+      <div class="filter-dropdown">
+        <button class="filter-btn">
+          Tất cả
+          <span>▼</span>
+        </button>
+      </div>
+      <div class="view-toggle">
+        <button class="view-btn active" data-view="grid">⊞ Lưới</button>
+        <button class="view-btn" data-view="list">☰ Danh sách</button>
+      </div>
+    </div>
+
+    <div class="results-info">
+      Hiển thị 10 trong số 20 IPA
+    </div>
+
+    <div class="apps-grid" id="appsGrid">
+      <!-- Apps will be loaded dynamically by JavaScript -->
+    </div>
+
+    <div class="pagination">
+      <button class="page-btn">←</button>
+      <button class="page-btn">1</button>
+      <button class="page-btn active">2</button>
+      <button class="page-btn">3</button>
+      <button class="page-btn">4</button>
+      <button class="page-btn">→</button>
+    </div>
+  </div>
+
+  <script>
+    // Loading Screen Logic - Optimized for faster logo loading
+    let progress = 0;
+    const progressFill = document.getElementById('progressFill');
+    const progressPercent = document.getElementById('progressPercent');
+    const loadingScreen = document.getElementById('loadingScreen');
+    const logoContainer = document.querySelector('.logo-container');
+
+    // Pre-load logo and start immediately
+    function preloadLogo() {
+      // Logo is already in DOM, just ensure it's visible immediately
+      logoContainer.style.opacity = '1';
+      logoContainer.style.transform = 'scale(1)';
+    }
+
+    function updateProgress() {
+      progress += Math.random() * 25; // Faster progress
+      if (progress > 100) progress = 100;
+      
+      progressFill.style.width = progress + '%';
+      progressPercent.textContent = Math.round(progress) + '%';
+      
+      if (progress < 100) {
+        setTimeout(updateProgress, 150); // Faster updates
+      } else {
+        setTimeout(() => {
+          loadingScreen.classList.add('fade-out');
+          setTimeout(() => {
+            loadingScreen.style.display = 'none';
+          }, 300); // Faster fade out
+        }, 300);
+      }
+    }
+
+    // Start everything immediately
+    preloadLogo();
+    setTimeout(updateProgress, 100); // Start much earlier
+
+    // App data with optimized icons
+    const allApps = [
+      { name: "Pocket Poster", category: "Tool", icon: "https://webhoangnam.id.vn/images/Pocket-Poster.png", description: "Ứng dụng tạo và quản lý poster cho pocket", size: "13MB", version: "1.0", downloadUrl: "https://www.dropbox.com/scl/fi/q7mlaxjkhy9ovqchyrcnd/Pocket-Poster.ipa?rlkey=ovno1sh634xkxgsa8ymjezem5&st=bhnoreqa&dl=1" },
+      { name: "TrollCleaner", category: "Tool", icon: "https://webhoangnam.id.vn/images/troll.webp", description: "Công cụ dọn dẹp và tối ưu hệ thống", size: "2MB", version: "2.1", downloadUrl: "https://www.dropbox.com/scl/fi/n2xfnv0w4umnuygy0vuk2/TrollCleaner.tipa?rlkey=j8relycz248aba4etkd23qtmx&st=7rq5vnzl&dl=1" },
+      { name: "Instagram VIP", category: "App", icon: "https://webhoangnam.id.vn/images/instagram.webp", description: "Mở khóa và truy cập ứng dụng bị khóa", size: "211MB", version: "1.5", downloadUrl: "https://www.dropbox.com/scl/fi/qcd7hs6i2kz67sqxefgs5/instagram-vip.ipa?rlkey=hjr98djza80kvqn16we76cm1k&st=878pb929&dl=1" },
+      { name: "Locket VIP 15S", category: "App", icon: "https://webhoangnam.id.vn/images/locket.jpeg", description: "Bypass MDM và quản lý thiết bị", size: "25MB", version: "3.0", downloadUrl: "https://www.dropbox.com/scl/fi/wlhp7nu91visxciu7jw7f/locket-vip-15s.ipa?rlkey=jjugwjy0j4esm79kl2tkaedqj&st=997y30p1&dl=1" },
+      { name: "Facebok VIP", category: "App", icon: "https://webhoangnam.id.vn/images/facebook.png", description: "Root hide và bảo vệ root", size: "18MB", version: "2.0", downloadUrl: "https://www.dropbox.com/scl/fi/njqqt8ar73hiemmrth9y5/facebok-vip.ipa?rlkey=4g8na1wg0waztfd8y217g9fbz&st=q6ln4c7z&dl=1" },
+      { name: "Mesenger VIP", category: "App", icon: "https://webhoangnam.id.vn/images/mesenger.png", description: "Tăng tốc độ mạng và internet", size: "10MB", version: "1.2", downloadUrl: "https://www.dropbox.com/scl/fi/paerm2hccrdeglqcgefxe/mesenger-vip.ipa?rlkey=17oyxgrt0088xivtk6ut7nrjr&st=c2crqvd0&dl=1" },
+      { name: "TikTok VIP", category: "App", icon: "https://webhoangnam.id.vn/images/tiktok.webp", description: "Tăng follower Instagram tự động", size: "22MB", version: "1.8", downloadUrl: "https://www.dropbox.com/scl/fi/y4io7xsfb5jhsa0vlnnj4/spotify-premium.ipa?rlkey=2latib5nva3ernekdrmzb524q&st=yvtspvm7&dl=1" },
+      { name: "Location Simulation", category: "Tool", icon: "https://webhoangnam.id.vn/images/mapvitri.jpeg", description: "Instagram với tính năng VIP", size: "45MB", version: "2.5", downloadUrl: "https://www.dropbox.com/scl/fi/f3reoh2asqy0ma71gxh39/Location-Simulation.ipa?rlkey=jmnzzdob24voo0qnujhrx4vo0&st=hz69jatt&dl=1" },
+      { name: "Youtube Premium", category: "App", icon: "https://webhoangnam.id.vn/images/Youtubeee.png", description: "Facebook với tính năng nâng cao", size: "38MB", version: "3.2", downloadUrl: "https://www.dropbox.com/scl/fi/vgh6h2bw2kmlmaxt2z0f0/youtube-premium.ipa?rlkey=d4fk4aihi8j29zo90q34x9kj2&st=0vwfzuwi&dl=1" },
+      { name: "Spotify Premium", category: "App", icon: "https://webhoangnam.id.vn/images/Spotify_App.png", description: "Messenger với tính năng VIP", size: "32MB", version: "2.8", downloadUrl: "https://www.dropbox.com/scl/fi/placeholder9/spotify-premium.ipa?rlkey=placeholder&st=placeholder&dl=1" },
+      { name: "Picsart PRO", category: "App", icon: "https://webhoangnam.id.vn/images/unnamed.webp", description: "Mod game và hack game", size: "55MB", version: "1.0", downloadUrl: "https://www.dropbox.com/scl/fi/ml3houg5djyqiaox9cnjg/picsart-pro.ipa?rlkey=gqfdlyiawftcmoub91qjmcv2m&st=i78mitor&dl=1" },
+      { name: "Biến Động BIDV", category: "Tool", icon: "https://webhoangnam.id.vn/images/bidv.png", description: "Bộ công cụ hệ thống toàn diện", size: "28MB", version: "4.1", downloadUrl: "https://www.dropbox.com/scl/fi/me164h9qf6wspo8iae19g/bi-n-ng-bidv.ipa.ipa?rlkey=qwis5qiokp2d8n4jdwob7m4u7&st=9zfyu7c9&dl=1" },
+      { name: "Biến Động MB Bank", category: "Tool", icon: "https://webhoangnam.id.vn/images/mbbankkk.jpg", description: "YouTube không quảng cáo", size: "42MB", version: "2.1", downloadUrl: "https://www.dropbox.com/scl/fi/mwpczwtq0l19z8lras7n9/bi-n-ng-mb-bank.ipa?rlkey=13o3qcviay0aw6cnnmpk05aw6&st=rl08us5d&dl=1" },
+    ];
+
+    // Preload app icons for better performance
+    function preloadAppIcons() {
+      allApps.forEach(app => {
+        const img = new Image();
+        img.src = app.icon;
+        img.onload = () => {
+          console.log(`Icon loaded: ${app.name}`);
+        };
+        img.onerror = () => {
+          console.log(`Icon failed to load: ${app.name}`);
+        };
+      });
+    }
+
+    let currentPage = 1;
+    const appsPerPage = 6;
+    let filteredApps = [...allApps];
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      // Start preloading icons immediately
+      preloadAppIcons();
+      
+      renderApps();
+      updatePagination();
+    });
+
+    // Render apps for current page
+    function renderApps() {
+      const appsGrid = document.getElementById('appsGrid');
+      const startIndex = (currentPage - 1) * appsPerPage;
+      const endIndex = startIndex + appsPerPage;
+      const appsToShow = filteredApps.slice(startIndex, endIndex);
+
+      appsGrid.innerHTML = '';
+
+      appsToShow.forEach(app => {
+        const appCard = document.createElement('div');
+        appCard.className = 'app-card';
+        appCard.innerHTML = `
+          <div class="app-category ${app.category.toLowerCase()}">${getCategoryName(app.category)}</div>
+          <div class="app-icon">
+            <div class="app-icon-fallback">📱</div>
+            <img src="${app.icon}" alt="${app.name}" class="loading" 
+                 onload="this.classList.remove('loading'); this.classList.add('loaded'); this.previousElementSibling.classList.add('hidden');"
+                 onerror="this.style.display='none'; this.previousElementSibling.classList.remove('hidden');">
+          </div>
+          <div class="app-name">${app.name}</div>
+          <div class="app-description">${app.description}</div>
+          <div class="app-meta">
+            <span class="app-size">${app.size}</span>
+            <span class="app-version">${app.version}</span>
+          </div>
+          <button class="download-app-btn" onclick="downloadApp('${app.name}')">
+            📥 Tải về
+          </button>
+        `;
+        appsGrid.appendChild(appCard);
+      });
+
+      // Update results info
+      const resultsInfo = document.querySelector('.results-info');
+      const totalApps = filteredApps.length;
+      const startApp = startIndex + 1;
+      const endApp = Math.min(endIndex, totalApps);
+      resultsInfo.textContent = `Hiển thị ${startApp}-${endApp} trong số ${totalApps} IPA`;
+    }
+
+    // Get category name in Vietnamese
+    function getCategoryName(category) {
+      const categories = {
+        'utilities': 'Utilities',
+        'social': 'Social',
+        'gaming': 'Gaming',
+        'tool': 'Tool',
+        'app': 'App'
+      };
+      return categories[category] || category;
+    }
+
+    // Update pagination buttons
+    function updatePagination() {
+      const totalPages = Math.ceil(filteredApps.length / appsPerPage);
+      const pagination = document.querySelector('.pagination');
+      
+      let paginationHTML = `
+        <button class="page-btn" onclick="changePage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>←</button>
+      `;
+
+      for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `
+          <button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>
+        `;
+      }
+
+      paginationHTML += `
+        <button class="page-btn" onclick="changePage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>→</button>
+      `;
+
+      pagination.innerHTML = paginationHTML;
+    }
+
+    // Change page
+    function changePage(page) {
+      const totalPages = Math.ceil(filteredApps.length / appsPerPage);
+      if (page >= 1 && page <= totalPages) {
+        currentPage = page;
+        renderApps();
+        updatePagination();
+      }
+    }
+
+    // Download app function
+    function downloadApp(appName) {
+      // Tìm ứng dụng trong danh sách
+      const app = allApps.find(a => a.name === appName);
+      if (!app) return;
+
+      // Hiển thị thông báo tải về
+      const downloadBtn = event.target;
+      const originalText = downloadBtn.innerHTML;
+      
+      downloadBtn.innerHTML = '⏳ Đang tải...';
+      downloadBtn.disabled = true;
+      downloadBtn.style.background = '#6c757d';
+
+      // Sử dụng link Dropbox từ dữ liệu
+      const downloadLink = document.createElement('a');
+      downloadLink.href = app.downloadUrl;
+      downloadLink.target = '_blank';
+      
+      // Thêm thông tin cho tracking
+      downloadLink.setAttribute('data-app', appName);
+      downloadLink.setAttribute('data-size', app.size);
+      downloadLink.setAttribute('data-version', app.version);
+      
+      // Click để tải về
+      downloadLink.click();
+      
+      // Hiển thị thông báo thành công sau 1 giây
+      setTimeout(() => {
+        downloadBtn.innerHTML = '✅ Đã tải';
+        downloadBtn.style.background = '#28a745';
+        
+        // Reset sau 2 giây
+        setTimeout(() => {
+          downloadBtn.innerHTML = originalText;
+          downloadBtn.disabled = false;
+          downloadBtn.style.background = '#28a745';
+        }, 2000);
+      }, 1000);
+    }
+
+    // Search functionality
+    document.getElementById('searchInput').addEventListener('input', function(e) {
+      const searchTerm = e.target.value.toLowerCase();
+      
+      filteredApps = allApps.filter(app => 
+        app.name.toLowerCase().includes(searchTerm) || 
+        app.description.toLowerCase().includes(searchTerm)
+      );
+      
+      currentPage = 1; // Reset to first page when searching
+      renderApps();
+      updatePagination();
+    });
+
+    // View toggle functionality
+    document.querySelectorAll('.view-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        
+        const view = this.dataset.view;
+        const grid = document.getElementById('appsGrid');
+        
+        if (view === 'list') {
+          grid.style.gridTemplateColumns = '1fr';
+        } else {
+          grid.style.gridTemplateColumns = 'repeat(auto-fill, minmax(280px, 1fr))';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
