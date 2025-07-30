@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nạp tiền - Top-up Money</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #dbdbd9 0%, #dbdbd9 100%);
+            color: rgb(0, 0, 0);
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .balance {
+            font-size: 20px;
+            opacity: 2;
+        }
+
+        .main-content {
+            padding: 30px 20px;
+        }
+
+        .qr-section {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .qr-section h2 {
+            color: #333;
+            margin-bottom: 5px;
+            font-size: 20px;
+        }
+
+        .qr-section p {
+            color: #666;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            text-align: left;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .amount-input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .amount-input:focus {
+            outline: none;
+            border-color: #818181;
+        }
+
+        .create-qr-btn {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #818181 0%, #818181 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .create-qr-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .create-qr-btn:active {
+            transform: translateY(0);
+        }
+
+        .payment-methods {
+            margin-top: 30px;
+        }
+
+        .payment-methods h3 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+
+        .payment-method {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #000000;
+        }
+
+        .payment-method-icon {
+            width: 40px;
+            height: 40px;
+            background: #667eea00;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            margin-right: 15px;
+        }
+
+        .payment-method-info {
+            flex: 1;
+        }
+
+        .payment-method-title {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .payment-method-subtitle {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .payment-method-amount {
+            font-weight: bold;
+            color: #030303;
+        }
+
+        .qr-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .qr-modal.show {
+            display: flex;
+        }
+
+        .qr-content {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 350px;
+            width: 90%;
+        }
+
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 10px;
+            border: 2px solid #e1e5e9;
+        }
+
+        .qr-code canvas {
+            border-radius: 8px;
+        }
+
+        .close-btn {
+            background: #818181;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
+        }
+
+        .payment-info {
+            margin-top: 15px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .payment-info h4 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .payment-info p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .copy-btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-icon">💳</div>
+            <h1>Nạp tiền</h1>
+            <div class="balance">Số dư hiện tại: 0 VND</div>
+        </div>
+
+        <div class="main-content">
+            <div class="qr-section">
+                <h2>Quét mã QR</h2>
+                <p>Nhập số tiền nạp vào</p>
+                
+                <div class="input-group">
+                    <label for="amount">Nhập số tiền (VND)</label>
+                    <input type="number" id="amount" class="amount-input" placeholder="Nhập số tiền..." min="1000">
+                    <div class="error-message" id="error-message">Vui lòng nhập số tiền hợp lệ (tối thiểu 1,000 VND)</div>
+                </div>
+
+                <button class="create-qr-btn" onclick="createQRCode()">
+                    🛒 Tạo mã QR
+                </button>
+            </div>
+
+            <div class="payment-methods">
+                <h3>Phương thức thanh toán</h3>
+                
+                <div class="payment-method">
+                    <div class="payment-method-icon">🏦</div>
+                    <div class="payment-method-info">
+                        <div class="payment-method-title">Tài khoản ngân hàng</div>
+                        <div class="payment-method-subtitle">Vietcombank, BIDV, Techcombank</div>
+                    </div>
+                    <div class="payment-method-amount">+50</div>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-method-icon">📱</div>
+                    <div class="payment-method-info">
+                        <div class="payment-method-title">Tài khoản Ví điện tử</div>
+                        <div class="payment-method-subtitle">MoMo, ZaloPay, ViettelPay</div>
+                    </div>
+                    <div class="payment-method-amount">+5</div>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-method-icon">📞</div>
+                    <div class="payment-method-info">
+                        <div class="payment-method-title">Tài khoản Tiền di động</div>
+                        <div class="payment-method-subtitle">Viettel, Mobifone, Vinaphone</div>
+                    </div>
+                    <div class="payment-method-amount">+4</div>
+                </div>
+
+                <div class="payment-method">
+                    <div class="payment-method-icon">🌐</div>
+                    <div class="payment-method-info">
+                        <div class="payment-method-title">PayPal payment</div>
+                        <div class="payment-method-subtitle">Thanh toán quốc tế</div>
+                    </div>
+                    <div class="payment-method-amount">+0</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="qr-modal" id="qrModal">
+        <div class="qr-content">
+            <h3>Mã QR Thanh toán</h3>
+            <div class="qr-code" id="qrCode">
+                <!-- QR code will be generated here -->
+            </div>
+            
+            <div class="payment-info">
+                <h4>Thông tin thanh toán</h4>
+                <p><strong>Ngân hàng:</strong> Techcombank (TCB)</p>
+                <p><strong>Số tài khoản:</strong> 838699200555</p>
+                <p><strong>Chủ tài khoản:</strong> CAO VAN NAM</p>
+                <p><strong>Số tiền:</strong> <span id="qrAmount">0 VND</span></p>
+            </div>
+            
+            <button class="copy-btn" onclick="copyPaymentLink()">Sao chép link thanh toán</button>
+            <button class="close-btn" onclick="closeQRModal()">Đóng</button>
+        </div>
+    </div>
+
+    <script>
+        function createQRCode() {
+            const amountInput = document.getElementById('amount');
+            const errorMessage = document.getElementById('error-message');
+            const amount = parseInt(amountInput.value);
+
+            // Validate input
+            if (!amount || amount < 1000) {
+                errorMessage.style.display = 'block';
+                amountInput.style.borderColor = '#e74c3c';
+                return;
+            }
+
+            // Hide error message
+            errorMessage.style.display = 'none';
+            amountInput.style.borderColor = '#e1e5e9';
+
+            // Display amount in QR modal
+            document.getElementById('qrAmount').textContent = `${amount.toLocaleString('vi-VN')} VND`;
+
+            // Show QR modal
+            document.getElementById('qrModal').classList.add('show');
+
+            // Generate QR code with real payment URL
+            generateQRCode(amount);
+        }
+
+        function closeQRModal() {
+            document.getElementById('qrModal').classList.remove('show');
+        }
+
+        function generateQRCode(amount) {
+            const qrCode = document.getElementById('qrCode');
+            
+            // Create VietQR URL based on the format you provided
+            const vietqrUrl = `https://payment.pay2s.vn/quicklink/TCB/2005838699/CAO%20VAN%20NAM?amount=${amount}&memo=`;
+            // Clear previous QR code
+            qrCode.innerHTML = '';
+            
+            // Create image element for VietQR
+            const qrImage = document.createElement('img');
+            qrImage.src = vietqrUrl;
+            qrImage.alt = 'QR Code Thanh toán';
+            qrImage.style.width = '200px';
+            qrImage.style.height = '200px';
+            qrImage.style.border = '2px solid #e1e5e9';
+            qrImage.style.objectFit = 'contain';
+            
+            // Add loading state
+            qrImage.onload = function() {
+                console.log('VietQR image loaded successfully');
+            };
+            
+            qrImage.onerror = function() {
+                console.error('Failed to load VietQR image');
+                qrCode.innerHTML = `
+                    <div style="text-align: center; color: #666;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">❌</div>
+                        <div>Không thể tải mã QR</div>
+                        <div style="font-size: 12px; margin-top: 10px;">Vui lòng thử lại</div>
+                    </div>
+                `;
+            };
+            
+            qrCode.appendChild(qrImage);
+        }
+
+        function copyPaymentLink() {
+            const amount = parseInt(document.getElementById('amount').value);
+            const vietqrUrl = `https://img.vietqr.io/image/techcombank-838699200555-compact2.png?amount=${amount}&addInfo=Nạp tiền&accountName=CAO%20VAN%20NAM`;
+            
+            navigator.clipboard.writeText(vietqrUrl).then(function() {
+                alert('Đã sao chép link QR code vào clipboard!');
+            }).catch(function(err) {
+                console.error('Could not copy text: ', err);
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = vietqrUrl;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                alert('Đã sao chép link QR code vào clipboard!');
+            });
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('qrModal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeQRModal();
+            }
+        });
+
+        // Format amount input
+        document.getElementById('amount').addEventListener('input', function(e) {
+            const value = e.target.value;
+            if (value && value < 1000) {
+                document.getElementById('error-message').style.display = 'block';
+                e.target.style.borderColor = '#e74c3c';
+            } else {
+                document.getElementById('error-message').style.display = 'none';
+                e.target.style.borderColor = '#e1e5e9';
+            }
+        });
+    </script>
+</body>
+</html>

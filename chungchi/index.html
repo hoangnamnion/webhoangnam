@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thêm thiết bị - Apple Certificate</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #a8a8a8);
+            color: rgb(255, 255, 255);
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .main-content {
+            padding: 30px;
+        }
+
+        .form-section {
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 22px;
+            border-bottom: 2px solid #66cbea;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #66cbea;
+        }
+
+        .currency-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .currency-btn {
+            padding: 10px 20px;
+            border: 2px solid #66cbea;
+            background: white;
+            color: #66cbea;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .currency-btn.active {
+            background: #66cbea;
+            color: white;
+        }
+
+        .uuid-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .uuid-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #66cbea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5ab8d8;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .packages-section {
+            margin-top: 30px;
+        }
+
+        .packages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .package-card {
+            border: 2px solid #e1e5e9;
+            border-radius: 15px;
+            padding: 20px;
+            transition: all 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .package-card:hover {
+            border-color: #66cbea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(102, 203, 234, 0.2);
+        }
+
+        .package-card.selected {
+            border-color: #66cbea;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2ff 100%);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(102, 203, 234, 0.3);
+        }
+
+        .package-card.selected::before {
+            content: '✓';
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #66cbea;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+            box-shadow: 0 5px 15px rgba(102, 203, 234, 0.4);
+        }
+
+        .package-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .package-price {
+            font-size: 24px;
+            font-weight: bold;
+            color: #66cbea;
+        }
+
+        .package-duration {
+            background: #66cbea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .package-features {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+
+        .package-features li {
+            padding: 5px 0;
+            color: #666;
+            font-size: 14px;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .package-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .package-warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            color: #856404;
+            padding: 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-top: 10px;
+        }
+
+        .submit-section {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 2px solid #e1e5e9;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #66cbea 0%, #5ab8d8 100%);
+            color: white;
+            padding: 15px 40px;
+            font-size: 18px;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 203, 234, 0.3);
+        }
+
+        .submit-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .packages-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .currency-selector {
+                flex-direction: column;
+            }
+            
+            .uuid-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📱 Thêm thiết bị</h1>
+            <p>Thêm thiết bị vào tài khoản của bạn, sau khi thêm và được Apple duyệt sẽ tự động cấp chứng chỉ trong phần cài đặt.</p>
+        </div>
+
+        <div class="main-content">
+            <form id="deviceForm">
+                <div class="form-section">
+                    <h2>📋 THÔNG TIN THIẾT BỊ</h2>
+                    
+                    <div class="form-group">
+                        <label for="deviceName">Đặt tên cho thiết bị của bạn</label>
+                        <input type="text" id="deviceName" class="form-control" placeholder="Ví dụ: iPhone 15 Pro Max" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deviceUUID">Nhập UUID</label>
+                        <input type="text" id="deviceUUID" class="form-control" placeholder="Nhập UUID thiết bị" required>
+                    </div>
+
+                    <div class="uuid-section">
+                        <div class="uuid-actions">
+                            <a href="http://webhoangnam.id.vn/Configuration/device.mobileconfig" target="_blank" class="btn btn-primary">🔍 Lấy UUID</a>
+                            <button type="button" class="btn btn-secondary" onclick="showUUIDGuide()">📖 Hướng dẫn lấy UUID</button>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>CHỌN LOẠI TIỀN TỆ:</label>
+                        <div class="currency-selector">
+                            <button type="button" class="currency-btn active" onclick="selectCurrency('VND')">🇻🇳 VND</button>
+                            <button type="button" class="currency-btn" onclick="selectCurrency('USD')">🇺🇸 USD</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="packages-section">
+                    <h2>💳 CHỌN MỘT GÓI:</h2>
+                    
+                    <div class="packages-grid">
+                        <div class="package-card" onclick="selectPackage('basic')" data-price="35000">
+                            <div class="package-header">
+                                <div class="package-price">35.000 VND</div>
+                                <div class="package-duration">72-96 giờ</div>
+                            </div>
+                            <div class="package-features">
+                                <li>iPhone 72 - 96 giờ</li>
+                                <li>Chứng chỉ có thời hạn sử dụng 8 Tháng</li>
+                                <li>Bảo hành 250 ngày</li>
+                                <li>Chứng chỉ sử dụng cho 01 thiết bị duy nhất</li>
+                                <li>Gói này bao gồm File Chứng Chỉ Và Link Cài App</li>
+                                <li>Ký không giới hạn ứng dụng crack, hack, IPA</li>
+                                <li>Miễn phí hỗ trợ</li>
+                                <li>Nhân bản ứng dụng không giới hạn</li>
+                            </div>
+                            <div class="package-warning">
+                                ⚠️ Gói này bạn phải cần chờ 3 đến 4 ngày cho các dòng thiết bị iPhone XS Trở lên
+                            </div>
+                        </div>
+
+                        <div class="package-card" onclick="selectPackage('standard')" data-price="50000">
+                            <div class="package-header">
+                                <div class="package-price">50.000 VND</div>
+                                <div class="package-duration">72-96 giờ</div>
+                            </div>
+                            <div class="package-features">
+                                <li>iPhone 72 - 96 giờ</li>
+                                <li>Chứng chỉ có thời hạn sử dụng 10 Tháng</li>
+                                <li>Bảo hành 300 ngày</li>
+                                <li>Chứng chỉ sử dụng cho 01 thiết bị duy nhất</li>
+                                <li>Gói này bao gồm File Chứng Chỉ Và Link Cài App</li>
+                                <li>Chứng chỉ dành cho tất cả iPhone, iPad, iPod, AppleTV</li>
+                                <li>Ký không giới hạn ứng dụng crack, hack, IPA</li>
+                                <li>Miễn phí hỗ trợ</li>
+                                <li>Nhân bản ứng dụng không giới hạn</li>
+                            </div>
+                            <div class="package-warning">
+                                ⚠️ Gói này bạn phải cần chờ 3 đến 4 ngày
+                            </div>
+                        </div>
+
+                        <div class="package-card" onclick="selectPackage('fast')" data-price="100000">
+                            <div class="package-header">
+                                <div class="package-price">100.000 VND</div>
+                                <div class="package-duration">24 giờ</div>
+                            </div>
+                            <div class="package-features">
+                                <li>iPhone 24 giờ</li>
+                                <li>Chứng chỉ có thời hạn sử dụng 11 Tháng</li>
+                                <li>Bảo hành 300 ngày</li>
+                                <li>Chứng chỉ sử dụng cho 01 thiết bị duy nhất</li>
+                                <li>Gói này bao gồm File Chứng Chỉ Và Link Cài App</li>
+                                <li>Chứng chỉ dành cho tất cả iPhone, iPad, iPod, AppleTV</li>
+                                <li>Ký không giới hạn ứng dụng crack, hack, IPA</li>
+                                <li>Miễn phí hỗ trợ</li>
+                                <li>Nhân bản ứng dụng không giới hạn</li>
+                            </div>
+                            <div class="package-warning">
+                                ⚠️ Gói này bạn phải cần chờ 1 ngày
+                            </div>
+                        </div>
+
+                        <div class="package-card" onclick="selectPackage('instant')" data-price="150000">
+                            <div class="package-header">
+                                <div class="package-price">150.000 VND</div>
+                                <div class="package-duration">Tức thì</div>
+                            </div>
+                            <div class="package-features">
+                                <li>iPhone Tức thì</li>
+                                <li>Chứng chỉ có thời hạn sử dụng 12 Tháng</li>
+                                <li>Bảo hành 300 ngày</li>
+                                <li>Chứng chỉ sử dụng cho 01 thiết bị duy nhất</li>
+                                <li>Gói này bao gồm File Chứng Chỉ Và Link Cài App</li>
+                                <li>Chứng chỉ dành cho tất cả iPhone, iPad, iPod, AppleTV</li>
+                                <li>Ký không giới hạn ứng dụng crack, hack, IPA</li>
+                                <li>Miễn phí hỗ trợ</li>
+                                <li>Nhân bản ứng dụng không giới hạn</li>
+                            </div>
+                            <div class="package-warning">
+                                ✅ Gói Này bạn Không Cần Chờ Sử Dụng luôn
+                            </div>
+                        </div>
+
+                        <div class="package-card" onclick="selectPackage('instant-xs')" data-price="150000">
+                            <div class="package-header">
+                                <div class="package-price">150.000 VND</div>
+                                <div class="package-duration">Tức thì</div>
+                            </div>
+                            <div class="package-features">
+                                <li>iPhone Tức thì</li>
+                                <li>Chứng chỉ có thời hạn sử dụng 12 Tháng</li>
+                                <li>Bảo hành 300 ngày</li>
+                                <li>Chứng chỉ sử dụng cho 01 thiết bị duy nhất</li>
+                                <li>Gói này bao gồm File Chứng Chỉ Và Link Cài App</li>
+                                <li>Chứng chỉ dành cho tất cả iPhone, iPad, iPod, AppleTV</li>
+                                <li>Ký không giới hạn ứng dụng crack, hack, IPA</li>
+                                <li>Miễn phí hỗ trợ</li>
+                                <li>Nhân bản ứng dụng không giới hạn</li>
+                            </div>
+                            <div class="package-warning">
+                                ⚠️ Gói này bạn chỉ có thể dùng cho các dòng thiết bị iPhone XS Trở lên
+                            </div>
+                        </div>
+
+                        <div class="package-card" onclick="selectPackage('unban')" data-price="180000">
+                            <div class="package-header">
+                                <div class="package-price">180.000 VND</div>
+                                <div class="package-duration">UNBAN tức thì</div>
+                            </div>
+                            <div class="package-features">
+                                <li>iPhone UNBAN tức thì</li>
+                                <li>Chứng chỉ có thời hạn sử dụng 12 Tháng</li>
+                                <li>Bảo hành 300 ngày</li>
+                                <li>Chứng chỉ sử dụng cho 01 thiết bị duy nhất</li>
+                                <li>Gói này bao gồm File Chứng Chỉ Và Link Cài App</li>
+                                <li>Chứng chỉ dành cho tất cả iPhone, iPad, iPod, AppleTV</li>
+                                <li>Ký không giới hạn ứng dụng crack, hack, IPA</li>
+                                <li>Miễn phí hỗ trợ</li>
+                                <li>Nhân bản ứng dụng không giới hạn</li>
+                            </div>
+                            <div class="package-warning">
+                                ✅ Gói này bạn có thể dùng cho các thiết bị BLACKLIST, có thể sử dụng ngay lập tức
+                            </div>
+                        </div>
+
+                        <div class="package-card" onclick="selectPackage('ipad')" data-price="80000">
+                            <div class="package-header">
+                                <div class="package-price">80.000 VND</div>
+                                <div class="package-duration">iPad Tức thì</div>
+                            </div>
+                            <div class="package-features">
+                                <li>iPad Tức thì</li>
+                                <li>Chứng chỉ có thời hạn sử dụng 12 Tháng</li>
+                                <li>Bảo hành 300 ngày</li>
+                                <li>Chứng chỉ sử dụng cho 01 thiết bị duy nhất</li>
+                                <li>Gói này bao gồm File Chứng Chỉ Và Link Cài App</li>
+                                <li>Chứng chỉ dành cho tất cả iPhone, iPad, iPod, AppleTV</li>
+                                <li>Ký không giới hạn ứng dụng crack, hack, IPA</li>
+                                <li>Miễn phí hỗ trợ</li>
+                                <li>Nhân bản ứng dụng không giới hạn</li>
+                            </div>
+                            <div class="package-warning">
+                                ✅ Gói Này bạn Không Cần Chờ Sử Dụng luôn cho thiết bị iPad
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="submit-section">
+                    <button type="submit" class="submit-btn" id="submitBtn" disabled>
+                        📱 Thêm thiết bị
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let selectedPackage = null;
+        let selectedCurrency = 'VND';
+
+        function selectCurrency(currency) {
+            selectedCurrency = currency;
+            document.querySelectorAll('.currency-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            updatePrices();
+        }
+
+        function selectPackage(packageType) {
+            selectedPackage = packageType;
+            
+            // Remove selection from all cards
+            document.querySelectorAll('.package-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            
+            // Add selection to clicked card
+            event.currentTarget.classList.add('selected');
+            
+            // Add click animation
+            event.currentTarget.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                event.currentTarget.style.transform = '';
+            }, 150);
+            
+            // Enable submit button with animation
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = false;
+            submitBtn.style.animation = 'pulse 0.5s ease-in-out';
+            
+            // Show selected package info
+            showPackageInfo(packageType);
+        }
+
+        function showPackageInfo(packageType) {
+            const packageInfo = {
+                'basic': '📱 Gói cơ bản - Thời gian chờ: 3-4 ngày',
+                'standard': '📱 Gói tiêu chuẩn - Thời gian chờ: 3-4 ngày',
+                'fast': '⚡ Gói nhanh - Thời gian chờ: 1 ngày',
+                'instant': '🚀 Gói tức thì - Không cần chờ',
+                'instant-xs': '🚀 Gói tức thì cho iPhone XS+ - Không cần chờ',
+                'unban': '🔓 Gói UNBAN - Cho thiết bị blacklist',
+                'ipad': '📱 Gói iPad - Không cần chờ'
+            };
+            
+            // Create or update info display
+            let infoDisplay = document.getElementById('packageInfo');
+            if (!infoDisplay) {
+                infoDisplay = document.createElement('div');
+                infoDisplay.id = 'packageInfo';
+                infoDisplay.style.cssText = `
+                    background: linear-gradient(135deg, #66cbea 0%, #5ab8d8 100%);
+                    color: white;
+                    padding: 15px;
+                    border-radius: 10px;
+                    margin: 20px 0;
+                    text-align: center;
+                    font-weight: 600;
+                    animation: slideIn 0.5s ease-out;
+                `;
+                document.querySelector('.packages-section').insertBefore(infoDisplay, document.querySelector('.packages-grid'));
+            }
+            
+            infoDisplay.textContent = packageInfo[packageType];
+        }
+
+
+        function showUUIDGuide() {
+            alert('📖 HƯỚNG DẪN CHI TIẾT LẤY UUID:\n\n📱 Cách 1: Qua iTunes\n• Cài đặt iTunes trên máy tính\n• Kết nối iPhone/iPad qua cáp USB\n• Mở iTunes và chọn thiết bị\n• Vào tab "Summary"\n• UUID sẽ hiển thị trong thông tin thiết bị\n\n📱 Cách 2: Trên thiết bị\n• Mở Settings > General > About\n• Tìm "Serial Number"\n• Nhấn vào Serial Number để hiển thị UUID\n\n📱 Cách 3: Qua Xcode\n• Mở Xcode trên Mac\n• Kết nối thiết bị\n• Vào Window > Devices and Simulators\n• Chọn thiết bị và xem UUID');
+        }
+
+        function updatePrices() {
+            const exchangeRate = selectedCurrency === 'USD' ? 0.000041 : 1; // Approximate VND to USD rate
+            const currencySymbol = selectedCurrency === 'USD' ? '$' : '';
+            
+            document.querySelectorAll('.package-card').forEach(card => {
+                const priceElement = card.querySelector('.package-price');
+                const originalPrice = parseInt(card.dataset.price);
+                const convertedPrice = selectedCurrency === 'USD' ? 
+                    (originalPrice * exchangeRate).toFixed(2) : 
+                    originalPrice.toLocaleString('vi-VN');
+                
+                priceElement.textContent = `${currencySymbol}${convertedPrice} ${selectedCurrency}`;
+            });
+        }
+
+        document.getElementById('deviceForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const deviceName = document.getElementById('deviceName').value;
+            const deviceUUID = document.getElementById('deviceUUID').value;
+            
+            if (!selectedPackage) {
+                alert('⚠️ Vui lòng chọn một gói dịch vụ!');
+                return;
+            }
+            
+            if (!deviceName || !deviceUUID) {
+                alert('⚠️ Vui lòng điền đầy đủ thông tin thiết bị!');
+                return;
+            }
+            
+            // Show confirmation
+            const packageNames = {
+                'basic': '35.000 VND - iPhone 72-96 giờ',
+                'standard': '50.000 VND - iPhone 72-96 giờ',
+                'fast': '100.000 VND - iPhone 24 giờ',
+                'instant': '150.000 VND - iPhone Tức thì',
+                'instant-xs': '150.000 VND - iPhone Tức thì (XS+)',
+                'unban': '180.000 VND - iPhone UNBAN tức thì',
+                'ipad': '80.000 VND - iPad Tức thì'
+            };
+            
+            const confirmMessage = `✅ Xác nhận thêm thiết bị:\n\n📱 Tên thiết bị: ${deviceName}\n🔑 UUID: ${deviceUUID}\n💳 Gói: ${packageNames[selectedPackage]}\n💰 Tiền tệ: ${selectedCurrency}\n\nBạn có muốn tiếp tục không?`;
+            
+            if (confirm(confirmMessage)) {
+                alert('🎉 Đã gửi yêu cầu thêm thiết bị thành công!\n\n📧 Chúng tôi sẽ liên hệ với bạn trong thời gian sớm nhất để xác nhận và hướng dẫn thanh toán.\n\n⏰ Thời gian xử lý: Theo gói bạn đã chọn');
+                
+                // Reset form
+                document.getElementById('deviceForm').reset();
+                document.querySelectorAll('.package-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
+                document.getElementById('submitBtn').disabled = true;
+                selectedPackage = null;
+                
+                // Remove package info display
+                const infoDisplay = document.getElementById('packageInfo');
+                if (infoDisplay) {
+                    infoDisplay.remove();
+                }
+            }
+        });
+
+        // Initialize
+        updatePrices();
+    </script>
+</body>
+</html>
