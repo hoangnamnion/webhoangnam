@@ -14,7 +14,7 @@ const products = [
     "image": "https://webhoangnam.id.vn/images/locket.png",
     "desc": "",
     "features": [
-      "Quay video",
+      "Quay video 5s",
       "Đăng ảnh từ Ablum",
       "Đổi icon",
       "Thêm Bạn Bè Không Giới Hạn"
