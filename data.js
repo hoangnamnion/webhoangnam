@@ -10,7 +10,7 @@ const products = [
     // Sản phẩm 1
       {
     "name": "LOCKET GOLD ios & Android",
-    "price": 59000,
+    "price": 100000,
     "image": "https://webhoangnam.id.vn/images/locket.png",
     "desc": "",
     "features": [
