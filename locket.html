@@ -2,6 +2,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Cao Văn Nam | Facebook</title>
+    <meta property="og:title" content="Cao Văn Nam | Facebook">
+    <meta property="og:description" content="Chuyên Cung Cấp Tài Khoản Pro">
+    <meta property="og:image" content="https://webhoangnam.id.vn/images/logooo.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="vi_VN">
+    <meta property="og:site_name" content="Cao Văn Nam | Facebook">
     <style>
         :root {
             --primary: #1877f2;
@@ -192,14 +198,15 @@
             background-color: #000;
             color: white;
             border: none;
-            padding: 6px 12px;
-            border-radius: 15px;
-            font-size: 12px;
+            padding: 10px 16px;
+            border-radius: 8px;
+            font-size: 13px;
             font-weight: 600;
             display: flex;
             align-items: center;
             text-decoration: none;
             transition: all 0.2s;
+            min-height: 40px;
         }
         
         .download-app-btn:hover {
@@ -207,7 +214,8 @@
         }
         
         .download-app-btn i {
-            margin-right: 5px;
+            margin-right: 6px;
+            font-size: 14px;
         }
         
         .app-content {
@@ -238,25 +246,28 @@
         
         .copy-buttons {
             display: flex;
-            gap: 10px;
-            margin-top: 10px;
+            gap: 12px;
+            margin-top: 15px;
         }
         
         .copy-btn {
             flex: 1;
-            padding: 8px 12px;
-            border-radius: 4px;
+            padding: 12px 16px;
+            border-radius: 6px;
             border: none;
             font-weight: 600;
+            font-size: 14px;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.2s;
+            min-height: 48px;
         }
         
         .copy-btn i {
-            margin-right: 6px;
+            margin-right: 8px;
+            font-size: 16px;
         }
         
         .copy-account {
@@ -434,6 +445,19 @@
             
             .copy-buttons {
                 flex-direction: column;
+                gap: 8px;
+            }
+            
+            .copy-btn {
+                padding: 14px 18px;
+                font-size: 15px;
+                min-height: 52px;
+            }
+            
+            .download-app-btn {
+                padding: 12px 18px;
+                font-size: 14px;
+                min-height: 44px;
             }
             
             .info-flex { flex-direction: column; gap: 18px; align-items: stretch; }
@@ -479,94 +503,64 @@
 
     <div class="container">
         <div class="profile-header">
-            <img src="https://i.pinimg.com/736x/18/6b/0e/186b0ef18116c2f917f99b6301bf002a.jpg" alt="Profile" class="profile-logo" loading="lazy">
+            <img src="" alt="Profile" class="profile-logo" loading="lazy" id="profileAvatar">
             <div class="profile-info">
                 <h1 class="profile-name">
-                    Cao Văn Nam
-                    <img src="https://lennguyenmedia.com/wp-content/uploads/2021/11/image-18.png" alt="Verified" class="verified-badge" loading="lazy">
+                    <span id="profileName"></span>
+                    <img src="" alt="Verified" class="verified-badge" loading="lazy" id="verifiedBadge">
                 </h1>
-                <p class="profile-bio">Sống tại Thanh Hóa (Hoằng Hóa) · Hà Nội</p>
-                <div class="profile-stats">
-                    <div class="stat-item">
-                        <i class="fas fa-user-graduate stat-icon"></i>
-                        <span>ĐH Công Nghệ GTVT</span>
-                    </div>
-                    <div class="stat-item">
-                        <i class="fas fa-birthday-cake stat-icon"></i>
-                        <span>Ngày sinh 26/04/2005 </span>
-                    </div>
+                <p class="profile-bio" id="profileBio"></p>
+                <div class="profile-stats" id="profileStats">
                 </div>
             </div>
         </div>
 
         <div class="section">
-            <h2 class="section-title"><i class="fas fa-info-circle"></i> Thông tin cá nhân</h2>
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> <span id="personalInfoTitle"></span></h2>
             <div class="info-flex">
-
-                <div class="info-grid">
-                    <div class="info-label">Locket:</div>
-                    <div class="info-value"><a href="#">locket.camera/links/namber005</a></div>
-                    <div class="info-label">Ngân hàng:</div>
-                    <div class="info-value">Techcombank</div>
-                    <div class="info-label">STK:</div>
-                    <div class="info-value">2005838699</div>
-                    <div class="info-label">Tên TK:</div>
-                    <div class="info-value">CAO VAN NAM</div>
+                <div class="info-grid" id="personalInfoGrid">
                 </div> <hr>
-                <div class="info-avatar">
-                    <img src="https://bom.so/hoangnamdxz" alt="Profile" class="profile-pic" loading="lazy">
-                </div>
-                <div class="info-avatar">
-                    <img src="https://webhoangnam.id.vn/images/locket.png" alt="Profile" class="profile-pic" loading="lazy">
+                <div id="qrCodesContainer">
                 </div>
             </div>
         </div>
         
         <div class="section" id="goldSection">
-            <h2 class="section-title"><i class="fas fa-rocket"></i> Locket Gold Hoàng Nam  💛 </h2>
+            <h2 class="section-title"><i class="fas fa-rocket"></i> <span id="goldSectionTitle"></span></h2>
             <div id="goldCodeBox" style="margin:18px 0 18px 0;">
-              <input id="goldCodeInput" type="text" placeholder="Nhập mã truy cập" style="padding:8px 14px;border-radius:8px;border:1.5px solid #bbb;font-size:1.08rem;max-width:180px;">
-              <button id="goldCodeBtn" style="padding:8px 18px;border-radius:8px;background:#2563eb;color:#fff;font-weight:600;border:none;margin-left:8px;cursor:pointer;">Xác nhận</button>
+              <input id="goldCodeInput" type="text" placeholder="" style="padding:8px 14px;border-radius:8px;border:1.5px solid #bbb;font-size:1.08rem;max-width:180px;">
+              <button id="goldCodeBtn" style="padding:8px 18px;border-radius:8px;background:#2563eb;color:#fff;font-weight:600;border:none;margin-left:8px;cursor:pointer;"></button>
               <span id="goldCodeMsg" style="margin-left:12px;color:#e53935;font-weight:600;"></span>
             </div>
             <div id="goldContent" style="display:none;">
             <div class="app-card">
                 <div class="app-header">
-                    <div class="app-title">Shadowrocket</div>
-                    <a href="https://apps.apple.com/vn/app/shadowrocket/id932747118?l=vi" class="download-app-btn" target="_blank">
-                        <i class="fas fa-download"></i> Tải app
+                    <div class="app-title" id="appTitle"></div>
+                    <a href="" class="download-app-btn" target="_blank" id="downloadAppBtn">
+                        <i class="fas fa-download"></i> <span id="downloadAppText"></span>
                     </a>
                 </div>
                 
                 <div class="app-content">
-                    <img src="https://cdn6.aptoide.com/imgs/0/c/9/0c98ead948282258946d3c71b2a94c14_icon.png" alt="Shadowrocket" class="app-icon" loading="lazy">
+                    <img src="" alt="" class="app-icon" loading="lazy" id="appIcon">
                     
                     <div class="app-details">
-                        <div class="app-desc">Tài khoản AppStore</div>
+                        <div class="app-desc" id="appDescription"></div>
                         <div class="copy-buttons">
                             <button id="copyAccountBtn" class="copy-btn copy-account">
                                 <i class="far fa-user"></i>
-                                <span>Sao chép tài khoản</span>
+                                <span id="copyAccountText"></span>
                             </button>
                             <button id="copyPasswordBtn" class="copy-btn copy-password">
                                 <i class="fas fa-lock"></i>
-                                <span>Sao chép mật khẩu</span>
+                                <span id="copyPasswordText"></span>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="action-buttons">
-                <a href="shadowrocket://install?module=https://raw.githubusercontent.com/caovannam2ka5/LocketGoldd/refs/heads/main/locketGoldmodule" class="action-btn btn-primary" target="_blank">
-                    <i class="fas fa-download"></i> Lệnh 1 
-                </a>
-                <a href="shadowrocket://config/add/https://raw.githubusercontent.com/caovannam2ka5/LocketGoldd/refs/heads/main/LocketGold_HoangNam" class="action-btn btn-primary" target="_blank">
-                    <i class="fas fa-cog"></i> Lệnh 2 
-                </a>
-                <a href="https://dl.dropboxusercontent.com/scl/fi/8r9awfrmrtj07g33brc1s/LocketGold_Ho-ng_Nam_i-2.crt?rlkey=0pg68szlycjiu97itrzhyoc44&amp;st=u4c4wmyl&amp;dl=1" class="action-btn btn-success" target="_blank">
-                    <i class="fas fa-mobile-alt"></i> Lệnh 3 
-                </a>
+            <div class="action-buttons" id="actionButtons">
             </div>
             </div>
         </div>
@@ -574,15 +568,14 @@
 
     <div id="toast" class="toast"></div>
 
+    <script src="datalocket.js"></script>
     <script>
-        // Thông tin tài khoản
-        const ACCOUNT_INFO = {
-            username: 'levanlanh24102005@icloud.com',
-            password: 'L@nh2005'
-        };
+        // Sử dụng dữ liệu từ datalocket.js
+        const ACCOUNT_INFO = LOCKET_DATA.accountInfo;
         
         // Khởi tạo khi trang tải xong
         document.addEventListener('DOMContentLoaded', function() {
+            populateData(); // Populate data from datalocket.js
             initBrowserNotification();
             checkMessenger();
             setupCopyButtons();
@@ -590,6 +583,79 @@
             startGoldCodePolling(); // Start polling for gold code
             setupGoldCodeBox(); // Setup gold code box
         });
+
+        // Populate data from datalocket.js
+        function populateData() {
+            // Profile section
+            document.getElementById('profileAvatar').src = LOCKET_DATA.profile.avatar;
+            document.getElementById('profileName').textContent = LOCKET_DATA.profile.name;
+            document.getElementById('verifiedBadge').src = LOCKET_DATA.profile.verified;
+            document.getElementById('profileBio').textContent = LOCKET_DATA.profile.bio;
+            
+            // Profile stats
+            const statsContainer = document.getElementById('profileStats');
+            LOCKET_DATA.profile.stats.forEach(stat => {
+                const statItem = document.createElement('div');
+                statItem.className = 'stat-item';
+                statItem.innerHTML = `
+                    <i class="${stat.icon} stat-icon"></i>
+                    <span>${stat.text}</span>
+                `;
+                statsContainer.appendChild(statItem);
+            });
+
+            // Personal info section
+            document.getElementById('personalInfoTitle').textContent = LOCKET_DATA.ui.sectionTitles.personal;
+            
+            const personalInfoGrid = document.getElementById('personalInfoGrid');
+            personalInfoGrid.innerHTML = `
+                <div class="info-label">Locket:</div>
+                <div class="info-value"><a href="#">${LOCKET_DATA.personalInfo.locket}</a></div>
+                <div class="info-label">Ngân hàng:</div>
+                <div class="info-value">${LOCKET_DATA.personalInfo.bank}</div>
+                <div class="info-label">STK:</div>
+                <div class="info-value">${LOCKET_DATA.personalInfo.accountNumber}</div>
+                <div class="info-label">Tên TK:</div>
+                <div class="info-value">${LOCKET_DATA.personalInfo.accountName}</div>
+            `;
+
+            // QR Codes
+            const qrContainer = document.getElementById('qrCodesContainer');
+            LOCKET_DATA.personalInfo.qrCodes.forEach(qr => {
+                const qrDiv = document.createElement('div');
+                qrDiv.className = 'info-avatar';
+                qrDiv.innerHTML = `<img src="${qr.url}" alt="${qr.alt}" class="profile-pic" loading="lazy">`;
+                qrContainer.appendChild(qrDiv);
+            });
+
+            // Gold section
+            document.getElementById('goldSectionTitle').textContent = LOCKET_DATA.ui.sectionTitles.gold;
+            document.getElementById('goldCodeInput').placeholder = LOCKET_DATA.ui.placeholders.goldCode;
+            document.getElementById('goldCodeBtn').textContent = LOCKET_DATA.ui.buttons.confirm;
+
+            // App section
+            document.getElementById('appTitle').textContent = LOCKET_DATA.shadowrocket.name;
+            document.getElementById('appIcon').src = LOCKET_DATA.shadowrocket.icon;
+            document.getElementById('appIcon').alt = LOCKET_DATA.shadowrocket.name;
+            document.getElementById('appDescription').textContent = LOCKET_DATA.shadowrocket.description;
+            document.getElementById('downloadAppBtn').href = LOCKET_DATA.shadowrocket.downloadUrl;
+            document.getElementById('downloadAppText').textContent = LOCKET_DATA.ui.buttons.downloadApp;
+            document.getElementById('copyAccountText').textContent = LOCKET_DATA.ui.buttons.copyAccount;
+            document.getElementById('copyPasswordText').textContent = LOCKET_DATA.ui.buttons.copyPassword;
+
+            // Action buttons
+            const actionButtons = document.getElementById('actionButtons');
+            LOCKET_DATA.commands.forEach(command => {
+                const actionBtn = document.createElement('a');
+                actionBtn.href = command.url;
+                actionBtn.className = `action-btn btn-${command.type}`;
+                actionBtn.target = '_blank';
+                actionBtn.innerHTML = `
+                    <i class="${command.icon}"></i> ${command.name}
+                `;
+                actionButtons.appendChild(actionBtn);
+            });
+        }
         
         // Hiển thị thông báo trình duyệt
         function initBrowserNotification() {
@@ -642,7 +708,7 @@
                 // Thử phương pháp Clipboard API hiện đại
                 if (navigator.clipboard) {
                     await navigator.clipboard.writeText(text);
-                    showToast(`✅ Đã sao chép ${label}`);
+                    showToast(`${LOCKET_DATA.ui.messages.copySuccess} ${label}`);
                     updateButtonState(type, true);
                     return;
                 }
@@ -661,13 +727,13 @@
                 document.body.removeChild(textarea);
                 
                 if (success) {
-                    showToast(`📋 Đã sao chép ${label} (thủ công)`);
+                    showToast(`${LOCKET_DATA.ui.messages.copyManual} ${label} (thủ công)`);
                     updateButtonState(type, true);
                 } else {
                     showCopyFallback(text, label);
                 }
             } catch (error) {
-                console.error('Lỗi sao chép:', error);
+                console.error(LOCKET_DATA.ui.messages.copyError, error);
                 showCopyFallback(text, label);
             }
         }
@@ -683,7 +749,7 @@
             // Đóng popup khi click nút
             fallback.querySelector('button').addEventListener('click', () => {
                 fallback.style.display = 'none';
-                showToast(`📋 Đã sao chép ${label} thủ công`);
+                showToast(`${LOCKET_DATA.ui.messages.copyManual} ${label} thủ công`);
             }, { once: true });
         }
         
@@ -706,7 +772,7 @@
                 setTimeout(() => {
                     btn.style.backgroundColor = type === 'username' ? '#e7f3ff' : '#e8f5e9';
                     icon.className = type === 'username' ? 'far fa-user' : 'fas fa-lock';
-                    text.textContent = type === 'username' ? 'Sao chép tài khoản' : 'Sao chép mật khẩu';
+                    text.textContent = type === 'username' ? LOCKET_DATA.ui.buttons.copyAccount : LOCKET_DATA.ui.buttons.copyPassword;
                 }, 2000);
             } else {
                 // Hiệu ứng thất bại
@@ -717,7 +783,7 @@
                 setTimeout(() => {
                     btn.style.backgroundColor = type === 'username' ? '#e7f3ff' : '#e8f5e9';
                     icon.className = type === 'username' ? 'far fa-user' : 'fas fa-lock';
-                    text.textContent = type === 'username' ? 'Sao chép tài khoản' : 'Sao chép mật khẩu';
+                    text.textContent = type === 'username' ? LOCKET_DATA.ui.buttons.copyAccount : LOCKET_DATA.ui.buttons.copyPassword;
                 }, 2000);
             }
         }
@@ -745,7 +811,7 @@
         let currentGoldCode = '';
         let goldCodeInterval = null;
         function fetchGoldCode() {
-            fetch('https://webhoangnamadmin.onrender.com/api/codelink')
+            fetch(LOCKET_DATA.api.goldCode)
                 .then(r => r.json())
                 .then(arr => { currentGoldCode = (arr[0]?.code || '').trim(); });
         }
@@ -765,7 +831,7 @@
               msg.textContent = '';
               clearInterval(goldCodeInterval);
             } else {
-              msg.textContent = 'Sai mã hoặc mã đã hết hạn!';
+              msg.textContent = LOCKET_DATA.ui.messages.wrongCode;
               content.style.display = 'none';
             }
           };
