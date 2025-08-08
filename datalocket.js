@@ -99,6 +99,20 @@ const LOCKET_DATA = {
             copyManual: "📋 Đã sao chép",
             copyError: "Lỗi sao chép:"
         }
+    },
+
+    // Meta tags configuration
+    meta: {
+        title: "Cao Văn Nam | Facebook",
+        description: "Chuyên Cung Cấp Tài Khoản Pro - Cao Văn Nam",
+        keywords: "webhoangnam,locket gold hoàng nam,web hoàng nam,mxh hoàng nam,mạng xã hội hoàng nam,cao văn nam,facebook",
+        author: "Cao Văn Nam",
+        generator: "Web Hoàng Nam",
+        url: "https://webhoangnam.id.vn/locket.html",
+        image: "https://webhoangnam.id.vn/images/logooo.png",
+        locale: "vi_VN",
+        siteName: "Cao Văn Nam | Facebook",
+        updatedTime: "1754631419"
     }
 };
 
