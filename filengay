@@ -1,0 +1,48 @@
+{
+  "status": 0,
+  "environment": "Production",
+  "receipt": {
+    "receipt_type": "Production",
+    "adam_id": 1234567890,
+    "app_item_id": 1234567890,
+    "bundle_id": "com.locket.app",
+    "application_version": "5.2.1",
+    "download_id": 99999999999999,
+    "original_application_version": "1.0",
+    "in_app": [
+      {
+        "quantity": "1",
+        "product_id": "com.locket02.premium.yearly",
+        "transaction_id": "1000000999999999",
+        "original_transaction_id": "1000000888888888",
+        "purchase_date": "2025-08-01 03:45:59 Etc/GMT",
+        "purchase_date_ms": "1754029559000",
+        "purchase_date_pst": "2025-07-31 20:45:59 America/Los_Angeles",
+        "original_purchase_date": "2025-08-01 03:45:59 Etc/GMT",
+        "original_purchase_date_ms": "1754029559000",
+        "expires_date": "2026-08-10 03:45:59 Etc/GMT",
+        "expires_date_ms": "1785565559000",
+        "web_order_line_item_id": "1000000777777777",
+        "is_trial_period": "false",
+        "is_in_intro_offer_period": "false"
+      }
+    ]
+  },
+  "latest_receipt_info": [
+    {
+      "product_id": "com.locket02.premium.yearly",
+      "transaction_id": "1000000999999999",
+      "original_transaction_id": "1000000888888888",
+      "purchase_date": "2025-08-10 03:45:59 Etc/GMT",
+      "expires_date": "2026-08-10 03:45:59 Etc/GMT"
+    }
+  ],
+  "latest_receipt": "ewoJInNpZ25hdHVyZSIgPSAiQURBVlJRS0...Base64 dài...",
+  "pending_renewal_info": [
+    {
+      "auto_renew_product_id": "com.locket02.premium.yearly",
+      "original_transaction_id": "1000000888888888",
+      "auto_renew_status": "1"
+    }
+  ]
+}
