@@ -95,6 +95,26 @@
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
         }
 
+        .back-btn {
+            background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            width: 100%;
+            display: none;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.3);
+        }
+
         .download-btn {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -215,6 +235,9 @@
                     <option value="iphone16pro">iPhone 16 Pro</option>
                     <option value="iphone16promax">iPhone 16 Pro Max</option>
                 </select>
+                <button type="button" id="backBtn" class="back-btn">
+                    🔙 Quay Lại
+                </button>
             </div>
 
             <button type="button" id="downloadBtn" class="download-btn">
@@ -241,11 +264,13 @@
         const deviceGroup = document.getElementById('deviceGroup');
         const deviceSelect = document.getElementById('device');
         const downloadBtn = document.getElementById('downloadBtn');
+        const backBtn = document.getElementById('backBtn');
         const statusDiv = document.getElementById('status');
 
         // Ẩn dropdown chọn máy và nút tải ban đầu
         deviceGroup.style.display = 'none';
         downloadBtn.style.display = 'none';
+        backBtn.style.display = 'none';
 
         // Xử lý nút xác nhận mã
         verifyBtn.addEventListener('click', function() {
@@ -277,6 +302,7 @@
 
                         // Hiện dropdown chọn máy
                         deviceGroup.style.display = 'block';
+                        backBtn.style.display = 'block';
                         
                         // Ẩn nút xác nhận
                         verifyBtn.style.display = 'none';
@@ -304,6 +330,22 @@
             } else {
                 downloadBtn.style.display = 'none';
             }
+        });
+
+        // Xử lý nút quay lại
+        backBtn.addEventListener('click', function() {
+            // Reset về trạng thái ban đầu
+            codeInput.value = '';
+            deviceSelect.value = '';
+            statusDiv.style.display = 'none';
+            
+            // Ẩn các phần tử
+            deviceGroup.style.display = 'none';
+            downloadBtn.style.display = 'none';
+            backBtn.style.display = 'none';
+            
+            // Hiện lại nút xác nhận
+            verifyBtn.style.display = 'block';
         });
 
         // Xử lý nút tải
