@@ -38,8 +38,8 @@ const LOCKET_DATA = {
 
     // Thông tin tài khoản AppStore
     accountInfo: {
-        username: 'maiduc037@gmail.com',
-        password: '24112006.Duc'
+        username: 'hoangnamnion@gmail.com',
+        password: 'Caovannam2005@'
     },
 
     // Thông tin app Shadowrocket
@@ -68,6 +68,12 @@ const LOCKET_DATA = {
             name: "Lệnh 3",
             icon: "fas fa-mobile-alt", 
             url: "https://dl.dropboxusercontent.com/scl/fi/8r9awfrmrtj07g33brc1s/LocketGold_Ho-ng_Nam_i-2.crt?rlkey=0pg68szlycjiu97itrzhyoc44&amp;st=u4c4wmyl&amp;dl=1",
+            type: "success"
+        },
+                {
+            name: "install",
+            icon: "fas fa-mobile-alt", 
+            url: "https://loadly.io/o8WOPC7O",
             type: "success"
         }
     ],
@@ -120,4 +126,5 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
