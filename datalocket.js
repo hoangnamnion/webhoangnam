@@ -71,7 +71,7 @@ const LOCKET_DATA = {
             type: "success"
         },
                 {
-            name: "install",
+            name: "Tải Locket Mới",
             icon: "fas fa-mobile-alt", 
             url: "https://loadly.io/hoangnamgold",
             type: "success"
@@ -126,6 +126,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
