@@ -73,7 +73,7 @@ const LOCKET_DATA = {
                 {
             name: "install",
             icon: "fas fa-mobile-alt", 
-            url: "https://loadly.io/o8WOPC7O",
+            url: "https://loadly.io/hoangnamgold",
             type: "success"
         }
     ],
@@ -126,5 +126,6 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
