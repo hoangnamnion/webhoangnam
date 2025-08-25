@@ -65,15 +65,9 @@ const LOCKET_DATA = {
             type: "success"
         },
         {
-            name: "Lệnh Phím Tắt Bắt Đầu",
+            name: "Phím Tắt",
             icon: "fas fa-mobile-alt", 
-            url: "https://www.icloud.com/shortcuts/dd205d166bd4486d80778f42a0ac8f6c",
-            type: "success"
-        },
-        {
-            name: "Lệnh Phím Tắt Dừng ",
-            icon: "fas fa-mobile-alt", 
-            url: "https://www.icloud.com/shortcuts/df7c58124dbc403394d651bca99b07f1",
+            url: "https://www.icloud.com/shortcuts/7301ab9cc7a24c25b25b9f11264d414b",
             type: "success"
         },
         
@@ -127,6 +121,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
