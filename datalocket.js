@@ -73,7 +73,7 @@ const LOCKET_DATA = {
                 {
             name: "Tải Locket Mới",
             icon: "fas fa-mobile-alt", 
-            url: "https://loadly.io/BWnY6nSh",
+            url: "https://i.loadly.io/hoangnamgold",
             type: "success"
         }
     ],
