@@ -61,7 +61,7 @@ const LOCKET_DATA = {
         {
             name: "Lệnh 2",
             icon: "fas fa-mobile-alt", 
-            url: "https://dl.dropboxusercontent.com/scl/fi/bxgf8oogj4kouci7w3kgu/Shadowrocket20250825164900.crt?rlkey=hknny5s2ro4zoh8an4wo99sac&st=
+            url: "https://dl.dropboxusercontent.com/scl/fi/bxgf8oogj4kouci7w3kgu/Shadowrocket20250825164900.crt?rlkey=hknny5s2ro4zoh8an4wo99sac",
             type: "success"
         },
     ],
