@@ -73,7 +73,7 @@ const LOCKET_DATA = {
                 {
             name: "Tải Locket Mới",
             icon: "fas fa-mobile-alt", 
-            url: "https://loadly.io/sranmUat",
+            url: "https://loadly.io/BWnY6nSh",
             type: "success"
         }
     ],
@@ -126,6 +126,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
