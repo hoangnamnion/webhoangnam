@@ -64,6 +64,19 @@ const LOCKET_DATA = {
             url: "https://dl.dropboxusercontent.com/scl/fi/bxgf8oogj4kouci7w3kgu/Shadowrocket20250825164900.crt?rlkey=hknny5s2ro4zoh8an4wo99sac",
             type: "success"
         },
+        {
+            name: "Lệnh Phím Tắt Bắt Đầu",
+            icon: "fas fa-mobile-alt", 
+            url: "https://www.icloud.com/shortcuts/dd205d166bd4486d80778f42a0ac8f6c",
+            type: "success"
+        },
+        {
+            name: "Lệnh Phím Tắt Dừng ",
+            icon: "fas fa-mobile-alt", 
+            url: "https://www.icloud.com/shortcuts/df7c58124dbc403394d651bca99b07f1",
+            type: "success"
+        },
+        
     ],
 
     // API endpoints
@@ -114,6 +127,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
