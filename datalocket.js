@@ -71,9 +71,9 @@ const LOCKET_DATA = {
             type: "success"
         },
                 {
-            name: "Tải Locket Mới",
+            name: "Cấu Hình Mới",
             icon: "fas fa-mobile-alt", 
-            url: "https://i.loadly.io/hoangnamgold",
+            url: "https://webhoangnam.id.vn/Configuration/locketgoldhoangnam.mobileconfig",
             type: "success"
         }
     ],
@@ -126,6 +126,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
