@@ -10,7 +10,7 @@
       <key>PayloadVersion</key>
       <integer>1</integer>
       <key>PayloadIdentifier</key>
-      <string>com.duyvinh09.dns.payload</string>
+      <string>com.dungbinh005.dns.payload</string>
       <key>PayloadUUID</key>
       <string>6039814D-F7B1-443B-9316-BBD8859F3416</string>
       <key>PayloadDisplayName</key>
@@ -18,7 +18,7 @@
       <key>PayloadDescription</key>
       <string>Locket Gold</string>
       <key>PayloadOrganization</key>
-      <string>CAOVANNAM</string>
+      <string>By Duong Binh</string>
       <key>DNSSettings</key>
       <dict>
         <key>ServerAddresses</key>
@@ -33,15 +33,15 @@
   <key>PayloadVersion</key>
   <integer>1</integer>
   <key>PayloadIdentifier</key>
-  <string>com.duyvinh09.dns.profile</string>
+  <string>com.dungbinh005.dns.profile</string>
   <key>PayloadUUID</key>
   <string>46746255-89F3-4B56-9D55-AC1BCD36EE89</string>
   <key>PayloadDisplayName</key>
-  <string>LocketGold Hoàng Nam</string>
+  <string>LocketGold DUONG BINH</string>
   <key>PayloadDescription</key>
-  <string>Locket Gold Hoàng Nam Bản 59K Dùng Vĩnh Viễn - Mất Gold Liên Hệ Shop Qua Facebook CAO VĂN NAM 5r5</string>
+  <string>Locket Gold DUONG BINH Bản Dùng Vĩnh Viễn - Mất Gold Liên Hệ Shop Qua Facebook </string>
   <key>PayloadOrganization</key>
-  <string>CAOVANNAM</string>
+  <string>By Duong Binh</string>
   <key>PayloadRemovalDisallowed</key>
   <false/>
   <key>PayloadScope</key>
@@ -50,7 +50,7 @@
   <array>
     <dict>
       <key>CommonName</key>
-      <string>CAOVANNAM</string>
+      <string>By Duong Binh</string>
     </dict>
   </array>
 </dict>
