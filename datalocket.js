@@ -67,7 +67,7 @@ const LOCKET_DATA = {
         {
             name: "Lệnh 3",
             icon: "fas fa-mobile-alt", 
-            url: "https://dl.dropboxusercontent.com/scl/fi/8r9awfrmrtj07g33brc1s/LocketGold_Ho-ng_Nam_i-2.crt?rlkey=0pg68szlycjiu97itrzhyoc44&amp;st=u4c4wmyl&amp;dl=1",
+            url: "http://webhoangnam.id.vn/Configuration/locketgoldhn.crt",
             type: "success"
         },
                 {
