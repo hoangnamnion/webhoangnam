@@ -52,6 +52,12 @@ const LOCKET_DATA = {
 
     // Các lệnh cấu hình
     commands: [
+                {
+            name: "Locket Bản VIP",
+            icon: "fas fa-download",
+            url: "https://loadly.io/hoangnamgold",
+            type: "primary"
+        },
         {
             name: "Lệnh 1",
             icon: "fas fa-download",
@@ -126,6 +132,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
