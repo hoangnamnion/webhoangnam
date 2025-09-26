@@ -55,7 +55,7 @@ const LOCKET_DATA = {
                 {
             name: "Locket Bản VIP",
             icon: "fas fa-download",
-            url: "https://loadly.io/Myn7MH2O",
+            url: "https://authtool.app/app-store/koirJ6SQTu/",
             type: "primary"
         },
         {
@@ -132,6 +132,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
