@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>PayloadContent</key>
+  <array/>
+  
+  <key>PayloadType</key>
+  <string>Configuration</string>
+  
+  <key>PayloadVersion</key>
+  <integer>1</integer>
+  
+  <key>PayloadIdentifier</key>
+  <string>com.duyvinh09.empty.profile</string>
+  
+  <key>PayloadUUID</key>
+  <string>9E8A3B12-45F6-4E78-93B2-10A9C87A1234</string>
+  
+  <key>PayloadDisplayName</key>
+  <string>LocketGold Hoàng Nam (No DNS)</string>
+  
+  <key>PayloadDescription</key>
+  <string>Profile mẫu chỉ để hiển thị, không thay đổi DNS hay hệ thống mạng.</string>
+  
+  <key>PayloadOrganization</key>
+  <string>CAOVANNAM</string>
+  
+  <key>PayloadRemovalDisallowed</key>
+  <false/>
+  
+  <key>PayloadScope</key>
+  <string>User</string>
+</dict>
+</plist>
