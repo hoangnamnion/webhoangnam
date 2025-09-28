@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Loading… | Redirecting</title>
+  <meta name="theme-color" content="#000000">
+  <!-- Fallback nếu tắt JS: tự chuyển sau 4 giây -->
+  <noscript>
+    <meta http-equiv="refresh" content="4;url=https://nroblue.vn">
+  </noscript>
+  <style>
+    :root {
+      --bar-height: 6px;
+      --bar-radius: 999px;
+      --track: rgba(255,255,255,.18);
+      --fill: #ffffff;
+      --text: #f5f5f5;
+      --sub: #bdbdbd;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #000; /* nền đen */
+      color: var(--text);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+    }
+    .stage {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    /* Canvas vũ trụ */
+    #stars {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 0;
+    }
+    /* Nội dung trung tâm */
+    .center {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+      backdrop-filter: blur(0.2px); /* rất nhẹ để sao mịn hơn */
+    }
+    .box {
+      width: min(560px, 88vw);
+    }
+    .title {
+      margin: 0 0 10px;
+      font-weight: 600;
+      font-size: clamp(18px, 3.5vw, 24px);
+      letter-spacing: .3px;
+    }
+    .sub {
+      margin: 0 0 18px;
+      color: var(--sub);
+      font-size: clamp(12px, 2.8vw, 14px);
+    }
+    .bar {
+      position: relative;
+      width: 100%;
+      height: var(--bar-height);
+      background: var(--track);
+      border-radius: var(--bar-radius);
+      overflow: hidden;
+      box-shadow: 0 0 0 1px rgba(255,255,255,.06) inset, 0 8px 24px rgba(255,255,255,.06);
+    }
+    .fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0%;
+      height: 100%;
+      background: var(--fill);
+      border-radius: var(--bar-radius);
+      transform: translateZ(0);
+    }
+    .percent {
+      margin-top: 10px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .5px;
+      color: var(--text);
+      opacity: .9;
+      font-size: clamp(12px, 2.8vw, 14px);
+    }
+    /* Nháy nháy nhẹ chữ Loading… */
+    .blink {
+      animation: blink 1.2s infinite steps(2, start);
+    }
+    @keyframes blink { 50% { opacity: .55; } }
+  </style>
+</head>
+<body>
+  <div class="stage" aria-busy="true" aria-live="polite">
+    <canvas id="stars" aria-hidden="true"></canvas>
+
+    <div class="center">
+      <div class="box" role="group" aria-label="Đang tải">
+        <h1 class="title"><span class="blink">Loading…</span></h1>
+        <p class="sub">Đang chuẩn bị chuyển hướng đến <strong>LOCKET GOLD DUONG BINH</strong></p>
+
+        <div class="bar" aria-label="Tiến độ tải">
+          <div class="fill" id="fill"></div>
+        </div>
+        <div class="percent" id="percent" aria-live="polite">0%</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== Vẽ bầu trời sao trên canvas ======
+    (function() {
+      const canvas = document.getElementById('stars');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let dpi = Math.max(1, Math.min(window.devicePixelRatio || 1, 2));
+
+      function resize() {
+        const { innerWidth: w, innerHeight: h } = window;
+        canvas.width = Math.floor(w * dpi);
+        canvas.height = Math.floor(h * dpi);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(dpi, 0, 0, dpi, 0, 0);
+        drawStars();
+      }
+
+      function drawStars() {
+        const w = canvas.width / dpi, h = canvas.height / dpi;
+        ctx.clearRect(0, 0, w, h);
+
+        // lớp nền gradient rất nhẹ
+        const g = ctx.createRadialGradient(w*0.5, h*0.4, 0, w*0.5, h*0.6, Math.max(w,h)*0.8);
+        g.addColorStop(0, 'rgba(255,255,255,0.02)');
+        g.addColorStop(1, 'rgba(255,255,255,0.00)');
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, w, h);
+
+        // tạo ~200–350 sao tuỳ theo diện tích
+        const density = Math.round((w*h) / 4500); // điều chỉnh mật độ
+        const stars = Math.max(200, Math.min(350, density));
+
+        for (let i = 0; i < stars; i++) {
+          const x = Math.random() * w;
+          const y = Math.random() * h;
+          const r = Math.random() * 1.3 + 0.2;           // bán kính 0.2–1.5
+          const a = Math.random() * 0.9 + 0.1;           // alpha 0.1–1.0
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(255,255,255,${a})`;
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+
+        // vài sao “twinkle” lớn hơn
+        for (let i = 0; i < 20; i++) {
+          const x = Math.random() * w;
+          const y = Math.random() * h;
+          const r = Math.random() * 2.2 + 0.8;
+          const grd = ctx.createRadialGradient(x, y, 0, x, y, r * 2.2);
+          grd.addColorStop(0, 'rgba(255,255,255,0.9)');
+          grd.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.fillStyle = grd;
+          ctx.beginPath();
+          ctx.arc(x, y, r*2.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      window.addEventListener('resize', resize);
+      resize();
+    })();
+
+    // ====== Thanh tiến độ 0 → 100% trong 3 giây rồi chuyển trang ======
+    (function() {
+      const fillEl = document.getElementById('fill');
+      const percentEl = document.getElementById('percent');
+      const DURATION = 3000; // ms
+      const TARGET = 'https://nroblue.vn';
+
+      let start = null;
+      function step(ts) {
+        if (!start) start = ts;
+        const elapsed = ts - start;
+        const p = Math.min(elapsed / DURATION, 1);
+        const percent = Math.round(p * 100);
+
+        // cập nhật UI
+        fillEl.style.width = (p * 100).toFixed(2) + '%';
+        percentEl.textContent = percent + '%';
+
+        if (p < 1) {
+          requestAnimationFrame(step);
+        } else {
+          // Đảm bảo đầy 100% rồi redirect
+          setTimeout(() => {
+            // dùng replace để không để lại lịch sử trang loading
+            window.location.replace(TARGET);
+          }, 150); // trễ rất nhỏ để người dùng thấy 100%
+        }
+      }
+
+      // bắt đầu ngay khi DOM sẵn sàng
+      requestAnimationFrame(step);
+
+      // Phòng trường hợp tab bị treo timer, vẫn auto chuyển sau 3.6s
+      setTimeout(() => {
+        if (fillEl.style.width !== '100%') {
+          fillEl.style.width = '100%';
+          percentEl.textContent = '100%';
+        }
+        window.location.replace(TARGET);
+      }, 3600);
+    })();
+  </script>
+</body>
+</html>
