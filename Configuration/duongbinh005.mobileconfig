@@ -2,56 +2,59 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>PayloadContent</key>
-  <array>
-    <dict>
-      <key>PayloadType</key>
-      <string>com.apple.dnsSettings.managed</string>
-      <key>PayloadVersion</key>
-      <integer>1</integer>
-      <key>PayloadIdentifier</key>
-      <string>com.dungbinh005.dns.payload</string>
-      <key>PayloadUUID</key>
-      <string>6039814D-F7B1-443B-9316-BBD8859F3416</string>
-      <key>PayloadDisplayName</key>
-      <string>Anti-Revoke Gold</string>
-      <key>PayloadDescription</key>
-      <string>Locket Gold</string>
-      <key>PayloadOrganization</key>
-      <string>By Duong Binh</string>
-      <key>DNSSettings</key>
-      <dict>
-        <key>ServerAddresses</key>
-        <array>
-          <string>160.191.243.40</string>
-        </array>
-      </dict>
-    </dict>
-  </array>
-  <key>PayloadType</key>
-  <string>Configuration</string>
-  <key>PayloadVersion</key>
-  <integer>1</integer>
-  <key>PayloadIdentifier</key>
-  <string>com.dungbinh005.dns.profile</string>
-  <key>PayloadUUID</key>
-  <string>46746255-89F3-4B56-9D55-AC1BCD36EE89</string>
-  <key>PayloadDisplayName</key>
-  <string>LocketGold DUONG BINH</string>
-  <key>PayloadDescription</key>
-  <string>Locket Gold DUONG BINH Bản Dùng Vĩnh Viễn - Mất Gold Liên Hệ Shop Qua Facebook </string>
-  <key>PayloadOrganization</key>
-  <string>By Duong Binh</string>
-  <key>PayloadRemovalDisallowed</key>
-  <false/>
-  <key>PayloadScope</key>
-  <string>User</string>
-  <key>SignerCertificates</key>
-  <array>
-    <dict>
-      <key>CommonName</key>
-      <string>By Duong Binh</string>
-    </dict>
-  </array>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>TLS</string>
+                <key>ServerAddresses</key>
+                <array>
+                    <string>45.90.28.164</string>
+                    <string>45.90.30.164</string>
+                </array>
+                <key>ServerName</key>
+                <string>9669d8.dns.nextdns.io</string>
+            </dict>
+
+            <!-- Payload con chỉ cần tên -->
+            <key>PayloadDisplayName</key>
+            <string>DƯƠNG BÌNH LOCKETGOLD</string>
+            <key>PayloadIdentifier</key>
+            <string>com.profile.dns.001</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>6D383A00-1111-2222-3333-444455556666</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+
+    <!-- Tên profile chính hiển thị lớn nhất -->
+    <key>PayloadDisplayName</key>
+    <string>DƯƠNG BÌNH LOCKETGOLD</string>
+
+    <!-- Mô tả chính sẽ hiển thị ở màn hình cài đặt (giống ảnh bạn gửi) -->
+    <key>PayloadDescription</key>
+    <string> Công Dụng :
+- Chặn quảng cáo cho toàn bộ thiết bị bao gồm cả chặn quảng cáo YouTube lên tới 90% .
+- Nâng cấp LocketGold .
+- Support: ZALO : 0378787154 .
+</string>
+
+    <!-- Định danh profile chính -->
+    <key>PayloadIdentifier</key>
+    <string>com.profile.system.001</string>
+
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>6D383A99-AAAA-BBBB-CCCC-1234567890AB</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
 </dict>
 </plist>
