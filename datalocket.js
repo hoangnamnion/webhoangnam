@@ -76,12 +76,6 @@ const LOCKET_DATA = {
             url: "http://webhoangnam.id.vn/Configuration/locketgoldhn.crt",
             type: "success"
         },
-                {
-            name: "Cấu Hình Mới",
-            icon: "fas fa-mobile-alt", 
-            url: "https://webhoangnam.id.vn/Configuration/locketgoldhoangnam.mobileconfig",
-            type: "success"
-        },
                         {
             name: "CẤU HÌNH CHẶN QUẢNG CÁO QUÀ TẶNG ",
             icon: "fas fa-mobile-alt", 
@@ -138,6 +132,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
