@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>DNSSettings</key>
+            <dict>
+                <key>DNSProtocol</key>
+                <string>TLS</string>
+                <key>ServerAddresses</key>
+                <array>
+                    <string>45.90.28.0</string>
+                    <string>45.90.30.0</string>
+                </array>
+                <key>ServerName</key>
+                <string>bb475f.dns.nextdns.io</string>
+            </dict>
+
+            <!-- Payload con chỉ cần tên -->
+            <key>PayloadDisplayName</key>
+            <string>ADB Block - Satodeprai</string>
+            <key>PayloadIdentifier</key>
+            <string>com.profile.dns.001</string>
+            <key>PayloadType</key>
+            <string>com.apple.dnsSettings.managed</string>
+            <key>PayloadUUID</key>
+            <string>6D383A00-1111-2222-3333-444455556666</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+        </dict>
+    </array>
+
+    <!-- Tên profile chính hiển thị lớn nhất -->
+    <key>PayloadDisplayName</key>
+    <string>Locket Gold Hoàng Nam</string>
+
+    <!-- Mô tả chính sẽ hiển thị ở màn hình cài đặt (giống ảnh bạn gửi) -->
+    <key>PayloadDescription</key>
+    <string>Tác Dụng :
+- Chặn quảng cáo cho toàn bộ thiết bị bao gồm cả chặn quảng cáo YouTube lên tới 90%.
+- Nâng cấp LocketGold.
+Support: WEBHOANGNAM.ID.VN </string>
+
+    <!-- Định danh profile chính -->
+    <key>PayloadIdentifier</key>
+    <string>com.profile.system.001</string>
+
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>6D383A99-AAAA-BBBB-CCCC-1234567890AB</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>
