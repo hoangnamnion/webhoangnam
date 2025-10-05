@@ -20,7 +20,7 @@
 
             <!-- Payload con chỉ cần tên -->
             <key>PayloadDisplayName</key>
-            <string>LOCKETGOLD  -  HOÀNG NAM</string>
+            <string>LOCKETGOLD  -  CAO VĂN NAM</string>
             <key>PayloadIdentifier</key>
             <string>com.profile.dns.001</string>
             <key>PayloadType</key>
