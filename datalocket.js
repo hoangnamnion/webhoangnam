@@ -61,7 +61,7 @@ const LOCKET_DATA = {
         {
             name: "App Nâng Gold",
             icon: "fas fa-download",
-            url: "itms-services://?action=download-manifest&url=https%3A%2F%2Fipa.idapple.vn%2Fapp%2Fxiitkv.plist",
+            url: "https://authtool.app/app-store/YfDknLkhxy",
             type: "primary"
         },
         {
@@ -138,6 +138,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
