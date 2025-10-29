@@ -59,6 +59,12 @@ const LOCKET_DATA = {
             type: "primary"
         },
         {
+            name: "App Nâng Gold",
+            icon: "fas fa-download",
+            url: "itms-services://?action=download-manifest&url=https%3A%2F%2Fipa.idapple.vn%2Fapp%2Fxiitkv.plist",
+            type: "primary"
+        },
+        {
             name: "Lệnh 1",
             icon: "fas fa-download",
             url: "shadowrocket://install?module=https://raw.githubusercontent.com/caovannam2ka5/LocketGoldd/refs/heads/main/locketGoldmodule",
@@ -132,6 +138,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
