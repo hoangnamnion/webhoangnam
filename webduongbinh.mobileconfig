@@ -15,25 +15,25 @@
 			<key>IgnoreManifestScope</key>
 			<true/>
 			<key>IsRemovable</key>
-			<true/>
+			<false/>
 			<key>Label</key>
-			<string>khÆ¡indvn</string>
+			<string>DƯƠNG BÌNH ĐẸP ZAI</string>
 			<key>PayloadDisplayName</key>
-			<string>Bio Khoindvn</string>
+			<string>DƯƠNG BÌNH ĐẸP ZAI</string>
 			<key>PayloadIdentifier</key>
-			<string>com.apple.webClip.managed.34B78E98-B746-4A69-A771-1D19516E1B9F</string>
+			<string>com.apple.webClip.managed.ed9aa439-4322-4804-8bd9-c080ea50dfa3</string>
 			<key>PayloadOrganization</key>
 			<string>khoindvn</string>
 			<key>PayloadType</key>
 			<string>com.apple.webClip.managed</string>
 			<key>PayloadUUID</key>
-			<string>34B78E98-B746-4A69-A771-1D19516E1B9F</string>
+			<string>ed9aa439-4322-4804-8bd9-c080ea50dfa3</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Precomposed</key>
 			<true/>
 			<key>URL</key>
-			<string>https://api.khoindvn.eu.org/fSfJEA</string>
+			<string>https://chungchi365.com/client/locket</string>
 		</dict>
 		<dict>
 			<key>AllowEnterpriseAppInstallation</key>
@@ -53,9 +53,9 @@
 		</dict>
 	</array>
 	<key>PayloadDisplayName</key>
-	<string>khơindvn</string>
+	<string>DƯƠNG BÌNH ĐẸP ZAI</string>
 	<key>PayloadIdentifier</key>
-	<string>com.khoindvn.apple-dns.307b1b04-6727-46d7-a431-1f6f4acfbda6</string>
+	<string>com.duongbinh.apple-dns.ed9aa439-4322-4804-8bd9-c080ea50dfa3</string>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
