@@ -12,7 +12,7 @@
 			<key>PayloadIdentifier</key>
 			<string>com.example.adguard</string>
 			<key>PayloadUUID</key>
-			<string>1702-VIP22</string>
+			<string>8d9bb9f2-0d3a-4d3f-9d1a-8d6e9a7f2b11</string>
 			<key>PayloadDisplayName</key>
 			<string>RoPhim Của Cao Văn Nam</string>
 			<key>DNSSettings</key>
@@ -75,7 +75,7 @@
 			<key>PayloadType</key>
 			<string>com.apple.applicationaccess</string>
 			<key>PayloadUUID</key>
-			<string>76455dc8-5db9-459b-b083-7adf81deba21</string>
+			<string>2f3c6a1e-1b24-4e4c-9f3a-1a2b3c4d5e6f</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 		</dict>
@@ -87,7 +87,7 @@
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>76455dc8-5db9-459b-b083-7adf81deba21</string>
+	<string>9c7f5e24-3a1b-4c6d-9e8f-1a2b3c4d5e6f</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
