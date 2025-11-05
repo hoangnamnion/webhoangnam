@@ -4,7 +4,46 @@
 <dict>
 	<key>PayloadContent</key>
 	<array>
-		
+		<dict>
+			<key>DNSSettings</key>
+			<dict>
+				<key>DNSProtocol</key>
+				<string>HTTPS</string>
+				<key>ServerAddresses</key>
+				<array/>
+				<key>ServerURL</key>
+				<string>https://yvsqf1uwl2.cloudflare-gateway.com/dns-query</string>
+			</dict>
+			<key>OnDemandRules</key>
+			<array>
+				<dict>
+					<key>Action</key>
+					<string>Connect</string>
+					<key>InterfaceTypeMatch</key>
+					<string>WiFi</string>
+				</dict>
+				<dict>
+					<key>Action</key>
+					<string>Connect</string>
+					<key>InterfaceTypeMatch</key>
+					<string>Cellular</string>
+				</dict>
+			</array>
+			<key>PayloadDescription</key>
+			<string>Configures device to use khÆ¡indvn Encrypted DNS over HTTPS</string>
+			<key>PayloadDisplayName</key>
+			<string>Anti Revoke</string>
+			<key>PayloadIdentifier</key>
+			<string>com.apple.dnsSettings.managed.0cd6791a-eb8f-4c81-b80c-f718e5f04c51</string>
+			<key>PayloadOrganization</key>
+			<string>khÆ¡indvn</string>
+			<key>PayloadType</key>
+			<string>com.apple.dnsSettings.managed</string>
+			<key>PayloadUUID</key>
+			<string>590396fe-a5b1-4778-a579-5b5ef931fdc7</string>
+			<key>PayloadVersion</key>
+			<integer>1</integer>
+		</dict>
 		<dict>
 			<key>FullScreen</key>
 			<true/>
@@ -15,25 +54,25 @@
 			<key>IgnoreManifestScope</key>
 			<true/>
 			<key>IsRemovable</key>
-			<false/>
+			<true/>
 			<key>Label</key>
-			<string>ROPHIM BY NAM</string>
+			<string>Ro Phim By Cao Văn Nam</string>
 			<key>PayloadDisplayName</key>
-			<string>ROPHIM BY NAM</string>
+			<string>RO PHIMPHIM</string>
 			<key>PayloadIdentifier</key>
-			<string>com.apple.webClip.managed.1a11e9bf-0c92-4951-8118-1cb6b5c53456</string>
+			<string>com.apple.webClip.managed.76455dc8-5db9-459b-b083-7adf81deba21</string>
 			<key>PayloadOrganization</key>
-			<string>khoindvn</string>
+			<string>RO PHIMPHIM</string>
 			<key>PayloadType</key>
 			<string>com.apple.webClip.managed</string>
 			<key>PayloadUUID</key>
-			<string>1a11e9bf-0c92-4951-8118-1cb6b5c53456</string>
-			<key>PayloadVersionmobile
+			<string>76455dc8-5db9-459b-b083-7adf81deba21</string>
+			<key>PayloadVersion</key>
 			<integer>1</integer>
 			<key>Precomposed</key>
 			<true/>
 			<key>URL</key>
-			<string>https://www.rophim.li</string>
+			<string>https://www.rophim.li/</string>
 		</dict>
 		<dict>
 			<key>AllowEnterpriseAppInstallation</key>
@@ -47,19 +86,19 @@
 			<key>PayloadType</key>
 			<string>com.apple.applicationaccess</string>
 			<key>PayloadUUID</key>
-			<string>1a11e9bf-0c92-4951-8118-1cb6b5c53456</string>
+			<string>76455dc8-5db9-459b-b083-7adf81deba21</string>
 			<key>PayloadVersion</key>
 			<integer>1</integer>
 		</dict>
 	</array>
 	<key>PayloadDisplayName</key>
-	<string>ROPHIM BY NAM</string>
+	<string>Rophim By Cao Văn Nam</string>
 	<key>PayloadIdentifier</key>
-	<string>com.duongbinh.apple-dns.1a11e9bf-0c92-4951-8118-1cb6b5c53456</string>
+	<string>com.ROPHIMPHIM.apple-dns.76455dc8-5db9-459b-b083-7adf81deba21</string>
 	<key>PayloadType</key>
 	<string>Configuration</string>
 	<key>PayloadUUID</key>
-	<string>cd0b011b-c3e7-45f3-8bac-5139a8da8bd5</string>
+	<string>76455dc8-5db9-459b-b083-7adf81deba21</string>
 	<key>PayloadVersion</key>
 	<integer>1</integer>
 </dict>
