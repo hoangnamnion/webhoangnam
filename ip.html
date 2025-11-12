@@ -35,6 +35,8 @@
   .fs{position:fixed;inset:0;background:#000;display:none;z-index:99}
   .fs.show{display:block}
   .fs .pad{position:absolute;inset:0;display:grid;place-items:center}
+  .fish-tank{position:relative;width:100%;height:300px;border:1px solid var(--border);border-radius:12px;background:linear-gradient(180deg,#0a1a3a 0%,#051020 50%,#020810 100%);overflow:hidden;cursor:pointer}
+  .fish{position:absolute;font-size:32px;transition:transform 0.1s linear;pointer-events:none;user-select:none}
   .color-chip{width:42px;height:28px;border-radius:8px;border:1px solid var(--border);cursor:pointer}
   .colors{display:flex;gap:10px;flex-wrap:wrap}
   .test-surface{height:160px;border:1px dashed #2a3555;border-radius:12px;background:#0b0f1c;display:grid;place-items:center}
@@ -62,8 +64,8 @@
 
     <!-- PIN -->
     <section class="card" id="pin">
-      <h2>1) Test Pin (đo tốc độ hao pin thủ công)</h2>
-      <p>Vì Safari iOS không cho truy cập mức pin qua web, bài test này dùng <b>nhập phần trăm pin thủ công</b> để tính <b>%/giờ</b>. Gợi ý: bật độ sáng ~70%, tắt nguồn điện, mở 1 video dài (hoặc để màn hình luôn bật), rồi bấm <b>Bắt đầu</b>.</p>
+      <h2>1) Test Pin (đo tốc độ hao pin)</h2>
+      <p id="pinDesc">Đang kiểm tra hỗ trợ đọc pin tự động...</p>
       <div class="grid">
         <div>
           <div class="row">
@@ -73,8 +75,10 @@
           <div class="flex" style="margin-top:10px">
             <button class="btn" id="pinStartBtn">Bắt đầu</button>
             <button class="btn" id="pinMarkBtn">Cập nhật</button>
+            <button class="btn" id="pinAutoBtn" style="display:none">Bật tự động</button>
             <span class="pill mono" id="pinTimer">00:00:00</span>
           </div>
+          <div class="small" id="pinStatus" style="margin-top:8px"></div>
         </div>
         <div>
           <div class="test-surface" id="pinAdvice">Bật 1 tác vụ cố định (xem video/treo màn hình). Nhập % pin trong lúc chạy để ước lượng.</div>
@@ -97,7 +101,7 @@
         <button class="btn" id="btnTouch">Kiểm tra cảm ứng (vẽ)</button>
         <button class="btn" id="btnExitView">Thoát chế độ test</button>
       </div>
-      <p class="small">Mẹo: bật <span class="kbd">Chế độ toàn màn hình</span> để soi đốm sáng/ám màu; kéo ngón tay vẽ khắp màn để tìm điểm đơ cảm ứng. <b>Thoát:</b> chạm 3 ngón đúp 2 lần hoặc bấm nút "Thoát chế độ test".</p>
+      <p class="small">Mẹo: bật <span class="kbd">Chế độ toàn màn hình</span> để soi đốm sáng/ám màu; kéo ngón tay vẽ khắp màn để tìm điểm đơ cảm ứng. <b>Vẽ:</b> 1 ngón = màu xanh, 3 ngón = màu đỏ. <b>Thoát:</b> chạm 3 ngón đúp 2 lần hoặc bấm nút "Thoát chế độ test".</p>
     </section>
 
     <!-- FPS / KHUNG HÌNH -->
@@ -129,9 +133,22 @@
       </div>
     </section>
 
+    <!-- THẢ CÁ -->
+    <section class="card" id="fish">
+      <h2>5) Thả cá (Fish Tank)</h2>
+      <p>Chạm vào bể cá để thả cá! Cá sẽ bơi tự do trong bể. Chạm nhiều lần để có nhiều cá hơn.</p>
+      <div class="flex" style="margin-bottom:10px">
+        <button class="btn" id="btnClearFish">Xóa tất cả cá</button>
+        <button class="btn" id="btnAutoFish" aria-pressed="false">Tự động thả cá</button>
+        <span class="pill">Số cá: <b class="mono" id="fishCount">0</b></span>
+      </div>
+      <div class="fish-tank" id="fishTank"></div>
+      <p class="small">💡 Mẹo: Bật tự động thả cá để xem bể cá đầy đủ. Cá sẽ tự động biến mất sau một thời gian.</p>
+    </section>
+
     <!-- ĐỘ GIẬT / JANK -->
     <section class="card" id="jank">
-      <h2>4) Độ lag/giật khi tải nặng</h2>
+      <h2>6) Độ lag/giật khi tải nặng</h2>
       <p>Chạy tải giả lập (CPU) bằng Web Worker để quan sát FPS và <b>độ trễ vòng lặp</b>. Cao quá → dễ giật. Không thay thế được thử nghiệm đa ứng dụng thật ngoài đời, nhưng hữu ích để so sánh tương đối.</p>
       <div class="row">
         <div>
@@ -224,34 +241,142 @@
   $('#btnGradient').onclick=()=>{ showFS(); setFSColor('linear-gradient(90deg,#000,#fff)'); };
 
   // Touch draw
+  let drawMode = 'draw'; // 'draw' or 'erase'
   function resizeCanvas(){
     canvasDraw.width = window.innerWidth; canvasDraw.height = window.innerHeight; ctx = canvasDraw.getContext('2d'); ctx.lineWidth=8; ctx.lineCap='round'; ctx.strokeStyle='#22d3ee';
   }
   window.addEventListener('resize',()=>{ if(canvasDraw.style.display!=='none'){ resizeCanvas(); }});
   $('#btnTouch').onclick=()=>{ showFS(); canvasDraw.style.display='block'; resizeCanvas(); };
   function pos(e){ if(e.touches&&e.touches[0]) return {x:e.touches[0].clientX,y:e.touches[0].clientY}; return {x:e.clientX,y:e.clientY}; }
-  canvasDraw.addEventListener('pointerdown',e=>{ drawing=true; ctx.beginPath(); ctx.moveTo(pos(e).x,pos(e).y); });
-  canvasDraw.addEventListener('pointermove',e=>{ if(!drawing) return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
-  window.addEventListener('pointerup',()=>drawing=false);
-
+  
+  // Track active touches
+  let activeTouches = new Map();
+  
+  canvasDraw.addEventListener('pointerdown',e=>{
+    const touchCount = e.touches ? e.touches.length : 1;
+    if(touchCount === 1){
+      drawing = true;
+      drawMode = 'draw';
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = '#22d3ee';
+      ctx.lineWidth = 8;
+      ctx.beginPath();
+      ctx.moveTo(pos(e).x, pos(e).y);
+      activeTouches.set(e.pointerId, {mode: 'draw', startX: pos(e).x, startY: pos(e).y});
+    }
+  });
+  
+  canvasDraw.addEventListener('pointermove',e=>{
+    if(!drawing) return;
+    const touchCount = e.touches ? e.touches.length : 1;
+    const touch = activeTouches.get(e.pointerId);
+    
+    if(touchCount === 1 && touch && touch.mode === 'draw'){
+      const p = pos(e);
+      ctx.lineTo(p.x, p.y);
+      ctx.stroke();
+    }
+  });
+  
+  window.addEventListener('pointerup',(e)=>{
+    activeTouches.delete(e.pointerId);
+    if(activeTouches.size === 0) drawing = false;
+  });
+  
   // Exit gesture: 3 fingers double tap
   let lastThreeFingerTap = 0;
-  fsPad.addEventListener('touchstart', (e) => {
+  function handleThreeFingerTap(e) {
     if (e.touches.length === 3) {
       const now = Date.now();
       if (now - lastThreeFingerTap < 500) { // Double tap within 500ms
         hideFS();
         lastThreeFingerTap = 0; // Reset
+        return true; // Exit handled
       } else {
         lastThreeFingerTap = now;
       }
     } else {
       lastThreeFingerTap = 0; // Reset if not 3 fingers
     }
+    return false;
+  }
+  fsPad.addEventListener('touchstart', handleThreeFingerTap);
+  
+  // Handle 3-finger drawing (red color) or exit
+  let threeFingerStartTime = 0;
+  canvasDraw.addEventListener('touchstart',(e)=>{
+    if(e.touches.length === 3 && canvasDraw.style.display !== 'none'){
+      // Check for exit gesture first
+      if(handleThreeFingerTap(e)){
+        e.preventDefault();
+        return; // Exit, don't draw
+      }
+      // Otherwise, start 3-finger drawing
+      threeFingerStartTime = Date.now();
+      e.preventDefault();
+      drawing = true;
+      drawMode = 'draw3';
+      ctx.globalCompositeOperation = 'source-over';
+      ctx.strokeStyle = '#ef4444'; // Red color for 3 fingers
+      ctx.lineWidth = 12; // Thicker for 3 fingers
+      const touch = e.touches[0];
+      ctx.beginPath();
+      ctx.moveTo(touch.clientX, touch.clientY);
+    }
+  });
+  
+  canvasDraw.addEventListener('touchmove',(e)=>{
+    if(e.touches.length === 3 && drawing && drawMode === 'draw3'){
+      // Only draw if moved (not just tap)
+      if(Date.now() - threeFingerStartTime > 100){
+        e.preventDefault();
+        const touch = e.touches[0];
+        ctx.lineTo(touch.clientX, touch.clientY);
+        ctx.stroke();
+      }
+    }
+  });
+  
+  canvasDraw.addEventListener('touchend',(e)=>{
+    if(e.touches.length < 3){
+      drawing = false;
+      drawMode = 'draw';
+      threeFingerStartTime = 0;
+    }
   });
 
-  // ====== PIN manual drain test ======
-  let pinStartTS=null; let pinTimerId=null;
+  // ====== PIN drain test ======
+  let pinStartTS=null; let pinTimerId=null; let battery=null; let pinAutoMode=false; let pinAutoInterval=null;
+  
+  // Check Battery API support
+  async function initBattery(){
+    if('getBattery' in navigator){
+      try{
+        battery = await navigator.getBattery();
+        $('#pinDesc').innerHTML = '✅ <b>Đọc pin tự động được hỗ trợ!</b> Bấm "Bật tự động" để tự động cập nhật pin. Hoặc nhập thủ công nếu muốn.';
+        $('#pinAutoBtn').style.display='inline-block';
+        $('#pinStatus').textContent = `Pin: ${Math.round(battery.level*100)}% | Sạc: ${battery.charging?'Đang sạc':'Không sạc'}`;
+        
+        battery.addEventListener('chargingchange',()=>{
+          $('#pinStatus').textContent = `Pin: ${Math.round(battery.level*100)}% | Sạc: ${battery.charging?'Đang sạc':'Không sạc'}`;
+        });
+        battery.addEventListener('levelchange',()=>{
+          const pct = Math.round(battery.level*100);
+          $('#pinStatus').textContent = `Pin: ${pct}% | Sạc: ${battery.charging?'Đang sạc':'Không sạc'}`;
+          if(pinAutoMode && pinStartTS){
+            $('#pinNow').value = pct;
+            refreshPin();
+          }
+        });
+      }catch(e){
+        $('#pinDesc').innerHTML = '⚠️ Không thể truy cập pin. Vui lòng <b>nhập phần trăm pin thủ công</b> để tính %/giờ.';
+      }
+    }else{
+      $('#pinDesc').innerHTML = '⚠️ Safari iOS không cho truy cập mức pin qua web. Vui lòng <b>nhập phần trăm pin thủ công</b> để tính %/giờ.';
+    }
+  }
+  initBattery();
+  
   function updatePinTimer(){ if(!pinStartTS) return; const s=Math.floor((Date.now()-pinStartTS)/1000); const h=String(Math.floor(s/3600)).padStart(2,'0'); const m=String(Math.floor(s%3600/60)).padStart(2,'0'); const ss=String(s%60).padStart(2,'0'); $('#pinTimer').textContent=`${h}:${m}:${ss}`; }
   function computePinRate(){
     const a = parseFloat($('#pinStart').value);
@@ -274,8 +399,40 @@
     }
     $('#pinNote').textContent=t;
   }
-  $('#pinStartBtn').onclick=()=>{ pinStartTS=Date.now(); clearInterval(pinTimerId); pinTimerId=setInterval(()=>{ updatePinTimer(); refreshPin(); },1000); updatePinTimer(); };
-  $('#pinMarkBtn').onclick=refreshPin;
+  
+  $('#pinStartBtn').onclick=()=>{
+    if(battery && pinAutoMode){
+      $('#pinStart').value = Math.round(battery.level*100);
+    }
+    pinStartTS=Date.now(); 
+    clearInterval(pinTimerId); 
+    pinTimerId=setInterval(()=>{ 
+      updatePinTimer(); 
+      if(pinAutoMode && battery){
+        $('#pinNow').value = Math.round(battery.level*100);
+      }
+      refreshPin(); 
+    },1000); 
+    updatePinTimer();
+  };
+  
+  $('#pinMarkBtn').onclick=()=>{
+    if(battery && pinAutoMode){
+      $('#pinNow').value = Math.round(battery.level*100);
+    }
+    refreshPin();
+  };
+  
+  $('#pinAutoBtn').onclick=(e)=>{
+    pinAutoMode = !pinAutoMode;
+    e.currentTarget.textContent = pinAutoMode ? 'Tắt tự động' : 'Bật tự động';
+    e.currentTarget.setAttribute('aria-pressed', String(pinAutoMode));
+    
+    if(pinAutoMode && battery){
+      $('#pinNow').value = Math.round(battery.level*100);
+      if(pinStartTS) refreshPin();
+    }
+  };
 
   // ====== FPS METER ======
   const fpsCanvas=$('#fpsCanvas'); const fctx=fpsCanvas.getContext('2d');
@@ -344,6 +501,116 @@
     $('#driftPeak').textContent=fmt(driftPeak);
     $('#driftAvg').textContent=fmt(driftAvg);
   },500);
+
+  // ====== FISH TANK ======
+  const fishTank = $('#fishTank');
+  const fishEmojis = ['🐟', '🐠', '🐡', '🦈', '🐙', '🦑', '🦐', '🦀', '🐚', '🌊'];
+  let fishCount = 0;
+  let autoFishInterval = null;
+  let autoFishOn = false;
+
+  function createFish(x, y) {
+    const fish = document.createElement('div');
+    fish.className = 'fish';
+    fish.textContent = fishEmojis[Math.floor(Math.random() * fishEmojis.length)];
+    fish.style.left = x + 'px';
+    fish.style.top = y + 'px';
+    
+    const angle = Math.random() * Math.PI * 2;
+    const speed = 0.5 + Math.random() * 1;
+    const size = 20 + Math.random() * 20;
+    fish.style.fontSize = size + 'px';
+    
+    let px = x;
+    let py = y;
+    let dir = Math.random() < 0.5 ? 1 : -1; // flip direction
+    
+    const move = () => {
+      px += Math.cos(angle) * speed * dir;
+      py += Math.sin(angle) * speed * dir;
+      
+      // Bounce off walls
+      const rect = fishTank.getBoundingClientRect();
+      if (px < 0 || px > rect.width - size) {
+        dir *= -1;
+        px = Math.max(0, Math.min(px, rect.width - size));
+      }
+      if (py < 0 || py > rect.height - size) {
+        dir *= -1;
+        py = Math.max(0, Math.min(py, rect.height - size));
+      }
+      
+      fish.style.left = px + 'px';
+      fish.style.top = py + 'px';
+      fish.style.transform = `scaleX(${dir})`;
+      
+      requestAnimationFrame(move);
+    };
+    
+    move();
+    
+    // Auto remove after 30-60 seconds
+    setTimeout(() => {
+      if (fish.parentNode) {
+        fish.style.opacity = '0';
+        fish.style.transition = 'opacity 1s';
+        setTimeout(() => {
+          if (fish.parentNode) {
+            fish.remove();
+            fishCount--;
+            $('#fishCount').textContent = fishCount;
+          }
+        }, 1000);
+      }
+    }, 30000 + Math.random() * 30000);
+    
+    fishTank.appendChild(fish);
+    fishCount++;
+    $('#fishCount').textContent = fishCount;
+  }
+
+  fishTank.addEventListener('click', (e) => {
+    const rect = fishTank.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    createFish(x, y);
+  });
+
+  fishTank.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    const rect = fishTank.getBoundingClientRect();
+    const touch = e.touches[0];
+    const x = touch.clientX - rect.left;
+    const y = touch.clientY - rect.top;
+    createFish(x, y);
+  });
+
+  $('#btnClearFish').onclick = () => {
+    fishTank.innerHTML = '';
+    fishCount = 0;
+    $('#fishCount').textContent = fishCount;
+  };
+
+  $('#btnAutoFish').onclick = (e) => {
+    autoFishOn = !autoFishOn;
+    e.currentTarget.setAttribute('aria-pressed', String(autoFishOn));
+    
+    if (autoFishOn) {
+      autoFishInterval = setInterval(() => {
+        if (fishCount < 50) { // Limit to 50 fish
+          const rect = fishTank.getBoundingClientRect();
+          const x = Math.random() * rect.width;
+          const y = Math.random() * rect.height;
+          createFish(x, y);
+        }
+      }, 1000);
+    } else {
+      if (autoFishInterval) {
+        clearInterval(autoFishInterval);
+        autoFishInterval = null;
+      }
+    }
+  };
 </script>
 </body>
 </html>
