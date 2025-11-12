@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>iPhone Check – Pin, Màn hình, FPS & Độ giật</title>
+<style>
+  :root{
+    --bg:#0b0c10; --panel:#0f1320; --text:#e6edf7; --muted:#9aa6bf; --accent:#22d3ee; --ok:#34d399; --warn:#f59e0b; --bad:#ef4444; --border:#1f2937;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{margin:0;background:radial-gradient(1200px 800px at 10% -10%,#13203a33,transparent),radial-gradient(1000px 700px at 110% 110%,#1a163333,transparent),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial}
+  h1,h2{margin:0 0 .5rem}
+  h1{font-size:clamp(20px,3.2vw,28px)}
+  h2{font-size:clamp(18px,2.6vw,22px)}
+  p{color:var(--muted)}
+  .wrap{max-width:980px;margin:24px auto;padding:0 16px}
+  .card{background:linear-gradient(180deg,#0f1320,#0c1020);border:1px solid var(--border);border-radius:16px;padding:16px;margin:16px 0;box-shadow:0 6px 24px #00000033}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+  .btn{appearance:none;border:1px solid var(--border);background:#12182a;color:var(--text);padding:10px 12px;border-radius:12px;cursor:pointer}
+  .btn:hover{border-color:#2a3a5a}
+  .btn[aria-pressed="true"]{outline:2px solid var(--accent)}
+  .tag{display:inline-block;padding:3px 8px;border-radius:999px;border:1px solid var(--border);color:var(--muted);font-size:12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+  .kbd{padding:2px 6px;border:1px solid var(--border);border-bottom-width:2px;border-radius:6px;background:#0b0f1c;font:12px ui-monospace,SFMono-Regular;}
+  .small{font-size:12px;color:var(--muted)}
+  .meter{height:10px;border-radius:999px;background:#0c1222;border:1px solid var(--border);overflow:hidden}
+  .meter>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ok),var(--warn),var(--bad));transition:width .2s}
+  .pill{display:inline-block;background:#0d152a;border:1px solid var(--border);padding:6px 10px;border-radius:999px}
+  .flex{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+  .right{margin-left:auto}
+  .fs{position:fixed;inset:0;background:#000;display:none;z-index:99}
+  .fs.show{display:block}
+  .fs .pad{position:absolute;inset:0;display:grid;place-items:center}
+  .color-chip{width:42px;height:28px;border-radius:8px;border:1px solid var(--border);cursor:pointer}
+  .colors{display:flex;gap:10px;flex-wrap:wrap}
+  .test-surface{height:160px;border:1px dashed #2a3555;border-radius:12px;background:#0b0f1c;display:grid;place-items:center}
+  canvas{max-width:100%;border-radius:12px;border:1px solid var(--border);background:#0b0f1c}
+  .warn{color:var(--warn)}
+  .danger{color:var(--bad)}
+  .ok{color:var(--ok)}
+  @media (max-width:740px){.row,.row-3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="card" style="position:sticky;top:8px;z-index:5;background:#0f1320cc;backdrop-filter:blur(8px)">
+      <div class="flex">
+        <div>
+          <h1>iPhone Check</h1>
+          <p class="small">Test pin (thủ công), màn hình, FPS/Hz quan sát và đo <span class="tag">client‑side</span>, đánh giá độ giật khi tải nặng. Không yêu cầu cài app.</p>
+        </div>
+        <div class="right flex">
+          <button class="btn" id="btnFS">Chế độ toàn màn hình</button>
+          <span class="pill" id="ua"></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- PIN -->
+    <section class="card" id="pin">
+      <h2>1) Test Pin (đo tốc độ hao pin thủ công)</h2>
+      <p>Vì Safari iOS không cho truy cập mức pin qua web, bài test này dùng <b>nhập phần trăm pin thủ công</b> để tính <b>%/giờ</b>. Gợi ý: bật độ sáng ~70%, tắt nguồn điện, mở 1 video dài (hoặc để màn hình luôn bật), rồi bấm <b>Bắt đầu</b>.</p>
+      <div class="grid">
+        <div>
+          <div class="row">
+            <label>Pin bắt đầu (%)<br><input id="pinStart" type="number" min="1" max="100" class="btn" style="width:100%" placeholder="vd: 95"></label>
+            <label>Pin hiện tại (%)<br><input id="pinNow" type="number" min="0" max="100" class="btn" style="width:100%" placeholder="vd: 90"></label>
+          </div>
+          <div class="flex" style="margin-top:10px">
+            <button class="btn" id="pinStartBtn">Bắt đầu</button>
+            <button class="btn" id="pinMarkBtn">Cập nhật</button>
+            <span class="pill mono" id="pinTimer">00:00:00</span>
+          </div>
+        </div>
+        <div>
+          <div class="test-surface" id="pinAdvice">Bật 1 tác vụ cố định (xem video/treo màn hình). Nhập % pin trong lúc chạy để ước lượng.</div>
+          <div style="margin-top:10px">
+            <div class="flex"><b>Tốc độ hao pin ước tính:</b> <span class="right mono" id="pinRate">— %/giờ</span></div>
+            <div class="meter" title="Tốc độ cao = hao pin nhanh"><i id="pinMeter"></i></div>
+            <div class="small" id="pinNote">&nbsp;</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MÀN HÌNH -->
+    <section class="card" id="screen">
+      <h2>2) Test Màn hình (màu, điểm chết, cảm ứng)</h2>
+      <div class="colors" id="colorList"></div>
+      <div class="flex" style="margin-top:10px">
+        <button class="btn" id="btnChecker">Checkerboard</button>
+        <button class="btn" id="btnGradient">Gradient</button>
+        <button class="btn" id="btnTouch">Kiểm tra cảm ứng (vẽ)</button>
+        <button class="btn" id="btnExitView">Thoát chế độ test</button>
+      </div>
+      <p class="small">Mẹo: bật <span class="kbd">Chế độ toàn màn hình</span> để soi đốm sáng/ám màu; kéo ngón tay vẽ khắp màn để tìm điểm đơ cảm ứng. <b>Thoát:</b> chạm 3 ngón đúp 2 lần hoặc bấm nút "Thoát chế độ test".</p>
+    </section>
+
+    <!-- FPS / KHUNG HÌNH -->
+    <section class="card" id="fps">
+      <h2>3) FPS / Tần số quét quan sát</h2>
+      <p>Đo FPS bằng <code>requestAnimationFrame</code> (quan sát). Nếu iPhone hỗ trợ 120Hz (ProMotion) và không bị giới hạn, FPS quan sát thường ≈ 120 ở thao tác cuộn/vẽ. Không thể ép phần cứng đổi Hz từ web.</p>
+      <div class="row">
+        <div>
+          <canvas id="fpsCanvas" width="600" height="200"></canvas>
+          <div class="flex" style="margin-top:8px">
+            <span>FPS hiện tại: <b class="mono" id="fpsNow">—</b></span>
+            <span class="pill">TB 2s: <b class="mono" id="fpsAvg">—</b></span>
+            <span class="pill">Đỉnh: <b class="mono" id="fpsPeak">—</b></span>
+            <span class="pill">Thấp: <b class="mono" id="fpsLow">—</b></span>
+            <span class="right small">Vuốt / cuộn để quan sát thay đổi</span>
+          </div>
+        </div>
+        <div>
+          <div class="flex" style="margin-bottom:8px">
+            <button class="btn" id="btnStartFPS">Bắt đầu đo</button>
+            <button class="btn" id="btnStopFPS">Dừng</button>
+            <button class="btn" id="btnSim60" aria-pressed="false">Giới hạn (giả lập) 60 FPS</button>
+          </div>
+          <div class="small">
+            • <b>Giới hạn (giả lập) 60 FPS</b> chỉ làm chậm vòng lặp vẽ để bạn so sánh cảm giác cuộn/vẽ, <u>không thay đổi tần số quét phần cứng</u>.<br>
+            • Trên iOS: bật/tắt <b>Cài đặt → Trợ năng → Chuyển động → Giới hạn tốc độ khung hình</b> để kiểm tra thật 60Hz/120Hz.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ĐỘ GIẬT / JANK -->
+    <section class="card" id="jank">
+      <h2>4) Độ lag/giật khi tải nặng</h2>
+      <p>Chạy tải giả lập (CPU) bằng Web Worker để quan sát FPS và <b>độ trễ vòng lặp</b>. Cao quá → dễ giật. Không thay thế được thử nghiệm đa ứng dụng thật ngoài đời, nhưng hữu ích để so sánh tương đối.</p>
+      <div class="row">
+        <div>
+          <div class="flex" style="gap:12px;align-items:center">
+            <label> Mức tải (1–6): <input id="loadLevel" type="range" min="0" max="6" step="1" value="0" /></label>
+            <button class="btn" id="btnStartLoad">Bắt đầu tải</button>
+            <button class="btn" id="btnStopLoad">Dừng tải</button>
+          </div>
+          <div style="margin-top:10px">
+            <div class="flex"><b>Độ trễ vòng lặp (ms)</b><span class="right mono" id="lagNow">—</span></div>
+            <div class="meter" title="Cao = trễ nhiều, dễ giật"><i id="lagMeter"></i></div>
+            <div class="small">Quan sát <b>FPS</b> bên trên khi tăng tải; nếu FPS dao động mạnh hoặc <span class="danger">tụt sâu</span>, thiết bị đang căng.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="grid">
+            <div class="pill">Long Tasks: <span id="ltCount" class="mono">0</span></div>
+            <div class="pill">Drift TB (ms): <span id="driftAvg" class="mono">—</span></div>
+            <div class="pill">Peak drift (ms): <span id="driftPeak" class="mono">—</span></div>
+          </div>
+          <p class="small">* Long Task ≥ 50ms (nếu trình duyệt hỗ trợ <code>PerformanceObserver</code>). Drift = độ lệch lịch thời gian, cao → khả năng jank.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="card">
+      <div class="grid">
+        <div>
+          <b>Lưu ý quan trọng</b>
+          <ul class="small">
+            <li>Web không thể đọc <b>phần trăm pin</b> thật trên iOS (Apple chặn), nên phần Pin là đo <b>thủ công</b>.</li>
+            <li>Không thể ép thay đổi <b>tần số quét phần cứng</b> (Hz). Trang chỉ đo FPS quan sát.</li>
+            <li>Kết quả phụ thuộc độ sáng, nhiệt độ, ứng dụng nền, tình trạng pin.</li>
+          </ul>
+        </div>
+        <div>
+          <b>Mẹo kiểm tra nhanh</b>
+          <ul class="small">
+            <li>Mở tab trắng/đen để soi ám màu, chấm sáng/đen, sọc.</li>
+            <li>Vuốt liên tục và nhìn đồ thị FPS; nếu <span class="danger">răng cưa</span> mạnh → khả năng giật.</li>
+            <li>Tăng tải mức 4–6 rồi so FPS trước/sau để cảm nhận.</li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- FULLSCREEN SURFACE FOR SCREEN TESTS -->
+  <div class="fs" id="fs">
+    <div class="pad" id="fsPad">
+      <canvas id="draw" style="display:none;touch-action:none"></canvas>
+    </div>
+  </div>
+
+<script>
+  // ====== Utils ======
+  const $ = (s)=>document.querySelector(s);
+  const $$ = (s)=>Array.from(document.querySelectorAll(s));
+  const fmt = (n)=> (n===undefined||isNaN(n))?"—":(Math.round(n*10)/10).toString();
+  const clamp=(n,min,max)=>Math.max(min,Math.min(max,n));
+  const ua = navigator.userAgent;
+  $('#ua').textContent = ua.split('(')[0].trim();
+
+  // ====== Fullscreen helpers ======
+  const fsEl = $('#fs');
+  const fsPad = $('#fsPad');
+  const canvasDraw = $('#draw');
+  let drawing = false, ctx = null;
+  function setFSColor(c){ fsPad.style.background = c; canvasDraw.style.display='none'; }
+  function showFS(){ fsEl.classList.add('show'); }
+  function hideFS(){ fsEl.classList.remove('show'); canvasDraw.style.display='none'; }
+  $('#btnFS').onclick = ()=>{
+    if(!document.fullscreenElement) document.documentElement.requestFullscreen?.(); else document.exitFullscreen?.();
+  };
+  $('#btnExitView').onclick = hideFS;
+
+  // Build color chips
+  const colors=[['Trắng','#ffffff'],['Đen','#000000'],['Đỏ','#ff0000'],['Xanh lá','#00ff00'],['Xanh dương','#0000ff'],['Xám','#808080'],['Vàng','#ffff00'],['Tím','#800080']];
+  const colorList=$('#colorList');
+  colors.forEach(([name,hex])=>{
+    const d=document.createElement('button');
+    d.className='color-chip'; d.style.background=hex; d.title=name;
+    d.onclick=()=>{ setFSColor(hex); showFS(); };
+    colorList.appendChild(d);
+  });
+
+  // Checkerboard & Gradient
+  $('#btnChecker').onclick=()=>{ showFS(); setFSColor('repeating-conic-gradient(#000 0 25%, #fff 0 50%)'); };
+  $('#btnGradient').onclick=()=>{ showFS(); setFSColor('linear-gradient(90deg,#000,#fff)'); };
+
+  // Touch draw
+  function resizeCanvas(){
+    canvasDraw.width = window.innerWidth; canvasDraw.height = window.innerHeight; ctx = canvasDraw.getContext('2d'); ctx.lineWidth=8; ctx.lineCap='round'; ctx.strokeStyle='#22d3ee';
+  }
+  window.addEventListener('resize',()=>{ if(canvasDraw.style.display!=='none'){ resizeCanvas(); }});
+  $('#btnTouch').onclick=()=>{ showFS(); canvasDraw.style.display='block'; resizeCanvas(); };
+  function pos(e){ if(e.touches&&e.touches[0]) return {x:e.touches[0].clientX,y:e.touches[0].clientY}; return {x:e.clientX,y:e.clientY}; }
+  canvasDraw.addEventListener('pointerdown',e=>{ drawing=true; ctx.beginPath(); ctx.moveTo(pos(e).x,pos(e).y); });
+  canvasDraw.addEventListener('pointermove',e=>{ if(!drawing) return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); });
+  window.addEventListener('pointerup',()=>drawing=false);
+
+  // Exit gesture: 3 fingers double tap
+  let lastThreeFingerTap = 0;
+  fsPad.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 3) {
+      const now = Date.now();
+      if (now - lastThreeFingerTap < 500) { // Double tap within 500ms
+        hideFS();
+        lastThreeFingerTap = 0; // Reset
+      } else {
+        lastThreeFingerTap = now;
+      }
+    } else {
+      lastThreeFingerTap = 0; // Reset if not 3 fingers
+    }
+  });
+
+  // ====== PIN manual drain test ======
+  let pinStartTS=null; let pinTimerId=null;
+  function updatePinTimer(){ if(!pinStartTS) return; const s=Math.floor((Date.now()-pinStartTS)/1000); const h=String(Math.floor(s/3600)).padStart(2,'0'); const m=String(Math.floor(s%3600/60)).padStart(2,'0'); const ss=String(s%60).padStart(2,'0'); $('#pinTimer').textContent=`${h}:${m}:${ss}`; }
+  function computePinRate(){
+    const a = parseFloat($('#pinStart').value);
+    const b = parseFloat($('#pinNow').value);
+    if(!pinStartTS || isNaN(a)||isNaN(b)||a<=b) return {rate:null, note:'Nhập đúng số và hao pin phải > 0%'};
+    const hrs = (Date.now()-pinStartTS)/3600000;
+    const drop = a-b; const rate = drop/hrs; // % per hour
+    return {rate, hrs, drop};
+  }
+  function refreshPin(){
+    const {rate,hrs,drop} = computePinRate();
+    const r = rate? rate: 0; $('#pinRate').textContent = rate? `${fmt(rate)} %/giờ` : '— %/giờ';
+    $('#pinMeter').style.width = `${clamp(r,0,25)/25*100}%`;
+    let t='';
+    if(rate){
+      t = `Hao ${fmt(drop)}% trong ${fmt(hrs)} giờ. ~${fmt(100/rate)} giờ từ 100% → 0% (ước tính).`;
+      if(rate<=5) t += ' \u2013 \u003c=5%/h: Tiết kiệm/ổn.';
+      else if(rate<=10) t += ' \u2013 5-10%/h: Bình thường.';
+      else t += ' \u2013 >10%/h: Hao nhanh.';
+    }
+    $('#pinNote').textContent=t;
+  }
+  $('#pinStartBtn').onclick=()=>{ pinStartTS=Date.now(); clearInterval(pinTimerId); pinTimerId=setInterval(()=>{ updatePinTimer(); refreshPin(); },1000); updatePinTimer(); };
+  $('#pinMarkBtn').onclick=refreshPin;
+
+  // ====== FPS METER ======
+  const fpsCanvas=$('#fpsCanvas'); const fctx=fpsCanvas.getContext('2d');
+  const W=fpsCanvas.width, H=fpsCanvas.height;
+  let fpsOn=false, last=performance.now(), samples=[], peak=0, low=999, sim60=false;
+  function drawGrid(){
+    fctx.clearRect(0,0,W,H); fctx.fillStyle='#0b0f1c'; fctx.fillRect(0,0,W,H);
+    fctx.strokeStyle='#1f2a45'; fctx.lineWidth=1; fctx.beginPath();
+    for(let y=0;y<=H;y+=25){ fctx.moveTo(0,y); fctx.lineTo(W,y);} for(let x=0;x<=W;x+=50){ fctx.moveTo(x,0); fctx.lineTo(x,H);} fctx.stroke();
+    fctx.fillStyle='#9aa6bf'; fctx.fillText('0',2,H-4); fctx.fillText('30',2,H-4- (30*H/240)); fctx.fillText('60',2,H-4-(60*H/240)); fctx.fillText('120',2,H-4-(120*H/240));
+  }
+  drawGrid();
+  function loop(ts){
+    if(!fpsOn) return;
+    const dt = ts-last; last=ts; const fps = clamp(1000/dt,0,240);
+    samples.push(fps); if(samples.length>W) samples.shift();
+    peak = Math.max(peak,fps); low=Math.min(low,fps);
+    // draw
+    drawGrid(); fctx.strokeStyle='#22d3ee'; fctx.beginPath();
+    samples.forEach((v,i)=>{ const y = H - (v/240)*H; if(i===0) fctx.moveTo(0,y); else fctx.lineTo(i,y); }); fctx.stroke();
+    $('#fpsNow').textContent = fmt(fps);
+    const avg = samples.slice(-120).reduce((a,b)=>a+b,0)/Math.max(1,Math.min(120,samples.length));
+    $('#fpsAvg').textContent = fmt(avg);
+    $('#fpsPeak').textContent= fmt(peak);
+    $('#fpsLow').textContent = fmt(low===999?undefined:low);
+    if(sim60){ setTimeout(()=>requestAnimationFrame(loop), 1000/60); } else { requestAnimationFrame(loop); }
+  }
+  $('#btnStartFPS').onclick=()=>{ if(fpsOn) return; fpsOn=true; last=performance.now(); peak=0; low=999; samples=[]; requestAnimationFrame(loop); };
+  $('#btnStopFPS').onclick=()=>{ fpsOn=false; };
+  $('#btnSim60').onclick=(e)=>{ sim60=!sim60; e.currentTarget.setAttribute('aria-pressed', String(sim60)); };
+
+  // ====== JANK / LOAD ======
+  let workers=[]; let ltCount=0; let driftPeak=0; let driftAvg=0; let lagTimer=null; let lastTick=performance.now();
+  function startWorkers(n){ stopWorkers(); workers=[]; for(let i=0;i<n;i++){ const blob=new Blob([`
+      onmessage=e=>{ function isPrime(x){ if(x<2)return false; for(let i=2;i*i<=x;i++){ if(x%i===0)return false;} return true; }
+        let r=0; let k=3; while(true){ for(let j=0;j<5000;j++){ isPrime(k); k+=2; } r++; if(r%200===0) postMessage(r); }
+      };`],{type:'application/javascript'});
+      const url=URL.createObjectURL(blob); const w=new Worker(url); w.onmessage=()=>{}; workers.push(w); w.postMessage(1);
+    }
+  }
+  function stopWorkers(){ workers.forEach(w=>w.terminate()); workers=[]; }
+  $('#btnStartLoad').onclick=()=>{ const lvl=parseInt($('#loadLevel').value,10); startWorkers(lvl); };
+  $('#btnStopLoad').onclick=()=>{ stopWorkers(); };
+  $('#loadLevel').addEventListener('input',e=>{ const lvl=parseInt(e.target.value,10); if(workers.length) startWorkers(lvl); });
+
+  // Loop lag meter
+  function lagLoop(){
+    const now=performance.now(); const diff=now-lastTick; lastTick=now; const lag=Math.max(0,diff-100); // expect ~100ms interval below
+    $('#lagNow').textContent=fmt(lag);
+    $('#lagMeter').style.width=`${clamp(lag,0,200)/200*100}%`;
+  }
+  lagTimer=setInterval(lagLoop,100);
+
+  // Long Task observer
+  try{
+    const po=new PerformanceObserver((list)=>{ for(const e of list.getEntries()){ ltCount++; $('#ltCount').textContent=ltCount; } });
+    po.observe({entryTypes:['longtask']});
+  }catch{}
+
+  // Drift checker (timer accuracy)
+  let driftSamples=[]; let driftRef=performance.now();
+  setInterval(()=>{
+    const now=performance.now(); const expected=driftRef+500; const drift=Math.max(0,now-expected);
+    driftRef=now; driftSamples.push(drift); if(drift>driftPeak) driftPeak=drift;
+    const len=Math.min(60,driftSamples.length); const avg=driftSamples.slice(-len).reduce((a,b)=>a+b,0)/len; driftAvg=avg;
+    $('#driftPeak').textContent=fmt(driftPeak);
+    $('#driftAvg').textContent=fmt(driftAvg);
+  },500);
+</script>
+</body>
+</html>
+
