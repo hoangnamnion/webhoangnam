@@ -6,6 +6,7 @@
 <title>Phone Tester</title>
 <style>
     body { font-family: Arial, sans-serif; margin:0; padding:0; background:#111; color:white; text-align:center; }
+    #menuContainer { position:fixed; inset:0; background:black; display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:1000; }
     h1 { font-size:28px; margin:20px 0; }
     button {
         width: 90%; padding:15px; margin:10px auto; font-size:18px;
@@ -25,13 +26,15 @@
 </head>
 <body>
 
-<h1>Phone Diagnostic Test</h1>
+<div id="menuContainer">
+    <h1>Phone Diagnostic Test</h1>
 
-<button onclick="startColorTest()">🎨 Test Màn Hình</button>
-<button onclick="startTouchTest()">🖐 Test Cảm Ứng</button>
-<button onclick="startFPSTest()">⚡ Test FPS</button>
-<button onclick="startLagTest()">🔥 Test Độ Lag</button>
-<button onclick="showBattery()">🔋 Test Pin</button>
+    <button onclick="startColorTest()">🎨 Test Màn Hình</button>
+    <button onclick="startTouchTest()">🖐 Test Cảm Ứng</button>
+    <button onclick="startFPSTest()">⚡ Test FPS</button>
+    <button onclick="startLagTest()">🔥 Test Độ Lag</button>
+    <button onclick="showBattery()">🔋 Test Pin</button>
+</div>
 
 <div id="result"></div>
 
@@ -68,13 +71,18 @@ document.addEventListener("touchstart", (e) => {
 let colors = ["red","green","blue","white","black"];
 let current = 0;
 function startColorTest(){
+    document.getElementById("menuContainer").style.display="none";
     hideAll();
     showColor(colors[current]);
     document.addEventListener("click", nextColor);
 }
 function nextColor(){
     current++;
-    if (current >= colors.length) { location.reload(); return; }
+    if (current >= colors.length) { 
+        document.getElementById("menuContainer").style.display="flex";
+        current = 0;
+        return; 
+    }
     hideAll();
     showColor(colors[current]);
 }
@@ -83,6 +91,7 @@ function hideAll(){ colors.forEach(c => document.getElementById(c).style.display
 
 // ======= TOUCH TEST =======
 function startTouchTest(){
+    document.getElementById("menuContainer").style.display="none";
     hideAll(); document.getElementById("touchArea").style.display="block";
     let canvas = document.getElementById("canvas");
     let ctx = canvas.getContext("2d");
@@ -101,6 +110,7 @@ function startTouchTest(){
 // ======= FPS TEST =======
 let last = performance.now(), fpsDisplay = document.getElementById("fps");
 function startFPSTest(){
+    document.getElementById("menuContainer").style.display="none";
     hideAll();
     document.getElementById("fpsTest").style.display="block";
     function loop(now){
@@ -113,6 +123,7 @@ function startFPSTest(){
 
 // ======= LAG TEST (nhiều animation) =======
 function startLagTest(){
+    document.getElementById("menuContainer").style.display="none";
     hideAll();
     let box = document.getElementById("lagTest");
     box.style.display="block";
@@ -129,6 +140,24 @@ function startLagTest(){
         box.appendChild(el);
     }
 }
+
+// ======= AUTO-START IN FULLSCREEN WITH MENU =======
+window.addEventListener("load", function(){
+    // Request fullscreen first
+    let elem = document.documentElement;
+    if (elem.requestFullscreen) {
+        elem.requestFullscreen().catch(() => {
+            // fullscreen denied, menu still shows
+        });
+    } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen();
+    } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+    } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+    }
+    // Menu stays visible for user to select test
+});
 
 // ======= BATTERY TEST =======
 async function showBattery(){
