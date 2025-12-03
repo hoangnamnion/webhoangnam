@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Phone Tester</title>
+<style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#111; color:white; text-align:center; }
+    h1 { font-size:28px; margin:20px 0; }
+    button {
+        width: 90%; padding:15px; margin:10px auto; font-size:18px;
+        border:none; border-radius:12px; background:#fff; color:#000; font-weight:bold;
+    }
+    .full-test {
+        position:fixed; inset:0; background:black; display:none;
+    }
+    #touchArea {
+        position:fixed; inset:0; background:black; display:none;
+        touch-action:none;
+    }
+    #touchArea canvas { width:100%; height:100%; }
+    .color { width:100%; height:100%; display:none; position:fixed; top:0; left:0; }
+    #fps { font-size:26px; margin-top:20px; }
+</style>
+</head>
+<body>
+
+<h1>Phone Diagnostic Test</h1>
+
+<button onclick="startColorTest()">🎨 Test Màn Hình</button>
+<button onclick="startTouchTest()">🖐 Test Cảm Ứng</button>
+<button onclick="startFPSTest()">⚡ Test FPS</button>
+<button onclick="startLagTest()">🔥 Test Độ Lag</button>
+<button onclick="showBattery()">🔋 Test Pin</button>
+
+<div id="result"></div>
+
+<!-- MÀN HÌNH MÀU -->
+<div id="red" class="color" style="background:red"></div>
+<div id="green" class="color" style="background:green"></div>
+<div id="blue" class="color" style="background:blue"></div>
+<div id="white" class="color" style="background:white"></div>
+<div id="black" class="color" style="background:black"></div>
+
+<!-- TOUCH TEST -->
+<div id="touchArea"><canvas id="canvas"></canvas></div>
+
+<!-- FPS TEST -->
+<div class="full-test" id="fpsTest">
+    <h1 id="fps">FPS: --</h1>
+</div>
+
+<!-- LAG TEST -->
+<div class="full-test" id="lagTest"></div>
+
+<script>
+// ======= EXIT BY 3 FINGERS TAP =======
+let tapCount = 0;
+document.addEventListener("touchstart", (e) => {
+    if (e.touches.length === 3) {
+        tapCount++;
+        if (tapCount >= 2) location.reload();
+        setTimeout(() => tapCount = 0, 600);
+    }
+});
+
+// ======= COLOR TEST =======
+let colors = ["red","green","blue","white","black"];
+let current = 0;
+function startColorTest(){
+    hideAll();
+    showColor(colors[current]);
+    document.addEventListener("click", nextColor);
+}
+function nextColor(){
+    current++;
+    if (current >= colors.length) { location.reload(); return; }
+    hideAll();
+    showColor(colors[current]);
+}
+function showColor(id){ document.getElementById(id).style.display="block"; }
+function hideAll(){ colors.forEach(c => document.getElementById(c).style.display="none"); }
+
+// ======= TOUCH TEST =======
+function startTouchTest(){
+    hideAll(); document.getElementById("touchArea").style.display="block";
+    let canvas = document.getElementById("canvas");
+    let ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    ctx.strokeStyle = "lime"; ctx.lineWidth = 5;
+
+    canvas.addEventListener("touchmove",(e)=>{
+        let t = e.touches[0];
+        ctx.lineTo(t.clientX, t.clientY);
+        ctx.stroke();
+    });
+}
+
+// ======= FPS TEST =======
+let last = performance.now(), fpsDisplay = document.getElementById("fps");
+function startFPSTest(){
+    hideAll();
+    document.getElementById("fpsTest").style.display="block";
+    function loop(now){
+        let fps = Math.round(1000 / (now - last)); last = now;
+        fpsDisplay.innerText = "FPS: " + fps;
+        requestAnimationFrame(loop);
+    }
+    loop(last);
+}
+
+// ======= LAG TEST (nhiều animation) =======
+function startLagTest(){
+    hideAll();
+    let box = document.getElementById("lagTest");
+    box.style.display="block";
+
+    for(let i=0;i<80;i++){
+        let el = document.createElement("div");
+        el.style.position="absolute";
+        el.style.width="25px"; el.style.height="25px";
+        el.style.background="white";
+        el.style.borderRadius="50%";
+        el.style.top = Math.random()*window.innerHeight+"px";
+        el.style.left = Math.random()*window.innerWidth+"px";
+        el.style.animation = `fall ${2+Math.random()*3}s linear infinite`;
+        box.appendChild(el);
+    }
+}
+
+// ======= BATTERY TEST =======
+async function showBattery(){
+    if (!navigator.getBattery){
+        document.getElementById("result").innerHTML = "⚠ Điện thoại không hỗ trợ API pin.";
+        return;
+    }
+    let b = await navigator.getBattery();
+    document.getElementById("result").innerHTML =
+        `<h2>🔋 Pin: ${Math.round(b.level*100)}%</h2>
+         <p>Sạc: ${b.charging ? "Đang sạc" : "Không sạc"}</p>`;
+}
+</script>
+
+<style>
+@keyframes fall {
+    from { transform: translateY(0); opacity:1; }
+    to { transform: translateY(100px); opacity:0; }
+}
+</style>
+
+</body>
+</html>
