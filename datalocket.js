@@ -83,7 +83,7 @@ const LOCKET_DATA = {
             type: "success"
         },
                         {
-            name: "CẤU HÌNH CHẶN QUẢNG CÁO QUÀ TẶNG ",
+            name: "DNS LOCKET",
             icon: "fas fa-mobile-alt", 
             url: "http://webhoangnam.id.vn/Configuration/locketvipver2.mobileconfig",
             type: "success"
@@ -138,6 +138,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
