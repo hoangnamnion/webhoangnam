@@ -39,7 +39,7 @@ const LOCKET_DATA = {
     // Thông tin tài khoản AppStore
     accountInfo: {
         username: 'hoangnamnion@gmail.com',
-        password: 'Caovannam2005@'
+        password: 'Caonam2005@'
     },
 
     // Thông tin app Shadowrocket
@@ -138,6 +138,7 @@ const LOCKET_DATA = {
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = LOCKET_DATA;
 } 
+
 
 
 
