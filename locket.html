@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+    <title>LOCKET GOLD | CAO VĂN NAM</title>
+    <meta property="og:image" content="./imglocket/logo2.jpg">
+    <link rel="icon" type="image/x-icon" href="./imglocket/logovip.png">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        
+        .gradient-text {
+            background: linear-gradient(to right, #0ea5e9, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .app-card { opacity: 0; animation: fadeInUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
+        
+        .btn-press:active { transform: scale(0.95); }
+
+        .step-active {
+            border-color: #10b981 !important;
+            color: #10b981 !important;
+            background-color: #ecfdf5 !important;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+            animation: pulse-green 2s infinite;
+        }
+        .step-done {
+            background-color: #f0fdf4 !important;
+            color: #15803d !important;
+            border-color: #15803d !important;
+            opacity: 0.6;
+        }
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+        }
+        
+        .ios-modal {
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+<div id="iosRedirectModal" class="fixed inset-0 z-[2000] hidden flex-col items-center justify-center bg-black/80 ios-modal px-4 transition-opacity duration-300">
+    <div class="bg-white w-full max-w-sm rounded-2xl p-6 text-center shadow-2xl transform transition-all scale-100 animate-[fadeInUp_0.2s_ease-out]">
+        <div class="w-16 h-16 mx-auto bg-green-50 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-check text-green-500 text-3xl"></i>
+        </div>
+        
+        <h3 class="text-xl font-black text-gray-800 mb-1">ĐÃ XONG BƯỚC <span id="prevStepNum">...</span></h3>
+        <p class="text-sm text-gray-500 mb-6">Tiếp tục <b class="text-blue-600">Bước <span id="iosStepNum">...</span></b></p>
+        
+        <button id="iosRedirectBtn" onclick="processRedirect()" class="w-full py-4 rounded-xl bg-gradient-to-r from-blue-500 to-green-500 text-white font-bold text-lg shadow-lg shadow-blue-500/30 active:scale-95 transition-transform flex items-center justify-center gap-2">
+            <span id="btnText">Đang xử lý...</span>
+            <span id="btnCount" class="bg-white/20 px-2 rounded-md text-sm font-mono ml-1">1</span>
+        </button>
+        
+        <button onclick="cancelRedirect()" class="mt-4 text-sm text-gray-400 font-medium hover:text-red-500 py-2">
+            Đóng
+        </button>
+    </div>
+</div>
+
+<div id="toast" class="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-900/90 backdrop-blur text-white px-6 py-4 rounded-xl shadow-2xl z-[999] transition-all duration-300 opacity-0 invisible flex flex-col items-center gap-2 border border-gray-700 min-w-[200px] text-center">
+    <i class="fas fa-check-circle text-green-400 text-3xl mb-1"></i>
+    <span class="font-bold">Đã Sao Chép!</span>
+</div>
+
+<div class="min-h-screen pb-10" style="padding-top: env(safe-area-inset-top);">
+    
+    <nav class="bg-white/90 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200 shadow-sm">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex items-center justify-between">
+                <a href="/" class="flex items-center gap-3 no-underline group">
+                    <img src="./imglocket/logo3.jpg" alt="Logo" class="w-10 h-10 rounded-lg shadow-md">
+                    <span class="font-black text-xl gradient-text tracking-tight">MXH HOANGNAM</span>
+                </a>
+                <div class="flex items-center gap-2">
+                    <a href="https://zalo.me/0378787154" target="_blank" class="px-3 py-1.5 rounded-full bg-blue-50 text-blue-600 border border-blue-200 text-xs font-bold flex items-center gap-1">
+                        <i class="fas fa-users"></i> Zalo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="bg-gradient-to-br from-blue-50 via-white to-green-50 border-b border-gray-100 py-6 px-4 text-center mb-6">
+         <h1 class="text-2xl md:text-3xl font-black text-gray-800 mb-2">LOCKET GOLD</h1>
+         <p class="text-sm text-gray-500 font-medium">Hệ thống nâng gold tự động</p>
+    </div>
+
+
+
+
+    <div class="container mx-auto px-4 max-w-5xl">
+        <div id="appsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            
+            <div class="app-card bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                <div class="flex items-center gap-4 mb-5">
+                    <img src="/imglocket/apple.png" class="w-14 h-14 rounded-2xl shadow-md object-cover">
+                    <div class="flex-1 min-w-0">
+                        <h3 class="font-bold text-gray-900 text-lg truncate">Tài Khoản Apple</h3>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-[10px] font-bold bg-blue-50 text-blue-600 px-2 py-0.5 rounded border border-blue-100">VIP</span>
+                            <span class="text-[10px] font-bold bg-gray-100 text-gray-500 px-2 py-0.5 rounded">ĐỘC QUYỀN</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <button onclick="copyToClipboard('hoangnamnion@gmail.com')" class="btn-press py-2.5 px-3 rounded-xl bg-blue-50 text-blue-600 font-bold text-sm border border-blue-100 hover:bg-blue-600 hover:text-white transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <i class="far fa-copy"></i> Tài Khoản 
+                    </button>
+                    <button onclick="copyToClipboard('Caonam2005@')" class="btn-press py-2.5 px-3 rounded-xl bg-green-50 text-green-600 font-bold text-sm border border-green-100 hover:bg-green-600 hover:text-white transition-colors flex items-center justify-center gap-2 shadow-sm">
+                        <i class="far fa-copy"></i> Mật Khẩu
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 gap-2">
+                    <a href="https://ipa.authtool.app/view/6902e2255e6236c3569fad89" class="btn-press flex flex-col items-center justify-center p-2 rounded-lg bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200 hover:border-blue-200 transition-all group">
+                        <i class="fas fa-download text-xs mb-1 group-hover:text-blue-500"></i>
+                        <span class="text-[10px] font-semibold">Tải Về</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <br>
+        <div class="max-w-2xl mx-auto px-4 mb-6">
+        <div class="grid grid-cols-4 gap-2 md:gap-4">
+            <button id="step1" onclick="manualClickStep(1)" class="btn-press flex flex-col items-center justify-center p-2 md:p-3 rounded-xl bg-white border border-gray-200 text-gray-500 transition-all shadow-sm h-20 md:h-24">
+                <span class="text-[10px] md:text-xs font-bold mb-1">BƯỚC 1</span>
+                <i class="fab fa-facebook text-xl md:text-2xl"></i>
+            </button>
+            <button id="step2" onclick="manualClickStep(2)" class="btn-press flex flex-col items-center justify-center p-2 md:p-3 rounded-xl bg-white border border-gray-200 text-gray-500 transition-all shadow-sm h-20 md:h-24">
+                <span class="text-[10px] md:text-xs font-bold mb-1">BƯỚC 2</span>
+                <i class="fas fa-users text-xl md:text-2xl"></i>
+            </button>
+            <button id="step3" onclick="manualClickStep(3)" class="btn-press flex flex-col items-center justify-center p-2 md:p-3 rounded-xl bg-white border border-gray-200 text-gray-500 transition-all shadow-sm h-20 md:h-24">
+                <span class="text-[10px] md:text-xs font-bold mb-1">BƯỚC 3</span>
+                <i class="fab fa-telegram text-xl md:text-2xl"></i>
+            </button>
+            <button id="step4" onclick="manualClickStep(4)" class="btn-press flex flex-col items-center justify-center p-2 md:p-3 rounded-xl bg-white border border-gray-200 text-gray-500 transition-all shadow-sm h-20 md:h-24">
+                <span class="text-[10px] md:text-xs font-bold mb-1">BƯỚC 4</span>
+                <i class="fas fa-globe text-xl md:text-2xl"></i>
+            </button>
+        </div>
+        <div class="text-center mt-3">
+            <button onclick="resetSteps()" class="text-xs text-gray-400 underline hover:text-red-500">Làm lại từ đầu</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // --- CẤU HÌNH LINK ---
+    const stepLinks = {
+        1: 'shadowrocket://install?module=https://raw.githubusercontent.com/caovannam2ka5/LocketGoldd/refs/heads/main/locketGoldmodule',
+        2: 'shadowrocket://config/add/https://raw.githubusercontent.com/caovannam2ka5/LocketGoldd/refs/heads/main/LocketGold_HoangNam',
+        3: 'http://webhoangnam.id.vn/Configuration/locketgoldhn.crt',
+        4: 'http://webhoangnam.id.vn/Configuration/locketvipver2.mobileconfig'
+    };
+
+    let pendingStep = null;
+    let isBtnReady = false;
+    let timerInterval = null;
+
+    // --- QUAN TRỌNG: BẮT SỰ KIỆN QUAY LẠI TAB ---
+    document.addEventListener("visibilitychange", function() {
+        if (document.visibilityState === 'visible') {
+            checkAndShowPopup();
+        }
+    });
+
+    window.onload = function() {
+        updateStepUI();
+        checkAndShowPopup();
+    };
+
+    function checkAndShowPopup() {
+        const nextStep = parseInt(localStorage.getItem('locket_next_step'));
+        // Chỉ hiện nếu có bước tiếp theo (2, 3, 4)
+        if (nextStep && nextStep > 1 && nextStep <= 4) {
+            const modal = document.getElementById('iosRedirectModal');
+            if (modal.classList.contains('hidden')) {
+                showIOSModal(nextStep);
+            }
+        }
+    }
+
+    // --- HIỆN POPUP VỚI 1 GIÂY CHỜ ---
+    function showIOSModal(step) {
+        pendingStep = step;
+        const modal = document.getElementById('iosRedirectModal');
+        const stepNum = document.getElementById('iosStepNum');
+        const prevStepNum = document.getElementById('prevStepNum');
+        const btn = document.getElementById('iosRedirectBtn');
+        const btnText = document.getElementById('btnText');
+        const btnCount = document.getElementById('btnCount');
+
+        stepNum.innerText = step;
+        prevStepNum.innerText = step - 1;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        
+        // Reset
+        isBtnReady = false;
+        clearInterval(timerInterval);
+        
+        btn.classList.add('opacity-50', 'cursor-not-allowed', 'grayscale');
+        btn.classList.remove('animate-pulse');
+        btnText.innerText = "Đang tải...";
+        
+        // 1 GIÂY CHỜ (Rất nhanh)
+        let timeLeft = 1;
+        btnCount.style.display = 'inline-block';
+        btnCount.innerText = timeLeft;
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            btnCount.innerText = timeLeft;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                isBtnReady = true;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed', 'grayscale');
+                btn.classList.add('animate-pulse');
+                btnText.innerText = "MỞ BƯỚC " + step;
+                btnCount.style.display = 'none';
+            }
+        }, 1000);
+    }
+
+    function processRedirect() {
+        if (!isBtnReady) return;
+
+        const step = pendingStep;
+        localStorage.setItem('locket_next_step', step + 1);
+        
+        cancelRedirect();
+        updateStepUI();
+
+        if(stepLinks[step]) {
+            window.open(stepLinks[step], '_blank'); 
+        }
+    }
+
+    function cancelRedirect() {
+        clearInterval(timerInterval);
+        document.getElementById('iosRedirectModal').classList.remove('flex');
+        document.getElementById('iosRedirectModal').classList.add('hidden');
+    }
+
+    function manualClickStep(step) {
+        localStorage.setItem('locket_next_step', step + 1);
+        updateStepUI();
+        
+        if(stepLinks[step]) {
+            window.open(stepLinks[step], '_blank'); 
+        }
+    }
+
+    function updateStepUI() {
+        const nextStep = parseInt(localStorage.getItem('locket_next_step') || 1);
+        for(let i = 1; i <= 4; i++) {
+            const btn = document.getElementById(`step${i}`);
+            btn.classList.remove('step-active', 'step-done');
+            
+            const iconPrefix = i === 1 || i === 3 ? 'fab' : 'fas';
+            const iconClass = i === 1 ? 'fa-facebook' : i === 2 ? 'fa-users' : i === 3 ? 'fa-telegram' : 'fa-globe';
+            
+            // Nội dung mặc định
+            btn.innerHTML = `<span class="text-[10px] md:text-xs font-bold mb-1">BƯỚC ${i}</span><i class="${iconPrefix} ${iconClass} text-xl md:text-2xl"></i>`;
+
+            if (i < nextStep) {
+                btn.classList.add('step-done');
+                btn.innerHTML = `<span class="text-[10px] md:text-xs font-bold mb-1">XONG</span><i class="fas fa-check-circle text-xl md:text-2xl"></i>`;
+            } else if (i === nextStep) {
+                btn.classList.add('step-active');
+                btn.innerHTML = `<span class="text-[10px] md:text-xs font-bold mb-1">LÀM NGAY</span><i class="fas fa-arrow-circle-right text-xl md:text-2xl animate-bounce"></i>`;
+            }
+        }
+    }
+
+    function resetSteps() {
+        localStorage.removeItem('locket_next_step');
+        location.reload();
+    }
+
+    // --- Search & Copy ---
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.app-card');
+    if(searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const t = card.querySelector('h3').innerText.toLowerCase();
+                card.style.display = t.includes(term) ? 'block' : 'none';
+            });
+        });
+    }
+
+    function copyToClipboard(text) {
+        if (!text) return;
+        navigator.clipboard.writeText(text).then(() => showToast())
+            .catch(() => {
+                const el = document.createElement('textarea'); el.value = text;
+                document.body.appendChild(el); el.select(); document.execCommand('copy');
+                document.body.removeChild(el); showToast();
+            });
+    }
+
+    function showToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('opacity-0', 'invisible');
+        toast.classList.add('opacity-100', 'visible');
+        setTimeout(() => {
+            toast.classList.add('opacity-0', 'invisible');
+            toast.classList.remove('opacity-100', 'visible');
+        }, 2000);
+    }
+</script>
+
+</body>
+</html>
