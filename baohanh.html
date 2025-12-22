@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Phiếu Bảo Hành Locket Gold</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --gold-primary: #D4AF37;
+            --gold-dark: #b8941f;
+            --gold-light: #F7EF8A;
+            --gold-bg: #fdf8e7;
+            --text-dark: #5a4a1a;
+            --white: #ffffff;
+            --shadow: rgba(212, 175, 55, 0.25);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #f8f5f0 0%, #fff9f0 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        /* Hiệu ứng nền xịn */
+        .bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background-color: var(--gold-primary);
+            border-radius: 50%;
+            opacity: 0.1;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-1000px) rotate(720deg); }
+        }
+        
+        .container {
+            max-width: 100%;
+            padding: 15px;
+        }
+        
+        /* Modal nhập tên khách hàng */
+        .customer-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, var(--white) 0%, var(--gold-bg) 100%);
+            border-radius: 25px;
+            padding: 30px 25px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .modal-content::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, var(--gold-primary), var(--gold-light), var(--gold-primary));
+        }
+        
+        .modal-icon {
+            font-size: 4rem;
+            color: var(--gold-primary);
+            margin-bottom: 20px;
+            text-shadow: 0 5px 15px var(--shadow);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .modal-title {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .modal-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+        
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+        
+        .input-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gold-primary);
+            font-size: 1.2rem;
+            z-index: 2;
+        }
+        
+        .customer-input {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
+            border: 2px solid rgba(212, 175, 55, 0.3);
+            border-radius: 15px;
+            font-size: 1.1rem;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s;
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+        
+        .customer-input:focus {
+            outline: none;
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+            background-color: var(--white);
+        }
+        
+        .submit-btn {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+            color: var(--white);
+            border: none;
+            width: 100%;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 20px rgba(184, 148, 31, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s;
+        }
+        
+        .submit-btn:hover::after {
+            left: 100%;
+        }
+        
+        .submit-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 5px 10px rgba(184, 148, 31, 0.3);
+        }
+        
+        /* Thẻ bảo hành */
+        .warranty-card {
+            background: var(--white);
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px var(--shadow);
+            margin-bottom: 30px;
+            position: relative;
+            display: none;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.5s ease-out;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .warranty-card.show {
+            display: block;
+            animation: cardAppear 0.8s forwards;
+        }
+        
+        @keyframes cardAppear {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        .card-header {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .card-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.1;
+        }
+        
+        .customer-greeting {
+            position: absolute;
+            top: 20px;
+            left: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--white);
+            backdrop-filter: blur(5px);
+        }
+        
+        .header-icon {
+            font-size: 4rem;
+            color: var(--white);
+            margin-bottom: 15px;
+            filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.2));
+        }
+        
+        .header-title {
+            font-size: 2.2rem;
+            color: var(--white);
+            margin-bottom: 10px;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+        
+        .warranty-id {
+            position: absolute;
+            bottom: 20px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--white);
+            backdrop-filter: blur(5px);
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .info-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: var(--gold-bg);
+            border-radius: 20px;
+            border-left: 5px solid var(--gold-primary);
+        }
+        
+        .section-title {
+            display: flex;
+            align-items: center;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .section-title i {
+            margin-right: 12px;
+            background: var(--gold-primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        
+        .info-item {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px dashed rgba(184, 148, 31, 0.2);
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--gold-dark);
+            min-width: 130px;
+            font-size: 0.95rem;
+        }
+        
+        .info-value {
+            color: #333;
+            font-weight: 500;
+            flex: 1;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff0cc 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 25px 0;
+            border: 2px solid var(--gold-primary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .highlight-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23D4AF37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        .highlight-title {
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            text-align: center;
+            position: relative;
+        }
+        
+        .warning-alert {
+            background: linear-gradient(135deg, #ffe6e6 0%, #ffcccc 100%);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid #ff3333;
+            position: relative;
+        }
+        
+        .warning-alert i {
+            color: #ff3333;
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .warning-text {
+            color: #990000;
+            font-weight: 700;
+        }
+        
+        .qr-container {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .qr-code {
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 15px;
+            padding: 10px;
+            background: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .qr-code img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        
+        .qr-text {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .card-footer {
+            background: var(--gold-bg);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            border-top: 2px solid rgba(212, 175, 55, 0.3);
+        }
+        
+        .signature-box {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .signature-line {
+            width: 100%;
+            height: 1px;
+            background: var(--gold-dark);
+            margin: 10px auto;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 18px;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .print-btn {
+            background: linear-gradient(135deg, var(--gold-primary) 0%, var(--gold-dark) 100%);
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(184, 148, 31, 0.3);
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(76, 175, 80, 0.3);
+        }
+        
+        .reset-btn {
+            background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+            color: var(--white);
+            box-shadow: 0 10px 20px rgba(244, 67, 54, 0.3);
+        }
+        
+        .action-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .confirmation-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1001;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+        
+        .confirmation-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .confirmation-content {
+            background: var(--white);
+            border-radius: 25px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            border: 2px solid var(--gold-primary);
+        }
+        
+        .confirmation-icon {
+            font-size: 3.5rem;
+            color: var(--gold-primary);
+            margin-bottom: 20px;
+        }
+        
+        .confirmation-title {
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .confirmation-text {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+        
+        .confirmation-buttons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .confirm-btn, .cancel-btn {
+            flex: 1;
+            padding: 16px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .confirm-btn {
+            background: linear-gradient(135deg, #f44336 0%, #c62828 100%);
+            color: var(--white);
+        }
+        
+        .cancel-btn {
+            background: linear-gradient(135deg, #9e9e9e 0%, #616161 100%);
+            color: var(--white);
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(0, 0, 0, 0.85);
+            color: var(--white);
+            padding: 18px 25px;
+            border-radius: 15px;
+            font-weight: 500;
+            z-index: 1002;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 90%;
+            opacity: 0;
+            transition: all 0.4s;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
+        
+        .toast i {
+            font-size: 1.3rem;
+        }
+        
+        /* Hiệu ứng cho mobile */
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 1.8rem;
+            }
+            
+            .card-body {
+                padding: 20px 15px;
+            }
+            
+            .info-section {
+                padding: 15px;
+            }
+            
+            .action-buttons {
+                flex-direction: column;
+            }
+        }
+        
+        /* Hiệu ứng lắc khi nhập sai */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+        
+        .shake {
+            animation: shake 0.5s;
+        }
+        
+        /* Hiển thị thời gian tạo */
+        .time-badge {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--white);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .registration-time {
+            background: rgba(212, 175, 55, 0.1);
+            padding: 5px 10px;
+            border-radius: 10px;
+            margin-top: 5px;
+            font-size: 0.85rem;
+            color: var(--gold-dark);
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <!-- Hiệu ứng nền -->
+    <div class="bg-particles" id="particles"></div>
+    
+    <!-- Modal nhập tên khách hàng -->
+    <div class="customer-modal" id="customerModal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-gem"></i>
+            </div>
+            <h2 class="modal-title">LOCKET GOLD</h2>
+            <p class="modal-subtitle">Vui lòng nhập thông tin để tạo phiếu bảo hành vĩnh viễn</p>
+            
+            <div class="input-group">
+                <div class="input-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <input type="text" class="customer-input" id="customerName" placeholder="Nhập họ và tên của bạn" maxlength="50">
+            </div>
+            
+            <div class="input-group">
+                <div class="input-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <input type="tel" class="customer-input" id="customerPhone" placeholder="Số điện thoại (Không Bắt Buộc)" maxlength="15">
+            </div>
+            
+            <button class="submit-btn" id="submitCustomer">
+                <i class="fas fa-shield-alt"></i> TẠO PHIẾU BẢO HÀNH
+            </button>
+            
+            <p style="margin-top: 20px; font-size: 0.85rem; color: #999;">
+                Thông tin sẽ được lưu trên thiết bị của bạn - Thời gian tạo sẽ được ghi nhận chính xác
+            </p>
+        </div>
+    </div>
+    
+    <!-- Thẻ bảo hành -->
+    <div class="container">
+        <div class="warranty-card" id="warrantyCard">
+            <div class="card-header">
+                <div class="customer-greeting" id="customerGreeting">
+                    <i class="fas fa-user-circle"></i> <span id="greetingName">Khách hàng</span>
+                </div>
+                
+                <!-- Thời gian tạo -->
+                <div class="time-badge" id="timeBadge">
+                    <i class="far fa-clock"></i>
+                    <span id="creationTime">--:-- --</span>
+                </div>
+                
+                <div class="header-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+                <h1 class="header-title">BẢO HÀNH VĨNH VIỄN</h1>
+                <p class="header-subtitle">LOCKET GOLD - CAM KẾT TRỌN ĐỜI</p>
+                
+                <div class="warranty-id" id="warrantyId">
+                    <i class="fas fa-hashtag"></i> LG-<span id="warrantyNumber">0000</span>
+                </div>
+            </div>
+            
+            <div class="card-body">
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-user-check"></i> THÔNG TIN CHỦ SỞ HỮU
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Họ và tên:</div>
+                            <div class="info-value" id="displayName">Cao Văn Nam</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Số điện thoại:</div>
+                            <div class="info-value" id="displayPhone">0918 888 999</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Ngày đăng ký:</div>
+                            <div class="info-value">
+                                <div id="registrationDate">15/11/2023</div>
+                                <div class="registration-time" id="registrationTime">00:00:00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="info-section">
+                    <h3 class="section-title">
+                        <i class="fas fa-gem"></i> THÔNG TIN SẢN PHẨM
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Tên sản phẩm:</div>
+                            <div class="info-value">Locket Gold CAO VĂN NAM</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Mã sản phẩm:</div>
+                            <div class="info-value">LG-24K-PREMIUM</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Giá bán:</div>
+                            <div class="info-value">59.000 VNĐ</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Bảo hành:</div>
+                            <div class="info-value">VĨNH VIỄN</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3 class="highlight-title">
+                        <i class="fas fa-crown"></i> ĐẶC QUYỀN BẢO HÀNH
+                    </h3>
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <div class="info-label">Bảo hành </div>
+                            <div class="info-value"> Áp dụng trọn đời <b>NẾU CÒN GIẤY BẢO HÀNH TRÊN THIẾT BỊ CŨ</b> </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Đổi mới thiết bị</div>
+                            <div class="info-value"> Thêm 20K</div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-label">Hỗ trợ 24/7</div>
+                            <div class="info-value">ZALO: 0378787154</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-alert">
+                    <div class="section-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span class="warning-text">ĐIỀU KIỆN BẢO HÀNH QUAN TRỌNG</span>
+                    </div>
+                    <p>Phiếu bảo hành này là tài liệu DUY NHẤT để được hưởng chính sách bảo hành vĩnh viễn. Thời gian tạo: <span id="timestampDisplay" style="font-weight: bold;"></span>. Nếu làm mất phiếu bảo hành,Và Phiếu Bảo Hành Này Phải Trên Thiết Bị Cũ ,<b>Không Duyệt Phương Thức Chụp Ảnh</b>, quý khách sẽ KHÔNG được bảo hành miễn phí và phải trả phí sửa chữa 59.000đ như khách hàng mới.</p>
+                </div>
+                
+                <div class="qr-container">
+                    <div class="qr-code">
+                        <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=LocketGold-Warranty-ID-LG-0000&color=5a4a1a&bgcolor=fdf8e7" alt="QR Code">
+                    </div>
+                    <p class="qr-text">Quét mã QR để lưu thông tin bảo hành online hoặc truy xuất khi cần</p>
+                </div>
+            </div>
+            
+            <div class="card-footer">
+                <div class="signature-box">
+                    <p>Chữ ký khách hàng</p>
+                    <div class="signature-line"></div>
+                    <p id="signatureName">Cao Văn Nam</p>
+                </div>
+                
+                <div class="signature-box">
+                    <p>Đại diện nhà cung cấp</p>
+                    <div class="signature-line"></div>
+                    <p>NAM</p>
+                    <p>CAO VĂN NAM</p>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="action-btn print-btn" id="printButton">
+                        <i class="fas fa-print"></i> IN PHIẾU TRÊN PC 
+                    </button>
+                    <button class="action-btn reset-btn" id="resetButton">
+                        <i class="fas fa-redo"></i> ĐỔI TÊN
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal xác nhận reset -->
+    <div class="confirmation-modal" id="confirmationModal">
+        <div class="confirmation-content">
+            <div class="confirmation-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h3 class="confirmation-title">XÁC NHẬN ĐỔI TÊN</h3>
+            <p class="confirmation-text">Bạn có chắc chắn muốn đổi tên khách hàng không? Thông tin hiện tại sẽ bị xóa và bạn cần nhập thông tin mới, và nên nhớ mất phiếu bảo hành là mất tiền à nhen</p>
+            <div class="confirmation-buttons">
+                <button class="confirm-btn" id="confirmReset">XÁC NHẬN</button>
+                <button class="cancel-btn" id="cancelReset">HỦY BỎ</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast thông báo -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Thao tác thành công!</span>
+    </div>
+
+    <script>
+        // Tạo hiệu ứng hạt nền
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 20 + 5;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Độ trong suốt ngẫu nhiên
+                particle.style.opacity = Math.random() * 0.1 + 0.05;
+                
+                // Thời gian animation ngẫu nhiên
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Độ trễ animation ngẫu nhiên
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Định dạng thời gian
+        function formatTime(date) {
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const seconds = date.getSeconds().toString().padStart(2, '0');
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = (date.getMonth() + 1).toString().padStart(2, '0');
+            const year = date.getFullYear();
+            
+            return {
+                date: `${day}/${month}/${year}`,
+                time: `${hours}:${minutes}:${seconds}`,
+                full: `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`
+            };
+        }
+        
+        // Kiểm tra và tải thông tin khách hàng từ Local Storage
+        function loadCustomerData() {
+            const savedName = localStorage.getItem('locketGoldCustomerName');
+            const savedPhone = localStorage.getItem('locketGoldCustomerPhone');
+            const savedDate = localStorage.getItem('locketGoldRegistrationDate');
+            const savedTime = localStorage.getItem('locketGoldRegistrationTime');
+            const savedId = localStorage.getItem('locketGoldWarrantyId');
+            
+            if (savedName && savedName.trim() !== '') {
+                // Đã có thông tin khách hàng, hiển thị phiếu bảo hành
+                document.getElementById('customerModal').style.display = 'none';
+                
+                // Cập nhật thông tin
+                updateCustomerInfo(savedName, savedPhone || 'Chưa cung cấp', savedDate, savedTime, savedId);
+                
+                // Hiển thị thẻ bảo hành với hiệu ứng
+                setTimeout(() => {
+                    document.getElementById('warrantyCard').classList.add('show');
+                }, 300);
+            } else {
+                // Chưa có thông tin, hiển thị modal nhập liệu
+                document.getElementById('customerModal').style.display = 'flex';
+            }
+        }
+        
+        // Cập nhật thông tin khách hàng trên phiếu
+        function updateCustomerInfo(name, phone, date, time, id) {
+            // Tạo ID bảo hành nếu chưa có
+            if (!id) {
+                id = 'LG-' + Math.floor(1000 + Math.random() * 9000);
+                localStorage.setItem('locketGoldWarrantyId', id);
+            }
+            
+            // Tạo ngày và giờ đăng ký nếu chưa có
+            const now = new Date();
+            const formattedTime = formatTime(now);
+            
+            if (!date) {
+                date = formattedTime.date;
+                localStorage.setItem('locketGoldRegistrationDate', date);
+            }
+            
+            if (!time) {
+                time = formattedTime.time;
+                localStorage.setItem('locketGoldRegistrationTime', time);
+            }
+            
+            // Cập nhật giao diện
+            document.getElementById('displayName').textContent = name;
+            document.getElementById('displayPhone').textContent = phone;
+            document.getElementById('registrationDate').textContent = date;
+            document.getElementById('registrationTime').textContent = time;
+            document.getElementById('greetingName').textContent = name;
+            document.getElementById('signatureName').textContent = name;
+            document.getElementById('warrantyNumber').textContent = id.substring(3);
+            
+            // Cập nhật thời gian tạo
+            document.getElementById('creationTime').textContent = time;
+            document.getElementById('timestampDisplay').textContent = `${date} ${time}`;
+            
+            // Cập nhật QR code với thông tin mới
+            const qrData = `LocketGold-Warranty-${id}-${name.replace(/\s+/g, '-')}-${date.replace(/\//g, '-')}-${time.replace(/:/g, '-')}`;
+            document.getElementById('qrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(qrData)}&color=5a4a1a&bgcolor=fdf8e7`;
+        }
+        
+        // Lưu thông tin khách hàng
+        function saveCustomerData(name, phone) {
+            if (!name || name.trim() === '') {
+                showToast('Vui lòng nhập họ tên của bạn', 'error');
+                document.getElementById('customerName').classList.add('shake');
+                setTimeout(() => {
+                    document.getElementById('customerName').classList.remove('shake');
+                }, 500);
+                return false;
+            }
+            
+            // Lưu vào Local Storage
+            localStorage.setItem('locketGoldCustomerName', name.trim());
+            
+            if (phone && phone.trim() !== '') {
+                localStorage.setItem('locketGoldCustomerPhone', phone.trim());
+            }
+            
+            // Tạo ID bảo hành, ngày và giờ đăng ký
+            const id = 'LG-' + Math.floor(1000 + Math.random() * 9000);
+            const now = new Date();
+            const formattedTime = formatTime(now);
+            
+            localStorage.setItem('locketGoldWarrantyId', id);
+            localStorage.setItem('locketGoldRegistrationDate', formattedTime.date);
+            localStorage.setItem('locketGoldRegistrationTime', formattedTime.time);
+            
+            // Ẩn modal và hiển thị thẻ bảo hành
+            document.getElementById('customerModal').style.display = 'none';
+            
+            // Cập nhật thông tin
+            updateCustomerInfo(name.trim(), phone ? phone.trim() : 'Chưa cung cấp', formattedTime.date, formattedTime.time, id);
+            
+            // Hiển thị thẻ với hiệu ứng
+            setTimeout(() => {
+                document.getElementById('warrantyCard').classList.add('show');
+            }, 300);
+            
+            showToast(`Thông tin đã được lưu thành công! Thời gian: ${formattedTime.time}`, 'success');
+            
+            return true;
+        }
+        
+        // Xóa thông tin khách hàng
+        function resetCustomerData() {
+            localStorage.removeItem('locketGoldCustomerName');
+            localStorage.removeItem('locketGoldCustomerPhone');
+            localStorage.removeItem('locketGoldWarrantyId');
+            localStorage.removeItem('locketGoldRegistrationDate');
+            localStorage.removeItem('locketGoldRegistrationTime');
+            
+            // Ẩn thẻ bảo hành
+            document.getElementById('warrantyCard').classList.remove('show');
+            
+            // Hiển thị modal nhập liệu sau 0.5s
+            setTimeout(() => {
+                document.getElementById('customerModal').style.display = 'flex';
+                document.getElementById('customerName').value = '';
+                document.getElementById('customerPhone').value = '';
+                document.getElementById('customerName').focus();
+            }, 500);
+            
+            showToast('Đã xóa thông tin khách hàng', 'info');
+        }
+        
+        // Hiển thị toast thông báo
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            // Đặt icon theo loại thông báo
+            let icon = 'fa-check-circle';
+            if (type === 'error') icon = 'fa-exclamation-circle';
+            if (type === 'info') icon = 'fa-info-circle';
+            
+            toast.innerHTML = `<i class="fas ${icon}"></i> <span id="toastMessage">${message}</span>`;
+            
+            // Hiển thị toast
+            toast.classList.add('show');
+            
+            // Ẩn toast sau 3 giây
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // In phiếu bảo hành
+        function printWarranty() {
+            // Thêm lớp để tối ưu cho in ấn
+            document.body.classList.add('printing');
+            
+            // Hiển thị thông báo
+            showToast('Đang chuẩn bị in phiếu bảo hành...', 'info');
+            
+            // Kích hoạt chức năng in sau 1 giây
+            setTimeout(() => {
+                window.print();
+                document.body.classList.remove('printing');
+            }, 1000);
+        }
+        
+        // Xử lý sự kiện khi trang được tải
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tạo hiệu ứng hạt nền
+            createParticles();
+            
+            // Tải thông tin khách hàng
+            loadCustomerData();
+            
+            // Xử lý nút gửi thông tin
+            document.getElementById('submitCustomer').addEventListener('click', function() {
+                const name = document.getElementById('customerName').value;
+                const phone = document.getElementById('customerPhone').value;
+                saveCustomerData(name, phone);
+            });
+            
+            // Cho phép nhấn Enter để gửi
+            document.getElementById('customerName').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('submitCustomer').click();
+                }
+            });
+            
+            document.getElementById('customerPhone').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('submitCustomer').click();
+                }
+            });
+            
+            // Xử lý nút in
+            document.getElementById('printButton').addEventListener('click', printWarranty);
+            
+            // Xử lý nút đổi tên
+            document.getElementById('resetButton').addEventListener('click', function() {
+                document.getElementById('confirmationModal').classList.add('show');
+            });
+            
+            // Xử lý xác nhận reset
+            document.getElementById('confirmReset').addEventListener('click', function() {
+                document.getElementById('confirmationModal').classList.remove('show');
+                resetCustomerData();
+            });
+            
+            // Xử lý hủy reset
+            document.getElementById('cancelReset').addEventListener('click', function() {
+                document.getElementById('confirmationModal').classList.remove('show');
+            });
+            
+            // Hiệu ứng focus cho input
+            const inputs = document.querySelectorAll('.customer-input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    this.parentElement.style.transform = 'scale(1.02)';
+                });
+                
+                input.addEventListener('blur', function() {
+                    this.parentElement.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Hiệu ứng cho các nút action
+            const actionButtons = document.querySelectorAll('.action-btn');
+            actionButtons.forEach(button => {
+                button.addEventListener('touchstart', function() {
+                    this.style.transform = 'translateY(2px)';
+                });
+                
+                button.addEventListener('touchend', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+        
+        // Thêm style cho in ấn
+        const printStyle = document.createElement('style');
+        printStyle.textContent = `
+            @media print {
+                body * {
+                    visibility: hidden;
+                }
+                .warranty-card, .warranty-card * {
+                    visibility: visible;
+                }
+                .warranty-card {
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+                    width: 100%;
+                    box-shadow: none;
+                    border-radius: 0;
+                }
+                .action-buttons, .customer-greeting, .time-badge {
+                    display: none !important;
+                }
+            }
+        `;
+        document.head.appendChild(printStyle);
+    </script>
+</body>
+</html>
