@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>Locket Gold - CEO Hệ Thống</title>
+    <meta name="description" content="Hệ thống nâng cấp Locket Gold Premium Plus uy tín bởi CEO Locket.">
+    <meta property="og:title" content="Locket Gold | CAO VĂN NAM">
+    <meta property="og:description" content="Chạm để lấy tài khoản và tải ứng dụng Locket Premium mới nhất.">
+    <meta property="og:image" content="./logovip.png">
+    <meta property="og:type" content="website">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: #ffffff;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(186, 230, 253, 0.4) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(251, 207, 232, 0.4) 0px, transparent 50%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .soft-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 30px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Nền nút phối Trắng - Hồng - Xanh biển */
+        .btn-custom-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 50%, #e0f2fe 100%);
+            color: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        /* Nút Tải App đậm nét hơn một chút */
+        .btn-download-special {
+            background: linear-gradient(135deg, #bae6fd 0%, #ffffff 50%, #fbcfe8 100%);
+            color: #1e293b;
+            border: 2px solid #ffffff;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-action {
+            transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .btn-action:active {
+            transform: scale(0.95);
+        }
+
+        /* Toast thông báo giữa màn hình */
+        #notification {
+            visibility: hidden;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #ffffff 0%, #fdf2f8 50%, #f0f9ff 100%);
+            color: #1e293b;
+            text-align: center;
+            border-radius: 28px;
+            padding: 20px 30px;
+            z-index: 1000;
+            font-weight: 700;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 80%;
+            max-width: 320px;
+            border: 2px solid #ffffff;
+        }
+
+        #notification.show {
+            visibility: visible;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .bubble {
+            position: fixed;
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(40px);
+        }
+    </style>
+</head>
+<body class="p-6 pb-12">
+    <div class="bubble bg-blue-100 w-64 h-64 -top-20 -left-20"></div>
+    <div class="bubble bg-pink-100 w-64 h-64 -bottom-20 -right-20"></div>
+
+    <div class="w-full max-w-sm flex flex-col items-center">
+        <div class="mt-8 mb-10 flex flex-col items-center">
+            <img src="./imglocket/locket5.png" alt="Logo" class="w-24 h-24 object-contain rounded-[24px] shadow-lg mb-4">
+            <h1 class="text-3xl font-bold text-slate-800">Locket <span class="text-pink-500">Gold</span></h1>
+            <p class="text-slate-500 font-medium text-sm">CAO VĂN NAM </p>
+        </div>
+
+        <div class="soft-card w-full p-6 mb-8">
+            <h2 class="text-[10px] uppercase tracking-widest text-blue-500 font-bold mb-5 flex items-center">
+                <span class="w-1.5 h-1.5 bg-blue-500 rounded-full mr-2"></span>
+                THÔNG TIN TÀI KHOẢN
+            </h2>
+            
+            <div class="space-y-4">
+                <div onclick="copyToClipboard('acc-actual', 'Tài khoản')" class="copy-row flex items-center justify-between p-4 bg-white/60 rounded-2xl border border-slate-100 cursor-pointer active:bg-white/40 transition-colors">
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Tài khoản</p>
+                        <p class="font-bold text-blue-500">Bấm để sao chép</p>
+                        <span id="acc-actual" class="hidden">Hoangnamnion@gmail.com</span>
+                    </div>
+                    <div class="w-10 h-10 flex items-center justify-center bg-blue-50 rounded-xl text-blue-500">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                    </div>
+                </div>
+
+                <div onclick="copyToClipboard('pw-actual', 'Mật khẩu')" class="copy-row flex items-center justify-between p-4 bg-white/60 rounded-2xl border border-slate-100 cursor-pointer active:bg-white/40 transition-colors">
+                    <div>
+                        <p class="text-[10px] text-slate-400 font-bold uppercase">Mật khẩu</p>
+                        <p class="font-bold text-pink-500">Bấm để sao chép</p>
+                        <span id="pw-actual" class="hidden">Caonam2005@</span>
+                    </div>
+                    <div class="w-10 h-10 flex items-center justify-center bg-pink-50 rounded-xl text-pink-500">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                    </div>
+                </div>
+
+                <button onclick="window.open('https://apps.apple.com/vn/app/shadowrocket/id932747118?l=vi', '_blank')" class="btn-download-special btn-action w-full flex items-center justify-center gap-2 py-4 rounded-2xl mt-2">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span class="font-bold uppercase text-sm tracking-wider">Tải App</span>
+                </button>
+                                <button onclick="window.open('https://webhoangnam.id.vn/dowloadlocket.html', '_blank')" class="btn-download-special btn-action w-full flex items-center justify-center gap-2 py-4 rounded-2xl mt-2">
+                    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    <span class="font-bold uppercase text-sm tracking-wider">BẢN VIP</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="w-full grid grid-cols-2 gap-4">
+            <button onclick="window.open('shadowrocket://install?module=https://raw.githubusercontent.com/caovannam2ka5/LocketGoldd/refs/heads/main/locketGoldmodule', '_blank')" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs">Lệnh 1</button>
+            <button onclick="window.open('shadowrocket://config/add/https://raw.githubusercontent.com/caovannam2ka5/LocketGoldd/refs/heads/main/LocketGold_HoangNam', '_blank')" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs">Lệnh 2</button>
+            <button onclick="window.open('http://webhoangnam.id.vn/Configuration/locketgoldhn.crt', '_blank')" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs">Lệnh 3</button>
+            <button onclick="window.open('http://webhoangnam.id.vn/Configuration/locketvipver2.mobileconfig', '_blank')" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs">Lệnh 4</button>
+        </div>
+
+        <p class="mt-12 text-slate-400 text-[10px] font-bold tracking-widest uppercase opacity-60">"  LOCKET GOLD | CAO VĂN NAM  - CHẤT LƯỢNG LÀM NÊN THƯƠNG HIỆU"</p>
+    </div>
+
+    <div id="notification"></div>
+
+    <script>
+        function showToast(message) {
+            const toast = document.getElementById("notification");
+            toast.innerText = message;
+            toast.classList.add("show");
+            setTimeout(() => { toast.classList.remove("show"); }, 2000);
+        }
+
+        function copyToClipboard(elementId, label) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            try {
+                document.execCommand('copy');
+                showToast("✅ Đã sao chép " + label);
+            } catch (err) {
+                showToast("❌ Lỗi sao chép");
+            }
+            document.body.removeChild(tempTextArea);
+        }
+    </script>
+</body>
+</html>
