@@ -16,6 +16,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* Ẩn tất cả các view mặc định */
+        #messenger-view, #safari-view, #other-view {
+            display: none;
+        }
+        
         :root {
             --primary-blue: #0ea5e9;
             --primary-pink: #ec4899;
@@ -24,15 +29,107 @@
         
         body {
             font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #fef3c7 100%);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
             position: relative;
             overflow-x: hidden;
+            margin: 0;
+            padding: 0;
         }
-
+        
+        /* View Messenger - CHỈ HIỂN THỊ ẢNH */
+        #messenger-view {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+        }
+        
+        #messenger-view img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* View Other Browser */
+        #other-view {
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #fef3c7 100%);
+            padding: 20px;
+        }
+        
+        .other-box {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            border-radius: 30px;
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .other-box h2 {
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .other-box p {
+            color: #64748b;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+        
+        .copy-box {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 15px;
+            padding: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .copy-box input {
+            border: none;
+            background: transparent;
+            width: 100%;
+            padding: 10px;
+            color: #334155;
+            font-size: 14px;
+        }
+        
+        .copy-box button {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+        }
+        
+        /* View Safari (original locket.html styles) */
+        #safari-view {
+            width: 100%;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f9ff 0%, #fdf2f8 50%, #fef3c7 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
         .floating-animation {
             animation: floating 6s ease-in-out infinite;
         }
@@ -242,227 +339,290 @@
         }
     </style>
 </head>
-<body class="p-6 pb-16">
-    <!-- Các bong bóng nền với animation -->
-    <div class="bubble bg-blue-100 w-64 h-64 -top-20 -left-20 bubble-1"></div>
-    <div class="bubble bg-pink-100 w-72 h-72 bottom-1/4 -right-16 bubble-2"></div>
-    <div class="bubble bg-yellow-100 w-60 h-60 top-1/3 right-1/4 bubble-3"></div>
-    
-    <div class="w-full max-w-md flex flex-col items-center">
-        <!-- Header với logo và tiêu đề -->
-        <div class="mt-4 mb-8 flex flex-col items-center floating-animation">
-            <div class="relative mb-4">
-                <img src="./imglocket/locket5.png" alt="Logo Locket Gold" class="w-28 h-28 object-contain rounded-[28px] shadow-xl pulse-animation">
-                <div class="absolute -top-2 -right-2 gold-badge text-xs px-3 py-1 rounded-full">
-                    VIP
-                </div>
-            </div>
-            <h1 class="text-4xl font-bold text-slate-800">Locket <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Gold</span></h1>
-            <p class="text-slate-600 font-medium text-sm mt-2">Hệ Thống CEO <span class="font-bold text-blue-600">CAO VĂN NAM</span></p>
-            <p class="text-slate-500 text-xs mt-1">Premium Plus - Bản Quyền Độc Quyền</p>
-        </div>
+<body>
+    <!-- View cho Messenger - CHỈ HIỂN THỊ ẢNH -->
+    <div id="messenger-view">
+        <img src="./nen.png" alt="Mở bằng Safari">
+    </div>
 
-        <!-- Tab hệ thống -->
-        <div class="soft-card w-full p-1 mb-6">
-            <div class="flex justify-around mb-4">
-                <button id="tab1-btn" class="tab-button active py-3 px-6 rounded-2xl text-sm font-medium transition-all duration-300">Tài Khoản</button>
-                <button id="tab2-btn" class="tab-button py-3 px-6 rounded-2xl text-sm font-medium transition-all duration-300">Hướng Dẫn</button>
+    <!-- View cho các trình duyệt khác -->
+    <div id="other-view">
+        <div class="other-box">
+            <h2>🔍 Vui lòng sử dụng Safari</h2>
+            <p>Để truy cập hệ thống Locket Gold, bạn cần sử dụng trình duyệt Safari trên iPhone/iPad.</p>
+            <p>Sao chép đường link bên dưới và dán vào Safari để tiếp tục:</p>
+            
+            <div class="copy-box">
+                <input type="text" id="copy-link" value="https://webhoangnam.id.vn/locket.html" readonly>
+                <button id="copy-button">Sao chép</button>
             </div>
             
-            <!-- Tab 1: Thông tin tài khoản -->
-            <div id="tab1" class="tab-content active p-4">
-                <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-5 flex items-center">
-                    <i class="fas fa-user-shield mr-2"></i>
-                    THÔNG TIN TÀI KHOẢN VIP
-                </h2>
-                
-                <div class="space-y-4">
-                    <div onclick="copyToClipboard('acc-actual', 'Tài khoản')" id="acc-row" class="copy-row flex items-center justify-between p-4 bg-white/70 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-200">
-                        <div>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase">Tài khoản Premium</p>
-                            <p class="font-bold text-blue-500 text-sm">Bấm để sao chép</p>
-                            <span id="acc-actual" class="hidden">Hoangnamnion@gmail.com</span>
-                        </div>
-                        <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl text-blue-500">
-                            <i class="fas fa-user-circle text-xl"></i>
-                        </div>
-                    </div>
-
-                    <div onclick="copyToClipboard('pw-actual', 'Mật khẩu')" id="pw-row" class="copy-row flex items-center justify-between p-4 bg-white/70 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-200">
-                        <div>
-                            <p class="text-[10px] text-slate-400 font-bold uppercase">Mật khẩu Premium</p>
-                            <p class="font-bold text-pink-500 text-sm">Bấm để sao chép</p>
-                            <span id="pw-actual" class="hidden">Caonam2005@</span>
-                        </div>
-                        <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl text-pink-500">
-                            <i class="fas fa-key text-xl"></i>
-                        </div>
-                    </div>
-
-                    <div class="mt-6">
-                        <p class="text-xs text-slate-500 mb-3 font-medium">Tải ứng dụng cần thiết:</p>
-                        <div class="grid grid-cols-2 gap-3">
-                            <button onclick="window.open('https://apps.apple.com/vn/app/shadowrocket/id932747118?l=vi', '_blank')" class="btn-download-special btn-action w-full flex items-center justify-center gap-2 py-4 rounded-2xl">
-                                <i class="fab fa-apple"></i>
-                                <span class="font-bold uppercase text-xs tracking-wider">Shadowrocket</span>
-                            </button>
-                            <button onclick="window.open('https://webhoangnam.id.vn/dowloadlocket.html', '_blank')" class="btn-download-special btn-action w-full flex items-center justify-center gap-2 py-4 rounded-2xl">
-                                <i class="fas fa-crown text-amber-500"></i>
-                                <span class="font-bold uppercase text-xs tracking-wider">Bản VIP</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Tab 2: Hướng dẫn cài đặt -->
-            <div id="tab2" class="tab-content p-4">
-                <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-5 flex items-center">
-                    <i class="fas fa-graduation-cap mr-2"></i>
-                    HƯỚNG DẪN CÀI ĐẶT
-                </h2>
-                                <div class="instruction-card">
-                    <div class="flex items-start mb-2">
-                        <span class="step-number">1</span>
-                        <h3 class="font-bold text-slate-800 text-sm">Đăng nhập tài khoản</h3>
-                    </div>
-                    <p class="text-slate-600 text-xs">Sao Chép Lần Lượt tài Khoản và mật Khẩu để đăng nhập Appstore </p>
-                </div>
-                
-
-
-                <div class="instruction-card">
-                    <div class="flex items-start mb-2">
-                        <span class="step-number">2</span>
-                        <h3 class="font-bold text-slate-800 text-sm">Tải Shadowrocket</h3>
-                    </div>
-                    <p class="text-slate-600 text-xs">Cài đặt ứng dụng Shadowrocket từ AppStore (miễn phí khi đăng nhập tài khoản của CAO VĂN NAM)</p>
-                </div>
-                
-
-                
-                <div class="instruction-card">
-                    <div class="flex items-start mb-2">
-                        <span class="step-number">3</span>
-                        <h3 class="font-bold text-slate-800 text-sm">Thực hiện lệnh cài đặt</h3>
-                    </div>
-                    <p class="text-slate-600 text-xs">Nhấn lần lượt vào 4 lệnh bên dưới để cài đặt cấu hình Locket Gold.</p>
-                </div>
-                
-                <div class="instruction-card">
-                    <div class="flex items-start mb-2">
-                        <span class="step-number">4</span>
-                        <h3 class="font-bold text-slate-800 text-sm">bật App Shadowrcoket Vào Locket và Tẩn Hưởng </h3>
-                    </div>
-                    <p class="text-slate-600 text-xs">Khởi động lại ứng dụng Locket và tận hưởng bản Premium không giới hạn.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 4 lệnh cài đặt -->
-        <div class="w-full mb-8">
-            <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-5 flex items-center justify-center">
-                <i class="fas fa-terminal mr-2"></i>
-                THỰC THI LỆNH CÀI ĐẶT
-            </h2>
-            
-            <div class="grid grid-cols-2 gap-4">
-                <button onclick="executeCommand(1)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
-                    <i class="fas fa-code text-blue-500 text-lg mb-1"></i>
-                    <span>Lệnh 1</span>
-                    <span class="text-[10px] text-slate-500 font-normal mt-1">Cấu hình gốc</span>
-                </button>
-                <button onclick="executeCommand(2)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
-                    <i class="fas fa-cogs text-pink-500 text-lg mb-1"></i>
-                    <span>Lệnh 2</span>
-                    <span class="text-[10px] text-slate-500 font-normal mt-1">Cấu hình VIP</span>
-                </button>
-                <button onclick="executeCommand(3)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
-                    <i class="fas fa-shield-alt text-amber-500 text-lg mb-1"></i>
-                    <span>Lệnh 3</span>
-                    <span class="text-[10px] text-slate-500 font-normal mt-1">Chứng chỉ</span>
-                </button>
-                <button onclick="executeCommand(4)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
-                    <i class="fas fa-mobile-alt text-green-500 text-lg mb-1"></i>
-                    <span>Lệnh 4</span>
-                    <span class="text-[10px] text-slate-500 font-normal mt-1">Cấu hình Mobile</span>
-                </button>
-            </div>
-            
-            <div class="mt-6 text-center">
-                <p class="text-slate-500 text-xs font-medium">Nhấn lần lượt 4 lệnh theo thứ tự từ 1 đến 4</p>
-                <div class="flex justify-center mt-2">
-                    <div class="w-3 h-3 rounded-full bg-blue-500 mx-1"></div>
-                    <div class="w-3 h-3 rounded-full bg-blue-300 mx-1"></div>
-                    <div class="w-3 h-3 rounded-full bg-blue-300 mx-1"></div>
-                    <div class="w-3 h-3 rounded-full bg-blue-300 mx-1"></div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Thông tin thêm -->
-        <div class="soft-card w-full p-5 mb-6">
-            <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-4 flex items-center">
-                <i class="fas fa-info-circle mr-2"></i>
-                THÔNG TIN HỆ THỐNG
-            </h2>
-            
-            <div class="space-y-3">
-                <div class="flex items-center">
-                    <div class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg mr-3">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-slate-800">Tốc độ cao</p>
-                        <p class="text-xs text-slate-500">Kết nối ổn định, tốc độ tối đa</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center">
-                    <div class="w-8 h-8 flex items-center justify-center bg-pink-100 text-pink-600 rounded-lg mr-3">
-                        <i class="fas fa-infinity"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-slate-800">Không giới hạn</p>
-                        <p class="text-xs text-slate-500">Sử dụng không giới hạn thời gian</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center">
-                    <div class="w-8 h-8 flex items-center justify-center bg-amber-100 text-amber-600 rounded-lg mr-3">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div>
-                        <p class="text-sm font-bold text-slate-800">Bảo mật cao</p>
-                        <p class="text-xs text-slate-500">Mã hóa dữ liệu, an toàn tuyệt đối</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Footer -->
-        <p class="mt-4 text-center text-slate-400 text-[10px] font-bold tracking-widest uppercase opacity-80">
-            <i class="fas fa-quote-left text-xs mr-1"></i>
-            LOCKET GOLD | CAO VĂN NAM
-            <i class="fas fa-quote-right text-xs ml-1"></i>
-        </p>
-        <p class="text-center text-slate-500 text-xs mt-2 max-w-xs">
-            Chất lượng làm nên thương hiệu • Hệ thống chính thức từ CEO
-        </p>
-        
-        <!-- Bản quyền -->
-        <div class="mt-6 pt-4 border-t border-slate-100 w-full text-center">
-            <p class="text-slate-400 text-[10px]">© 2023 Locket Gold Premium. Bản quyền thuộc CAO VĂN NAM.</p>
+            <p>Sau khi sao chép:<br>
+               <b>1.</b> Mở Safari<br>
+               <b>2.</b> Dán link vào thanh địa chỉ<br>
+               <b>3.</b> Truy cập trang</p>
         </div>
     </div>
 
-    <!-- Toast thông báo -->
-    <div id="notification"></div>
+    <!-- View cho Safari (original locket.html content) -->
+    <div id="safari-view" class="p-6 pb-16">
+        <!-- Các bong bóng nền với animation -->
+        <div class="bubble bg-blue-100 w-64 h-64 -top-20 -left-20 bubble-1"></div>
+        <div class="bubble bg-pink-100 w-72 h-72 bottom-1/4 -right-16 bubble-2"></div>
+        <div class="bubble bg-yellow-100 w-60 h-60 top-1/3 right-1/4 bubble-3"></div>
+        
+        <div class="w-full max-w-md flex flex-col items-center">
+            <!-- Header với logo và tiêu đề -->
+            <div class="mt-4 mb-8 flex flex-col items-center floating-animation">
+                <div class="relative mb-4">
+                    <img src="./imglocket/locket5.png" alt="Logo Locket Gold" class="w-28 h-28 object-contain rounded-[28px] shadow-xl pulse-animation">
+                    <div class="absolute -top-2 -right-2 gold-badge text-xs px-3 py-1 rounded-full">
+                        VIP
+                    </div>
+                </div>
+                <h1 class="text-4xl font-bold text-slate-800">Locket <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-500 to-orange-500">Gold</span></h1>
+                <p class="text-slate-600 font-medium text-sm mt-2">Hệ Thống CEO <span class="font-bold text-blue-600">CAO VĂN NAM</span></p>
+                <p class="text-slate-500 text-xs mt-1">Premium Plus - Bản Quyền Độc Quyền</p>
+            </div>
 
-    <!-- Hiệu ứng overlay khi hiển thị toast -->
-    <div id="overlay" class="fixed inset-0 bg-black/20 z-50 hidden"></div>
+            <!-- Tab hệ thống -->
+            <div class="soft-card w-full p-1 mb-6">
+                <div class="flex justify-around mb-4">
+                    <button id="tab1-btn" class="tab-button active py-3 px-6 rounded-2xl text-sm font-medium transition-all duration-300">Tài Khoản</button>
+                    <button id="tab2-btn" class="tab-button py-3 px-6 rounded-2xl text-sm font-medium transition-all duration-300">Hướng Dẫn</button>
+                </div>
+                
+                <!-- Tab 1: Thông tin tài khoản -->
+                <div id="tab1" class="tab-content active p-4">
+                    <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-5 flex items-center">
+                        <i class="fas fa-user-shield mr-2"></i>
+                        THÔNG TIN TÀI KHOẢN VIP
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div onclick="copyToClipboard('acc-actual', 'Tài khoản')" id="acc-row" class="copy-row flex items-center justify-between p-4 bg-white/70 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-200">
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase">Tài khoản Premium</p>
+                                <p class="font-bold text-blue-500 text-sm">Bấm để sao chép Tài Khoản</p>
+                                <span id="acc-actual" class="hidden">Hoangnamnion@gmail.com</span>
+                            </div>
+                            <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl text-blue-500">
+                                <i class="fas fa-user-circle text-xl"></i>
+                            </div>
+                        </div>
+
+                        <div onclick="copyToClipboard('pw-actual', 'Mật khẩu')" id="pw-row" class="copy-row flex items-center justify-between p-4 bg-white/70 rounded-2xl border border-slate-100 cursor-pointer transition-all duration-200">
+                            <div>
+                                <p class="text-[10px] text-slate-400 font-bold uppercase">Mật khẩu Premium</p>
+                                <p class="font-bold text-pink-500 text-sm">Bấm để sao chép Mật Khẩu</p>
+                                <span id="pw-actual" class="hidden">Caonam2005@</span>
+                            </div>
+                            <div class="w-12 h-12 flex items-center justify-center bg-gradient-to-br from-pink-50 to-pink-100 rounded-xl text-pink-500">
+                                <i class="fas fa-key text-xl"></i>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <p class="text-xs text-slate-500 mb-3 font-medium">Tải ứng dụng cần thiết:</p>
+                            <div class="grid grid-cols-2 gap-3">
+                                <button onclick="window.open('https://apps.apple.com/vn/app/shadowrocket/id932747118?l=vi', '_blank')" class="btn-download-special btn-action w-full flex items-center justify-center gap-2 py-4 rounded-2xl">
+                                    <i class="fab fa-apple"></i>
+                                    <span class="font-bold uppercase text-xs tracking-wider">Shadowrocket</span>
+                                </button>
+                                <button onclick="window.open('https://webhoangnam.id.vn/dowloadlocket.html', '_blank')" class="btn-download-special btn-action w-full flex items-center justify-center gap-2 py-4 rounded-2xl">
+                                    <i class="fas fa-crown text-amber-500"></i>
+                                    <span class="font-bold uppercase text-xs tracking-wider">Bản VIP</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Tab 2: Hướng dẫn cài đặt -->
+                <div id="tab2" class="tab-content p-4">
+                    <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-5 flex items-center">
+                        <i class="fas fa-graduation-cap mr-2"></i>
+                        HƯỚNG DẪN CÀI ĐẶT
+                    </h2>
+                                    <div class="instruction-card">
+                        <div class="flex items-start mb-2">
+                            <span class="step-number">1</span>
+                            <h3 class="font-bold text-slate-800 text-sm">Đăng nhập tài khoản</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs">Sao Chép Lần Lượt tài Khoản và mật Khẩu để đăng nhập Appstore </p>
+                    </div>
+                    
+
+
+                    <div class="instruction-card">
+                        <div class="flex items-start mb-2">
+                            <span class="step-number">2</span>
+                            <h3 class="font-bold text-slate-800 text-sm">Tải Shadowrocket</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs">Cài đặt ứng dụng Shadowrocket từ AppStore (miễn phí khi đăng nhập tài khoản của CAO VĂN NAM)</p>
+                    </div>
+                    
+
+                    
+                    <div class="instruction-card">
+                        <div class="flex items-start mb-2">
+                            <span class="step-number">3</span>
+                            <h3 class="font-bold text-slate-800 text-sm">Thực hiện lệnh cài đặt</h3>
+                        </div>
+                        <p class="text-slate-600 text-xs">Nhấn lần lượt vào 4 lệnh bên dưới để cài đặt cấu hình Locket Gold.</p>
+                    </div>
+                    
+                    <div class="instruction-card">
+                        <div class="flex items-start mb-2">
+                            <span class="step-number">4</span>
+                            <h3 class="font-bold text-slate-800 text-sm">bật App Shadowrcoket Vào Locket và Tẩn Hưởng </h3>
+                        </div>
+                        <p class="text-slate-600 text-xs">Khởi động lại ứng dụng Locket và tận hưởng bản Premium không giới hạn.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4 lệnh cài đặt -->
+            <div class="w-full mb-8">
+                <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-5 flex items-center justify-center">
+                    <i class="fas fa-terminal mr-2"></i>
+                    THỰC THI LỆNH CÀI ĐẶT
+                </h2>
+                
+                <div class="grid grid-cols-2 gap-4">
+                    <button onclick="executeCommand(1)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
+                        <i class="fas fa-code text-blue-500 text-lg mb-1"></i>
+                        <span>Lệnh 1</span>
+                        <span class="text-[10px] text-slate-500 font-normal mt-1">Cấu hình gốc</span>
+                    </button>
+                    <button onclick="executeCommand(2)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
+                        <i class="fas fa-cogs text-pink-500 text-lg mb-1"></i>
+                        <span>Lệnh 2</span>
+                        <span class="text-[10px] text-slate-500 font-normal mt-1">Cấu hình VIP</span>
+                    </button>
+                    <button onclick="executeCommand(3)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
+                        <i class="fas fa-shield-alt text-amber-500 text-lg mb-1"></i>
+                        <span>Lệnh 3</span>
+                        <span class="text-[10px] text-slate-500 font-normal mt-1">Chứng chỉ</span>
+                    </button>
+                    <button onclick="executeCommand(4)" class="btn-custom-gradient btn-action py-6 rounded-[30px] font-bold uppercase text-xs flex flex-col items-center justify-center">
+                        <i class="fas fa-mobile-alt text-green-500 text-lg mb-1"></i>
+                        <span>Lệnh 4</span>
+                        <span class="text-[10px] text-slate-500 font-normal mt-1">Cấu hình Mobile</span>
+                    </button>
+                </div>
+                
+                <div class="mt-6 text-center">
+                    <p class="text-slate-500 text-xs font-medium">Nhấn lần lượt 4 lệnh theo thứ tự từ 1 đến 4</p>
+                    <div class="flex justify-center mt-2">
+                        <div class="w-3 h-3 rounded-full bg-blue-500 mx-1"></div>
+                        <div class="w-3 h-3 rounded-full bg-blue-300 mx-1"></div>
+                        <div class="w-3 h-3 rounded-full bg-blue-300 mx-1"></div>
+                        <div class="w-3 h-3 rounded-full bg-blue-300 mx-1"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Thông tin thêm -->
+            <div class="soft-card w-full p-5 mb-6">
+                <h2 class="text-xs uppercase tracking-widest text-blue-500 font-bold mb-4 flex items-center">
+                    <i class="fas fa-info-circle mr-2"></i>
+                    THÔNG TIN HỆ THỐNG
+                </h2>
+                
+                <div class="space-y-3">
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-600 rounded-lg mr-3">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Tốc độ cao</p>
+                            <p class="text-xs text-slate-500">Kết nối ổn định, tốc độ tối đa</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 flex items-center justify-center bg-pink-100 text-pink-600 rounded-lg mr-3">
+                            <i class="fas fa-infinity"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Không giới hạn</p>
+                            <p class="text-xs text-slate-500">Sử dụng không giới hạn thời gian</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <div class="w-8 h-8 flex items-center justify-center bg-amber-100 text-amber-600 rounded-lg mr-3">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-slate-800">Bảo mật cao</p>
+                            <p class="text-xs text-slate-500">Mã hóa dữ liệu, an toàn tuyệt đối</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <p class="mt-4 text-center text-slate-400 text-[10px] font-bold tracking-widest uppercase opacity-80">
+                <i class="fas fa-quote-left text-xs mr-1"></i>
+                LOCKET GOLD | CAO VĂN NAM
+                <i class="fas fa-quote-right text-xs ml-1"></i>
+            </p>
+            <p class="text-center text-slate-500 text-xs mt-2 max-w-xs">
+                Chất lượng làm nên thương hiệu • Hệ thống chính thức từ CEO
+            </p>
+            
+            <!-- Bản quyền -->
+            <div class="mt-6 pt-4 border-t border-slate-100 w-full text-center">
+                <p class="text-slate-400 text-[10px]">© 2023 Locket Gold Premium. Bản quyền thuộc CAO VĂN NAM.</p>
+            </div>
+        </div>
+
+        <!-- Toast thông báo -->
+        <div id="notification"></div>
+
+        <!-- Hiệu ứng overlay khi hiển thị toast -->
+        <div id="overlay" class="fixed inset-0 bg-black/20 z-50 hidden"></div>
+    </div>
 
     <script>
+        // Kiểm tra trình duyệt khi trang tải
+        function detectBrowser() {
+            const ua = navigator.userAgent;
+            const isMessenger = /FBAN|FBAV|FB_IAB|Messenger/i.test(ua);
+            const isSafari = /Safari/i.test(ua) && !/Chrome|FBAN|FBAV|FB_IAB/i.test(ua);
+            
+            if (isMessenger) {
+                document.getElementById('messenger-view').style.display = 'block';
+                document.getElementById('safari-view').style.display = 'none';
+                document.getElementById('other-view').style.display = 'none';
+            } else if (isSafari) {
+                document.getElementById('messenger-view').style.display = 'none';
+                document.getElementById('safari-view').style.display = 'flex';
+                document.getElementById('other-view').style.display = 'none';
+            } else {
+                document.getElementById('messenger-view').style.display = 'none';
+                document.getElementById('safari-view').style.display = 'none';
+                document.getElementById('other-view').style.display = 'flex';
+            }
+        }
+        
+        // Sao chép link cho view other
+        document.getElementById('copy-button').addEventListener('click', function() {
+            const linkInput = document.getElementById('copy-link');
+            linkInput.select();
+            linkInput.setSelectionRange(0, 99999); // For mobile devices
+            
+            try {
+                document.execCommand('copy');
+                alert('✅ Đã sao chép link! Vui lòng mở Safari và dán link vào thanh địa chỉ.');
+            } catch (err) {
+                alert('❌ Lỗi sao chép. Vui lòng sao chép thủ công.');
+            }
+        });
+
+        // Các hàm từ locket.html
         // Khởi tạo biến trạng thái
         let currentStep = 0;
         const totalSteps = 4;
@@ -576,11 +736,16 @@
             }, 2000);
         }
         
-        // Hiệu ứng khi tải trang
+        // Khởi chạy khi tải trang
         document.addEventListener('DOMContentLoaded', function() {
+            detectBrowser();
+            
             // Hiệu ứng cho các phần tử khi load
             setTimeout(() => {
-                document.querySelector('.floating-animation').style.opacity = '1';
+                const floatingEl = document.querySelector('.floating-animation');
+                if (floatingEl) {
+                    floatingEl.style.opacity = '1';
+                }
             }, 300);
             
             // Khởi tạo tab đầu tiên
