@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giấy bảo hành Lockey</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #020617, #0f172a);
+            font-family: Arial, sans-serif;
+            color: white;
+            text-align: center;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.06);
+            padding: 40px 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(14px);
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            max-width: 420px;
+            animation: fadeIn 1s ease;
+        }
+
+        h1 {
+            color: #22c55e;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        h2 {
+            color: #38bdf8;
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        p {
+            font-size: 17px;
+            line-height: 1.5;
+            margin: 12px 0;
+        }
+
+        .warn {
+            color: #facc15;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 14px 22px;
+            background: #22c55e;
+            color: white;
+            text-decoration: none;
+            border-radius: 14px;
+            font-weight: bold;
+            transition: 0.25s;
+        }
+
+        .btn:hover {
+            background: #16a34a;
+            transform: scale(1.06);
+        }
+
+        @keyframes fadeIn {
+            from {opacity: 0; transform: translateY(20px);}
+            to {opacity: 1; transform: translateY(0);}
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>GIẤY BẢO HÀNH</h1>
+        <h2>LOCKET GOLD </h2>
+
+        <p>Giấy bảo hành này thuộc quyền sở hữu của</p>
+        <p><b>CAO VĂN NAM</b></p>
+
+        <p class="warn">
+            Hiện đang có người giả mạo, vui lòng xác minh trước khi giao dịch.
+        </p>
+
+        <p>Liên hệ chính chủ qua Zalo:</p>
+
+        <a class="btn" href="https://zalo.me/0378787154">
+            0378 787 154
+        </a>
+    </div>
+</body>
+</html>
